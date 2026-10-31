@@ -1,0 +1,15 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>Forecast runs</title><style>
+:root{--bg:#fbfbfa;--fg:#1d1d1b;--muted:#6b6b66;--line:#e2e1dc;--card:#fff;--good:#1a7f4b;--bad:#b3261e;
+--s1:#3366cc;--s2:#dc3912;--s3:#109618;--s4:#ff9900;--s5:#990099;--s6:#0099c6;--s7:#dd4477;--s8:#66aa00}
+@media (prefers-color-scheme:dark){:root{--bg:#161615;--fg:#ecebe6;--muted:#a09f99;--line:#33322f;--card:#1e1e1c;
+--good:#5cc98f;--bad:#f2867e;--s1:#7aa2f7;--s2:#f7768e;--s3:#9ece6a;--s4:#e0af68;--s5:#bb9af7;--s6:#7dcfff;--s7:#ff9e64;--s8:#c3e88d}}
+body{background:var(--bg);color:var(--fg);font:14px/1.5 system-ui,-apple-system,sans-serif;margin:0 auto;max-width:1100px;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:32px 0 8px}h3{font-size:14px;margin:16px 0 4px}
+.muted{color:var(--muted)}.wrap{overflow-x:auto}table{border-collapse:collapse;font-variant-numeric:tabular-nums;width:100%}
+th,td{border-bottom:1px solid var(--line);padding:4px 8px;text-align:right;white-space:nowrap}th:first-child,td:first-child{text-align:left}
+th{color:var(--muted);font-weight:600}.good{color:var(--good)}.bad{color:var(--bad)}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px}
+svg text{fill:var(--muted);font-size:10px}.legend span{display:inline-block;margin-right:12px}
+td.txt,th.txt{text-align:left}code{font-size:12px}a{color:var(--s1)}
+</style></head><body><h1>Forecast runs</h1><div class=wrap><table><thead><tr><th>run</th><th>datasets</th><th>models</th><th>h</th><th>best mean rank</th></tr></thead><tbody><tr><td><a href='example-synthetic-baselines/report.html'>example-synthetic-baselines</a></td><td>6</td><td>5</td><td>12</td><td>seasonal_naive</td></tr></tbody></table></div></body></html>

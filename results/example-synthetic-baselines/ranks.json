@@ -1,0 +1,15 @@
+{
+  "metric": "mase",
+  "datasets": 6,
+  "models": 5,
+  "mean_ranks": {
+    "seasonal_naive": 1.8333333333333333,
+    "naive": 2.5,
+    "damped_drift": 3.0,
+    "mean": 3.3333333333333335,
+    "drift": 4.333333333333333
+  },
+  "friedman_stat": 8.842105263157887,
+  "friedman_p": 0.06516957093008967,
+  "critical_difference": 2.490105924516947
+}
