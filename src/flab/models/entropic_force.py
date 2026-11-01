@@ -26,11 +26,11 @@ MIN_TEMPERATURE = 0.01
 def windows(Y: np.ndarray, L: int, h: int, max_samples: int, rng: np.random.Generator):
     """Every (input L, target h) window of every row, scaled; subsampled to at most max_samples."""
     N, n = Y.shape
-    starts = np.arange(n - L - h + 1)
-    rows, cols = np.repeat(np.arange(N), len(starts)), np.tile(starts, N)
-    if len(rows) > max_samples:
-        keep = rng.choice(len(rows), max_samples, replace=False)
-        rows, cols = rows[keep], cols[keep]
+    per_row = n - L - h + 1
+    total = N * per_row
+    # sample flat window ids first, so memory stays bounded by max_samples however long the histories are
+    flat = rng.choice(total, max_samples, replace=False) if total > max_samples else np.arange(total)
+    rows, cols = np.divmod(flat, per_row)
     W = Y[rows[:, None], cols[:, None] + np.arange(L + h)]
     level, scale = window_scale(W[:, :L])
     return (W[:, :L] - level) / scale, (W[:, L:] - level) / scale
@@ -103,6 +103,8 @@ class EntropicForecaster:
         rng = np.random.default_rng(self.seed)
         N, n = Y.shape
         L = self.lags(n, h, period)
+        if L < 2:  # too little history for even one (input, target) window with a difference: fall back to naive
+            return np.repeat(Y[:, -1:], h, axis=1).astype(float)
         X, T = windows(Y, L, h, self.max_samples, rng)
         X, T = torch.tensor(X, dtype=torch.float32), torch.tensor(T, dtype=torch.float32)
 

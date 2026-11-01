@@ -33,3 +33,16 @@ def test_efnn_forecasts_shape_and_learns_a_sine(cls):
 def test_variants_are_registered():
     for name in ["efnn", "efnn_noent", "efnn_mlp"]:
         assert callable(load(name))
+
+
+def test_short_history_falls_back_to_naive():
+    Y = np.arange(28.0).reshape(2, 14)
+    for n in (14, 10, 3):
+        F = EFNN()(Y[:, :n], 12)
+        assert F.shape == (2, 12) and np.allclose(F, Y[:, n - 1 : n])
+
+
+def test_window_subsampling_is_bounded():
+    Y = np.random.default_rng(0).normal(size=(50, 500))
+    X, T = windows(Y, L=8, h=4, max_samples=100, rng=np.random.default_rng(0))
+    assert X.shape == (100, 8) and T.shape == (100, 4)
