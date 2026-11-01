@@ -1068,6 +1068,9 @@ gift = [
     { name = "datasets" },
     { name = "huggingface-hub" },
 ]
+physics = [
+    { name = "torch" },
+]
 tsfm = [
     { name = "timecopilot" },
 ]
@@ -1085,8 +1088,9 @@ requires-dist = [
     { name = "pandas" },
     { name = "scipy" },
     { name = "timecopilot", marker = "extra == 'tsfm'", specifier = "==0.0.35" },
+    { name = "torch", marker = "extra == 'physics'", specifier = ">=2.2" },
 ]
-provides-extras = ["tsfm", "gift"]
+provides-extras = ["tsfm", "gift", "physics"]
 
 [package.metadata.requires-dev]
 dev = [{ name = "pytest" }]
