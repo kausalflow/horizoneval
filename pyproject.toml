@@ -14,6 +14,8 @@ dependencies = [
 tsfm = ["timecopilot==0.0.35"]
 # GIFT-Eval data on disk
 gift = ["datasets", "huggingface_hub[cli]"]
+# physics-inspired neural forecasters (models/entropic_force.py)
+physics = ["torch>=2.2"]
 
 [project.scripts]
 flab = "flab.cli:main"

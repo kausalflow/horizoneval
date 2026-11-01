@@ -1,0 +1,71 @@
+{
+  "models": [
+    "naive",
+    "seasonal_naive",
+    "drift",
+    "damped_drift",
+    "efnn",
+    "efnn_noent",
+    "efnn_mlp"
+  ],
+  "datasets": {
+    "synthetic:random_walk": {
+      "period": null,
+      "shape": [
+        30,
+        316
+      ],
+      "sha256_16": "571b6879eb35691d"
+    },
+    "synthetic:ar_differences": {
+      "period": null,
+      "shape": [
+        30,
+        316
+      ],
+      "sha256_16": "5d2bbca57bcd95e1"
+    },
+    "synthetic:seasonal_trend": {
+      "period": 12,
+      "shape": [
+        30,
+        316
+      ],
+      "sha256_16": "b14b53c6d966935c"
+    },
+    "synthetic:lorenz": {
+      "period": 12,
+      "shape": [
+        30,
+        316
+      ],
+      "sha256_16": "e09a893a31edeba9"
+    },
+    "synthetic:rossler": {
+      "period": 12,
+      "shape": [
+        30,
+        316
+      ],
+      "sha256_16": "56885c28f1c6dda9"
+    },
+    "synthetic:van_der_pol": {
+      "period": 12,
+      "shape": [
+        30,
+        316
+      ],
+      "sha256_16": "9545ca2a4ce6ef18"
+    }
+  },
+  "h": 12,
+  "windows": 5,
+  "step": 12,
+  "context": 256,
+  "n_series": 30,
+  "seed": 0,
+  "reference": "naive",
+  "failures": {},
+  "created": "2026-11-01T11:10:44+0000",
+  "python": "3.11.18"
+}

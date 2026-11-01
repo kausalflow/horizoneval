@@ -34,6 +34,21 @@ def my_model(Y, h, period=None):   # Y: (N, n) histories, one series per row; pe
 A class works too (`@forecaster("x")` on a class built with no arguments whose instances are callable), which is the
 place for anything trained or cached. Quantiles are at the fixed levels `flab.prediction.QUANTILES`.
 
+## Physics-inspired forecasters
+
+`src/flab/models/entropic_force.py` ports the Entropic Force Neural Network from
+[kausalflow/physics_models](https://github.com/kausalflow/physics_models) (temperature-scaled activation
+T·tanh(x/T) and an entropy bonus on the last hidden layer) into a direct multi-horizon forecaster trained on scaled
+sliding windows. Three variants reproduce the paper's ablation: `efnn`, `efnn_noent` (no entropy term) and `efnn_mlp`
+(ReLU, no entropy term). They need torch:
+
+```bash
+uv sync --extra physics
+uv run flab run --models seasonal_naive efnn efnn_noent efnn_mlp --data synthetic
+```
+
+First results: `results/physics-efnn-synthetic/` (see its `NOTES.md`).
+
 ## Evaluation
 
 | | |
