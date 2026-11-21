@@ -1,0 +1,87 @@
+site_name: horizoneval
+site_description: Evaluate time series forecasts from any tool, in plain language and with formal tests.
+site_url: https://kausalflow.github.io/horizoneval/
+repo_url: https://github.com/kausalflow/horizoneval
+repo_name: kausalflow/horizoneval
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - content.code.copy
+    - content.action.edit
+    - search.suggest
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      toggle:
+        icon: material/weather-night
+        name: Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Light mode
+
+nav:
+  - Home: index.md
+  - Quickstart: quickstart.md
+  - Understand the results:
+      - How the evaluation works: explain/evaluation.md
+      - Reading a report: explain/report.md
+      - Glossary: explain/glossary.md
+  - Guides:
+      - Score forecasts from Nixtla or TimeCopilot: guides/score-forecasts.md
+      - Run a benchmark: guides/benchmark.md
+      - Add a forecaster: guides/add-forecaster.md
+  - Reference:
+      - Command line: reference/cli.md
+      - Forecast frame: reference/frame.md
+      - Outputs of a run: reference/outputs.md
+      - Python API: reference/api.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.snippets:
+      base_path: ["."]
+      check_paths: true
+  - pymdownx.arithmatex:
+      generic: true
+
+extra_javascript:
+  - javascripts/katex.js
+  - https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js
+  - https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js
+extra_css:
+  - https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src]
+          options:
+            docstring_style: google
+            show_source: true
+            show_root_heading: true
+            show_root_full_path: false
+            members_order: source
+            show_signature_annotations: true
+            separate_signature: true
+            filters: ["!^_"]

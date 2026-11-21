@@ -106,12 +106,21 @@ def evaluate(forecasts: pd.DataFrame, train: pd.DataFrame | None = None, *, mode
              reference: str | None = "naive", config: dict | None = None) -> Evaluation:
     """Score every model column of a forecast frame.
 
-    train     history in long format (unique_id, ds, y); needed for the scaled scores (MASE, scaled CRPS), which are
-              NaN without it. Only rows with ds <= cutoff are used for each window.
-    series    optional table (unique_id, dataset, period) when the frame mixes datasets or periods
-    period    seasonal period for every series when `series` gives none (1 or None: non-seasonal)
-    reference model the skill column and the paired tests are measured against, if present in the frame
     A model whose forecasts are missing or non-finite anywhere is dropped and listed under config["failures"].
+
+    Args:
+        forecasts: the forecast frame (unique_id, ds, cutoff, y, one column per model; see horizoneval.frame).
+        train: history in long format (unique_id, ds, y); needed for the scaled scores (MASE, scaled CRPS), which
+            are NaN without it. Only rows with ds <= cutoff are used for each window.
+        models: model columns to score (default: every point-forecast column).
+        series: optional table (unique_id, dataset, period) when the frame mixes datasets or periods.
+        period: seasonal period for every series when `series` gives none (1 or None: non-seasonal).
+        dataset: dataset name for every series when `series` gives none.
+        reference: model the skill column and the paired tests are measured against, if present in the frame.
+        config: extra settings recorded in config.json.
+
+    Returns:
+        An Evaluation with scores, by_horizon, summary, leaderboard, tests and ranks; `.write(out)` saves them.
     """
     models = validate(forecasts, models)
     if train is not None:
