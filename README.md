@@ -5,7 +5,7 @@ statsforecast / neuralforecast / mlforecast) with formal, diverse and reproducib
 invent forecasters and test them against baselines. Every run writes plain CSVs, the forecasts themselves and a
 self-contained static HTML report.
 
-**Docs:** https://kausalflow.github.io/horizoneval/ (quickstart, plain-language guide to every score, API reference).
+**Docs:** https://kausalflow.com/horizoneval/ (quickstart, plain-language guide to every score, API reference).
 Build them locally with `uv sync --group docs && uv run mkdocs serve`.
 
 ```bash

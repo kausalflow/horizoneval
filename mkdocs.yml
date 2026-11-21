@@ -1,6 +1,6 @@
 site_name: horizoneval
 site_description: Evaluate time series forecasts from any tool, in plain language and with formal tests.
-site_url: https://kausalflow.github.io/horizoneval/
+site_url: https://kausalflow.com/horizoneval/
 repo_url: https://github.com/kausalflow/horizoneval
 repo_name: kausalflow/horizoneval
 edit_uri: edit/main/docs/

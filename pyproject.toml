@@ -12,7 +12,7 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://github.com/kausalflow/horizoneval"
-Documentation = "https://kausalflow.github.io/horizoneval/"
+Documentation = "https://kausalflow.com/horizoneval/"
 Repository = "https://github.com/kausalflow/horizoneval"
 Issues = "https://github.com/kausalflow/horizoneval/issues"
 
