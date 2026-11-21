@@ -3,8 +3,8 @@ import pytest
 
 pytest.importorskip("torch")
 
-from flab.models.entropic_force import EFNN, EFNNMLP, window_scale, windows  # noqa: E402
-from flab.registry import load  # noqa: E402
+from horizoneval.models.entropic_force import EFNN, EFNNMLP, window_scale, windows  # noqa: E402
+from horizoneval.registry import load  # noqa: E402
 
 
 def test_windows_are_scaled_by_last_value_and_naive_error():

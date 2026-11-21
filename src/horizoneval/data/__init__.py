@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from flab.data.synthetic import SYNTHETIC
+from horizoneval.data.synthetic import SYNTHETIC
 
 SUITES = {
     "synthetic": [f"synthetic:{k}" for k in SYNTHETIC],
@@ -25,7 +25,7 @@ def load_dataset(spec: str, N: int, n: int, rng: np.random.Generator) -> Dataset
         gen, period = SYNTHETIC[name]
         return Dataset(spec, gen(n, N, rng), period)
     if source == "gift":
-        from flab.data.gift import load_gift
+        from horizoneval.data.gift import load_gift
 
         Y, period = load_gift(name, N, n, rng)
         return Dataset(spec, Y, period)

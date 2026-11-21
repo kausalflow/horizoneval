@@ -5,10 +5,10 @@ Every run writes plain CSVs and a self-contained static HTML report.
 
 ```bash
 uv sync                       # core: numpy, pandas, scipy
-uv run flab list              # forecasters, datasets, suites
-uv run flab run --models seasonal_naive drift damped_drift --data synthetic --out results/my-run
+uv run horizoneval list              # forecasters, datasets, suites
+uv run horizoneval run --models seasonal_naive drift damped_drift --data synthetic --out results/my-run
 open results/my-run/report.html
-uv run flab index             # results/index.html over all runs
+uv run horizoneval index             # results/index.html over all runs
 ```
 
 Foundation models and statistical references (Chronos-Bolt, Moirai 2, TiRex, TimesFM 3, AutoARIMA, AutoETS) come
@@ -17,12 +17,12 @@ through [TimeCopilot](https://github.com/TimeCopilot/timecopilot), pinned to the
 
 ```bash
 uv sync --extra tsfm
-uv run flab run --models chronos_bolt_small tirex auto_ets damped_drift --data synthetic
+uv run horizoneval run --models chronos_bolt_small tirex auto_ets damped_drift --data synthetic
 ```
 
 ## Add a forecaster
 
-Copy `src/flab/models/damped_drift.py` to a new file in `src/flab/models/`. Every module there is picked up
+Copy `src/horizoneval/models/damped_drift.py` to a new file in `src/horizoneval/models/`. Every module there is picked up
 automatically. The contract:
 
 ```python
@@ -32,11 +32,11 @@ def my_model(Y, h, period=None):   # Y: (N, n) histories, one series per row; pe
 ```
 
 A class works too (`@forecaster("x")` on a class built with no arguments whose instances are callable), which is the
-place for anything trained or cached. Quantiles are at the fixed levels `flab.prediction.QUANTILES`.
+place for anything trained or cached. Quantiles are at the fixed levels `horizoneval.prediction.QUANTILES`.
 
 ## Physics-inspired forecasters
 
-`src/flab/models/entropic_force.py` ports the Entropic Force Neural Network from
+`src/horizoneval/models/entropic_force.py` ports the Entropic Force Neural Network from
 [kausalflow/physics_models](https://github.com/kausalflow/physics_models) (temperature-scaled activation
 T·tanh(x/T) and an entropy bonus on the last hidden layer) into a direct multi-horizon forecaster trained on scaled
 sliding windows. Three variants reproduce the paper's ablation: `efnn`, `efnn_noent` (no entropy term) and `efnn_mlp`
@@ -44,7 +44,7 @@ sliding windows. Three variants reproduce the paper's ablation: `efnn`, `efnn_no
 
 ```bash
 uv sync --extra physics
-uv run flab run --models seasonal_naive efnn efnn_noent efnn_mlp --data synthetic
+uv run horizoneval run --models seasonal_naive efnn efnn_noent efnn_mlp --data synthetic
 ```
 
 First results: `results/physics-efnn-synthetic/` (see its `NOTES.md`).
@@ -67,12 +67,12 @@ and the run continues.
 ## Data
 
 - `synthetic`: random walk, AR(1) differences, seasonal series with trend, and the Lorenz, Rössler and Van der Pol
-  systems sampled at 12 points per period (`src/flab/data/synthetic.py`).
+  systems sampled at 12 points per period (`src/horizoneval/data/synthetic.py`).
 - `gift-small`: five GIFT-Eval configurations. Install with `uv sync --extra gift` and download each into
-  `data/gift-eval/` with one `--include` per configuration (see `src/flab/data/gift.py`). Any other configuration
+  `data/gift-eval/` with one `--include` per configuration (see `src/horizoneval/data/gift.py`). Any other configuration
   works as `gift:<dataset>/<freq>`.
 
-Add a suite in `src/flab/data/__init__.py`.
+Add a suite in `src/horizoneval/data/__init__.py`.
 
 ## Outputs of a run
 

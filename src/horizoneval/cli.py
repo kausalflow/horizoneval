@@ -1,10 +1,10 @@
-"""flab list | flab run --models ... --data ...
+"""horizoneval list | horizoneval run --models ... --data ...
 
 Examples:
-    uv run flab list
-    uv run flab run --models seasonal_naive drift damped_drift --data synthetic
-    uv run --extra tsfm flab run --models chronos_bolt_small auto_ets damped_drift --data synthetic --out results/first-look
-    uv run flab index            # results/index.html over all runs
+    uv run horizoneval list
+    uv run horizoneval run --models seasonal_naive drift damped_drift --data synthetic
+    uv run --extra tsfm horizoneval run --models chronos_bolt_small auto_ets damped_drift --data synthetic --out results/first-look
+    uv run horizoneval index            # results/index.html over all runs
 """
 
 import argparse
@@ -12,13 +12,13 @@ import time
 
 import pandas as pd
 
-from flab.data import SUITES
-from flab.data.synthetic import SYNTHETIC
-from flab.registry import available
+from horizoneval.data import SUITES
+from horizoneval.data.synthetic import SYNTHETIC
+from horizoneval.registry import available
 
 
 def main(argv=None):
-    p = argparse.ArgumentParser(prog="flab")
+    p = argparse.ArgumentParser(prog="horizoneval")
     sub = p.add_subparsers(dest="cmd", required=True)
     sub.add_parser("list", help="list forecasters, datasets and suites")
     rep = sub.add_parser("report", help="rebuild report.html of a run folder")
@@ -46,17 +46,17 @@ def main(argv=None):
         return
 
     if a.cmd == "report":
-        from flab.report import write_report
+        from horizoneval.report import write_report
 
         print(write_report(a.run_dir))
         return
     if a.cmd == "index":
-        from flab.report import build_index
+        from horizoneval.report import build_index
 
         print(build_index(a.results_dir))
         return
 
-    from flab.benchmark import run
+    from horizoneval.benchmark import run
 
     out = a.out or f"results/{time.strftime('%Y%m%d-%H%M%S')}"
     lb, _, _ = run(a.models, a.data, h=a.h, windows=a.windows, step=a.step, context=a.context,

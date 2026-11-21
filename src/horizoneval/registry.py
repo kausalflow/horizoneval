@@ -10,7 +10,7 @@ from typing import Callable
 
 import numpy as np
 
-from flab.prediction import Prediction
+from horizoneval.prediction import Prediction
 
 Forecast = Callable[[np.ndarray, int, int | None], "np.ndarray | Prediction"]
 
@@ -37,18 +37,18 @@ def register_factory(name: str, factory: Callable[[], Forecast]) -> None:
 
 
 def _discover() -> None:
-    """Import the baselines, the TimeCopilot wrappers, and every module in flab.models."""
+    """Import the baselines, the TimeCopilot wrappers, and every module in horizoneval.models."""
     global _DISCOVERED
     if _DISCOVERED:
         return
     _DISCOVERED = True
-    import flab.baselines  # noqa: F401
-    import flab.tsfm  # noqa: F401
-    import flab.models
+    import horizoneval.baselines  # noqa: F401
+    import horizoneval.tsfm  # noqa: F401
+    import horizoneval.models
 
-    for mod in pkgutil.iter_modules(flab.models.__path__):
+    for mod in pkgutil.iter_modules(horizoneval.models.__path__):
         if not mod.name.startswith("_"):
-            importlib.import_module(f"flab.models.{mod.name}")
+            importlib.import_module(f"horizoneval.models.{mod.name}")
 
 
 def available() -> list[str]:

@@ -9,8 +9,8 @@ import warnings
 import numpy as np
 import pandas as pd
 
-from flab.prediction import QUANTILES, Prediction
-from flab.registry import register_factory
+from horizoneval.prediction import QUANTILES, Prediction
+from horizoneval.registry import register_factory
 
 FREQ = "D"  # the models see a plain daily index; the true period is passed to the seasonal statistical models
 

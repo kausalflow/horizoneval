@@ -7,7 +7,7 @@ Rows are independent series; vectorize over them. Fit whatever you need from Y i
 
 import numpy as np
 
-from flab.registry import forecaster
+from horizoneval.registry import forecaster
 
 
 @forecaster("damped_drift")
