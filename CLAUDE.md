@@ -1,6 +1,6 @@
-# forecaster-lab
+# horizoneval
 
-Workspace for inventing forecasters and benchmarking them. See README.md for the contract and the evaluation.
+Evaluate time series forecasts from any tool, and invent forecasters to evaluate (repository: kausalflow/horizoneval). See README.md for the forecast frame, the contract and the evaluation.
 
 - Python via uv (`uv sync`, `uv run pytest -q`). Heavy deps are extras: `tsfm` (timecopilot, pinned), `gift` (datasets).
 - New forecasters go in `src/horizoneval/models/<name>.py` with `@forecaster("<name>")`; never edit the baselines to make a model look better.

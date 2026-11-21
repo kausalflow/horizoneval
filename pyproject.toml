@@ -1,7 +1,7 @@
 [project]
 name = "horizoneval"
 version = "0.0.1"
-description = "A workspace for inventing forecasters and benchmarking them against baselines"
+description = "Evaluate time series forecasts from any tool (horizoneval, TimeCopilot, Nixtla) with formal, reproducible tests"
 requires-python = ">=3.11,<3.13"
 dependencies = [
     "numpy",
@@ -9,6 +9,11 @@ dependencies = [
     "scipy",
     "pyarrow",
 ]
+
+[project.urls]
+Homepage = "https://github.com/kausalflow/horizoneval"
+Repository = "https://github.com/kausalflow/horizoneval"
+Issues = "https://github.com/kausalflow/horizoneval/issues"
 
 [project.optional-dependencies]
 # foundation models and statistical references through TimeCopilot (same pin as extrapolation-as-forecasts)
