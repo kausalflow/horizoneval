@@ -15,8 +15,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      NO_MKDOCS_2_WARNING: "1"
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5
@@ -27,7 +25,7 @@ jobs:
           for r in example-synthetic-baselines physics-efnn-synthetic; do
             cp "results/$r/report.html" "docs/examples/$r.html"
           done
-      - run: uv run mkdocs build --strict
+      - run: uv run zensical build --strict
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site

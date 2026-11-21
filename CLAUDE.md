@@ -7,5 +7,5 @@ Evaluate time series forecasts from any tool, and invent forecasters to evaluate
 - All scoring goes through `horizoneval.evaluate` on the forecast frame (`horizoneval.frame`, Nixtla `cross_validation` layout); never add a second scoring path.
 - Keep code simple and vectorized over series (numpy, (N, n) -> (N, h)); outputs are CSV/JSON plus the static report.
 - A comparison claim needs the run folder committed under `results/` and the reference stated.
-- Docs live in `docs/` (MkDocs Material + mkdocstrings, `uv sync --group docs`, `uv run mkdocs build --strict`); written for non-forecasters first. The `docs` workflow deploys main to GitHub Pages.
+- Docs live in `docs/` (Zensical + mkdocstrings, config in `zensical.toml`, `uv sync --group docs`, `uv run zensical build --strict`); written for non-forecasters first. The `docs` workflow deploys main to GitHub Pages.
 - Related research code: emptymalei/extrapolation-as-forecasts (naive-forecaster theory, TSFM probes).

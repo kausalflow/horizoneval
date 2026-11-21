@@ -30,9 +30,9 @@ horizoneval = "horizoneval.cli:main"
 [dependency-groups]
 dev = ["pytest", "utilsforecast>=0.2.17"]
 docs = [
-    "mkdocs-material>=9.8.2",
     "mkdocstrings[python]>=1.0.8",
     "ruff>=0.17.6",
+    "zensical>=0.1.3",
 ]
 
 [build-system]

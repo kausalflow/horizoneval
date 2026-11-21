@@ -6,7 +6,7 @@ invent forecasters and test them against baselines. Every run writes plain CSVs,
 self-contained static HTML report.
 
 **Docs:** https://kausalflow.com/horizoneval/ (quickstart, plain-language guide to every score, API reference).
-Build them locally with `uv sync --group docs && uv run mkdocs serve`.
+Build them locally with `uv sync --group docs && uv run zensical serve`.
 
 ```bash
 uv sync                       # core: numpy, pandas, scipy

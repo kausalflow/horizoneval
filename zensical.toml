@@ -1,0 +1,89 @@
+[project]
+site_name = "horizoneval"
+site_description = "Evaluate time series forecasts from any tool, in plain language and with formal tests."
+site_url = "https://kausalflow.com/horizoneval/"
+repo_url = "https://github.com/kausalflow/horizoneval"
+repo_name = "kausalflow/horizoneval"
+edit_uri = "edit/main/docs/"
+
+nav = [
+  { "Home" = "index.md" },
+  { "Quickstart" = "quickstart.md" },
+  { "Understand the results" = [
+    { "How the evaluation works" = "explain/evaluation.md" },
+    { "Reading a report" = "explain/report.md" },
+    { "Glossary" = "explain/glossary.md" },
+  ] },
+  { "Guides" = [
+    { "Score forecasts from Nixtla or TimeCopilot" = "guides/score-forecasts.md" },
+    { "Run a benchmark" = "guides/benchmark.md" },
+    { "Add a forecaster" = "guides/add-forecaster.md" },
+  ] },
+  { "Reference" = [
+    { "Command line" = "reference/cli.md" },
+    { "Forecast frame" = "reference/frame.md" },
+    { "Outputs of a run" = "reference/outputs.md" },
+    { "Python API" = "reference/api.md" },
+  ] },
+]
+
+extra_javascript = [
+  "javascripts/katex.js",
+  "https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js",
+  "https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js",
+]
+extra_css = ["https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"]
+
+[project.theme]
+features = [
+  "navigation.sections",
+  "navigation.top",
+  "navigation.footer",
+  "content.code.copy",
+  "content.action.edit",
+  "search.suggest",
+]
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: light)"
+scheme = "default"
+primary = "indigo"
+toggle.icon = "lucide/moon"
+toggle.name = "Dark mode"
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: dark)"
+scheme = "slate"
+primary = "indigo"
+toggle.icon = "lucide/sun"
+toggle.name = "Light mode"
+
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.tables]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions."pymdownx.details"]
+[project.markdown_extensions."pymdownx.highlight"]
+anchor_linenums = true
+[project.markdown_extensions."pymdownx.inlinehilite"]
+[project.markdown_extensions."pymdownx.superfences"]
+[project.markdown_extensions."pymdownx.snippets"]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions."pymdownx.arithmatex"]
+generic = true
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["src"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+docstring_style = "google"
+show_source = true
+show_root_heading = true
+show_root_full_path = false
+members_order = "source"
+show_signature_annotations = true
+separate_signature = true
+filters = ["!^_"]
