@@ -1,4 +1,4 @@
-# forecaster-lab · horizoneval
+# horizoneval
 
 `horizoneval` evaluates time series forecasts from any tool (horizoneval's own forecasters, TimeCopilot, Nixtla's
 statsforecast / neuralforecast / mlforecast) with formal, diverse and reproducible evaluations, and is the place to
