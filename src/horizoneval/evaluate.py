@@ -18,10 +18,11 @@ import numpy as np
 import pandas as pd
 
 from horizoneval.frame import FrameError, scales, validate, windows
-from horizoneval.metrics import scores, step_errors
+from horizoneval import choose
+from horizoneval.metrics import cost as cost_of, scores, step_errors
 from horizoneval.stats import comparisons, friedman_nemenyi
 
-SUMMARY_METRICS = ["mase", "smape", "crps_scaled", "coverage80", "coverage90", "width80_scaled"]
+SUMMARY_METRICS = ["mase", "smape", "crps_scaled", "coverage80", "coverage90", "width80_scaled", "cost"]
 
 
 @dataclass
@@ -36,6 +37,7 @@ class Evaluation:
     forecasts: pd.DataFrame | None = None
     train: pd.DataFrame | None = None
     series: pd.DataFrame | None = None
+    decision: dict | None = None  # which model to choose and how sure that is (horizoneval.choose)
 
     def write(self, out, report=True) -> Path:
         out = Path(out)
@@ -53,6 +55,9 @@ class Evaluation:
         if self.series is not None:
             self.series.to_csv(out / "series.csv", index=False)
         (out / "config.json").write_text(json.dumps(self.config, indent=2, default=str) + "\n")
+        if self.decision is not None:
+            self.decision["confidence"].to_csv(out / "confidence.csv", index=False)
+            (out / "decision.json").write_text(json.dumps(choose.to_json(self.decision), indent=2) + "\n")
         if report:
             from horizoneval.report import write_report
 
@@ -61,7 +66,18 @@ class Evaluation:
 
 
 def fingerprint(df: pd.DataFrame) -> str:
-    return hashlib.sha256(pd.util.hash_pandas_object(df, index=False).to_numpy().tobytes()).hexdigest()[:16]
+    """sha256 (16 hex) of a frame's content, whatever the order of its rows and columns."""
+    d = df[sorted(df.columns)]
+    d = d.sort_values(list(d.columns), kind="stable", ignore_index=True)
+    return hashlib.sha256(pd.util.hash_pandas_object(d, index=False).to_numpy().tobytes()).hexdigest()[:16]
+
+
+def protocol(forecasts: pd.DataFrame, meta: pd.DataFrame, metric: str) -> str:
+    """Fingerprint of how the forecasts were evaluated, not of the numbers: series, cutoffs, horizon, periods,
+    datasets and the deciding metric. Two runs with the same protocol fingerprint are comparable."""
+    win = forecasts.groupby(["unique_id", "cutoff"]).size().rename("h").reset_index().astype(str)
+    spec = json.dumps({"metric": metric})
+    return hashlib.sha256((fingerprint(win) + fingerprint(meta.astype(str)) + spec).encode()).hexdigest()[:16]
 
 
 def _series_table(df, series, period, dataset) -> pd.DataFrame:
@@ -72,7 +88,7 @@ def _series_table(df, series, period, dataset) -> pd.DataFrame:
         missing = ids.difference(extra.index)
         if len(missing):
             raise FrameError(f"the series table has no row for {len(missing)} series, e.g. {list(missing[:3])}")
-        s = s.join(extra[[c for c in ["dataset", "period"] if c in extra]])
+        s = s.join(extra)
     if "dataset" not in s:
         s["dataset"] = dataset
     if "period" not in s:
@@ -103,9 +119,14 @@ def leaderboard(summary: pd.DataFrame) -> pd.DataFrame:
 
 def evaluate(forecasts: pd.DataFrame, train: pd.DataFrame | None = None, *, models: list[str] | None = None,
              series: pd.DataFrame | None = None, period: int | None = None, dataset: str = "data",
-             reference: str | None = "naive", config: dict | None = None) -> Evaluation:
+             reference: str | None = "naive", config: dict | None = None, cost=None, segment: str | None = None,
+             decide: bool = True, n_boot: int = 1000, seed: int = 0) -> Evaluation:
     """Score every model column of a forecast frame.
 
+    cost      your own cost of a forecast ('linlin:0.9', 'pinball:0.95' or f(truth, point) -> per-series cost); it
+              becomes the `cost` score and decides the choice. See horizoneval.metrics.cost.
+    segment   column of `series` whose groups may deserve different models (default: the datasets)
+    decide    add the decision (probability of best, winner's curse, segments; horizoneval.choose)
     A model whose forecasts are missing or non-finite anywhere is dropped and listed under config["failures"].
 
     Args:
@@ -146,6 +167,8 @@ def evaluate(forecasts: pd.DataFrame, train: pd.DataFrame | None = None, *, mode
                 failures[m] = f"non-finite forecasts on {ds_name}"
                 continue
             s = scores(pred, w.truth, scale)
+            if cost is not None:
+                s["cost"] = cost_of(cost, pred, w.truth, scale)
             rows.append(pd.DataFrame({"model": m, "dataset": ds_name, "window": window, "cutoff": w.cutoff,
                                       "series": w.unique_id, **s}))
             err = step_errors(pred, w.truth, scale)
@@ -158,6 +181,9 @@ def evaluate(forecasts: pd.DataFrame, train: pd.DataFrame | None = None, *, mode
     by_h = pd.concat(hrows, ignore_index=True)
     by_h = by_h[~by_h["model"].isin(failures)].reset_index(drop=True)
     rank_by = "mase" if sc["mase"].notna().any() else "smape"  # MASE needs the history; sMAPE does not
+    metric = "cost" if cost is not None else rank_by
+    if segment is not None and segment not in meta:
+        raise FrameError(f"segment {segment!r} is not a column of the series table")
     summary = summarize(sc, reference, rank_by)
     tests = comparisons(sc, reference, metrics=(rank_by, "crps_scaled"))
     if tests.empty:
@@ -169,9 +195,16 @@ def evaluate(forecasts: pd.DataFrame, train: pd.DataFrame | None = None, *, mode
                         for d, g in meta.groupby("dataset")},
            "forecasts_sha256_16": fingerprint(forecasts),
            "train_sha256_16": fingerprint(train) if train is not None else None,
+           "protocol_sha256_16": protocol(forecasts, meta, metric), "decide_by": metric,
+           "cost": cost if isinstance(cost, str) or cost is None else getattr(cost, "__name__", "custom"),
            "created": time.strftime("%Y-%m-%dT%H:%M:%S%z"), "python": platform.python_version()}
     cfg.update(config or {})
     if failures:
         cfg["failures"] = {**cfg.get("failures", {}), **failures}
-    return Evaluation(sc.reset_index(drop=True), by_h, summary, leaderboard(summary), tests,
-                      friedman_nemenyi(summary, metric=rank_by), cfg, forecasts, train, meta)
+    sc = sc.reset_index(drop=True)
+    decision = None
+    if decide:
+        seg = meta.set_index("unique_id")[segment] if segment is not None else None
+        decision = choose.decide(sc, metric, seg, n_boot=n_boot, seed=seed)
+    return Evaluation(sc, by_h, summary, leaderboard(summary), tests,
+                      friedman_nemenyi(summary, metric=rank_by), cfg, forecasts, train, meta, decision)

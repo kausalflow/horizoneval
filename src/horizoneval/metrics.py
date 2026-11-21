@@ -92,3 +92,28 @@ def step_errors(pred: Prediction, T, scale) -> np.ndarray:
 def horizon_scores(pred: Prediction, T, hist, period=None) -> np.ndarray:
     """Scaled absolute error by forecast step, averaged over series: (h,)."""
     return step_errors(pred, T, scale_of(hist, period)).mean(axis=0)
+
+
+def cost(spec, pred: Prediction, T, scale) -> np.ndarray:
+    """The user's own cost of a forecast, per series (N,), divided by the series' scale when there is one.
+
+    spec  "linlin:a"   under-forecasting costs a per unit, over-forecasting 1 - a (stock-outs vs. overstock);
+                       scored on the quantile at level a when the model gives it, else on the point forecast
+          "pinball:q"  pinball loss of the quantile at level q (the point forecast when the model has no such level)
+          a callable   f(truth (N, h), point (N, h)) -> (N,), any cost you can write down
+    """
+    if callable(spec):
+        raw = np.asarray(spec(T, pred.point), dtype=float)
+    else:
+        kind, _, val = str(spec).partition(":")
+        if kind not in ("linlin", "pinball") or not val:
+            raise ValueError(f"unknown cost {spec!r}; use 'linlin:<a>', 'pinball:<q>' or a callable")
+        a = float(val)
+        if not 0 < a < 1:
+            raise ValueError(f"the level in {spec!r} must be strictly between 0 and 1")
+        i = _index(pred.levels, a) if pred.quantiles is not None else None
+        F = pred.quantiles[..., i] if i is not None else pred.point
+        d = T - F
+        raw = np.maximum(a * d, (a - 1) * d).mean(axis=1)
+    s = np.asarray(scale, dtype=float)
+    return np.where(np.isfinite(s), raw / np.maximum(s, 1e-12), raw)

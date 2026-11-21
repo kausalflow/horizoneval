@@ -90,6 +90,14 @@ def write_report(run_dir) -> Path:
         out.append("<p class=bad>Failed: " + ", ".join(f"<code>{html.escape(k)}</code> ({html.escape(v)})"
                                                      for k, v in cfg["failures"].items()) + "</p>")
 
+    if (run_dir / "decision.json").exists():
+        dec = json.loads((run_dir / "decision.json").read_text())
+        out.append("<h2>What to choose</h2>" + "".join(f"<p>{html.escape(t)}</p>" for t in dec.get("text", [])))
+        conf = pd.read_csv(run_dir / "confidence.csv")
+        out.append(f"<p class=muted>By {html.escape(dec['metric'])}. p_best: share of bootstrap resamples of the series "
+                   "in which the model is best. expected_loss_rel: how much worse than the best it is on average, "
+                   "counting the resamples where it is not best.</p>")
+        out.append(_table(conf[["dataset", "model", "mean", "p_best", "expected_loss_rel", "series"]]))
     out.append("<h2>Leaderboard</h2><p class=muted>Mean rank by " + cfg.get("rank_by", "mase").upper() + " over datasets (lower is better); skill is "
                f"mean log(MSE<sub>{ref}</sub>/MSE<sub>model</sub>) in nats (higher is better); CRPS is scaled like MASE; "
                "coverage80 should be near 0.80.</p>")

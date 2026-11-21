@@ -61,9 +61,12 @@
       "sha256_16": "9545ca2a4ce6ef18"
     }
   },
-  "forecasts_sha256_16": "1c2b7d2b14aec24d",
-  "train_sha256_16": "f250a78a856bcf37",
-  "created": "2026-11-21T20:21:28+0000",
+  "forecasts_sha256_16": "c35b18f8b48d6ec1",
+  "train_sha256_16": "4836b8331e418935",
+  "protocol_sha256_16": "49b196f37113bf8f",
+  "decide_by": "mase",
+  "cost": null,
+  "created": "2026-11-21T22:08:20+0000",
   "python": "3.11.18",
   "step": 12,
   "context": 256,

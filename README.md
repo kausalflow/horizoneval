@@ -63,6 +63,15 @@ uf_evaluate(cv, metrics=[nixtla.mase(24), nixtla.smape(), nixtla.coverage80()], 
 utilsforecast's `evaluate` reads intervals only as `-lo-`/`-hi-` columns; `horizoneval.frame.to_intervals` renames
 TimeCopilot's `-q-` columns to that form.
 
+## Choose a forecast
+
+Every evaluation ends with a decision, not only a ranking (`ev.decision`, `decision.json`, the top of the report):
+the probability that each model is the best one for your series and the expected loss of picking it; the winner's
+curse, i.e. how the chosen model scores on windows or series it was not chosen on; whether a model per segment beats one
+model for everything on unseen data (`segment="region"`); and, with `cost="linlin:0.9"` or any cost you write, whether
+your cost picks a different model than MASE or CRPS. These statistics are checked by simulation in
+`horizoneval.verify`. See [Choosing a forecast](docs/explain/choosing.md).
+
 ## Add a forecaster
 
 Copy `src/horizoneval/models/damped_drift.py` to a new file in `src/horizoneval/models/`. Every module there is picked up
@@ -130,6 +139,7 @@ Add a suite in `src/horizoneval/data/__init__.py`.
 | `leaderboard.csv` | means over datasets, sorted by mean rank |
 | `tests.csv` | bootstrap intervals and paired tests per model, dataset and metric |
 | `ranks.json` | Friedman test and Nemenyi critical difference |
+| `decision.json`, `confidence.csv` | which model to choose, probability of best, expected loss, winner's curse, segments |
 | `config.json` | settings, dataset fingerprints, failures |
 | `report.html` | everything above as one static page, light and dark |
 

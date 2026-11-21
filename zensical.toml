@@ -10,6 +10,7 @@ nav = [
   { "Home" = "index.md" },
   { "Quickstart" = "quickstart.md" },
   { "Understand the results" = [
+    { "Choosing a forecast" = "explain/choosing.md" },
     { "How the evaluation works" = "explain/evaluation.md" },
     { "Reading a report" = "explain/report.md" },
     { "Glossary" = "explain/glossary.md" },

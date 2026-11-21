@@ -12,6 +12,12 @@ from horizoneval import evaluate, Evaluation, FrameError, forecaster, available,
 
 ::: horizoneval.evaluate.Evaluation
 
+## Choosing a forecast
+
+::: horizoneval.choose
+
+::: horizoneval.verify
+
 ## Forecast frame
 
 ::: horizoneval.frame

@@ -34,6 +34,9 @@ def main(argv=None):
     sc.add_argument("--dataset", default="data", help="dataset name when --series gives none")
     sc.add_argument("--reference", default=None, help="model column for skill and paired tests (default: none)")
     sc.add_argument("--out", default=None, help="results folder (default: results/<timestamp>)")
+    sc.add_argument("--cost", default=None, help="your own cost, e.g. linlin:0.9 (shortfalls cost 9x overshoots) or "
+                    "pinball:0.95; it decides the choice")
+    sc.add_argument("--segment", default=None, help="column of --series whose groups may deserve different models")
     r = sub.add_parser("run", help="benchmark forecasters")
     r.add_argument("--models", nargs="+", required=True)
     r.add_argument("--data", nargs="+", default=["synthetic"], help="suites or synthetic:<name> / gift:<dataset>/<freq>")
@@ -71,10 +74,12 @@ def main(argv=None):
 
         ev = evaluate(read(a.forecasts), read(a.train) if a.train else None,
                       series=read(a.series) if a.series else None, period=a.period, dataset=a.dataset,
-                      reference=a.reference, config={"source": {"forecasts": a.forecasts, "train": a.train}})
+                      reference=a.reference, config={"source": {"forecasts": a.forecasts, "train": a.train}},
+                      cost=a.cost, segment=a.segment)
         out = ev.write(a.out or f"results/{time.strftime('%Y%m%d-%H%M%S')}")
         with pd.option_context("display.width", 160, "display.float_format", "{:.3f}".format):
             print(ev.leaderboard.to_string(index=False))
+        print("\n" + "\n".join(ev.decision["text"]))
         if ev.config["failures"]:
             print("not scored:", ev.config["failures"])
         print(f"\nresults in {out}/ (open {out}/report.html)")

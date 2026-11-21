@@ -37,6 +37,8 @@ Score a [forecast frame](frame.md) made by any tool. See
 | `--dataset` | `data` | dataset name when `--series` gives none |
 | `--reference` | none | model column for skill and paired tests |
 | `--out` | `results/<timestamp>` | results folder |
+| `--cost` | none | your own cost (`linlin:0.9`, `pinball:0.95`); it decides the choice. See [Choosing a forecast](../explain/choosing.md) |
+| `--segment` | none | column of `--series` whose groups may each deserve their own model |
 
 ## `horizoneval report RUN_DIR`
 
