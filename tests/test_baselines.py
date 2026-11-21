@@ -1,7 +1,7 @@
 import numpy as np
 
-from flab.baselines import drift, naive, seasonal_naive
-from flab.prediction import QUANTILES
+from horizoneval.baselines import drift, naive, seasonal_naive
+from horizoneval.prediction import QUANTILES
 
 
 def test_naive_repeats_last_value_with_ordered_quantiles():

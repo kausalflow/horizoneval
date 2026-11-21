@@ -6,8 +6,8 @@ so the probabilistic scores have a reference too.
 
 import numpy as np
 
-from flab.prediction import Prediction, empirical_quantiles
-from flab.registry import forecaster
+from horizoneval.prediction import Prediction, empirical_quantiles
+from horizoneval.registry import forecaster
 
 
 @forecaster("naive")

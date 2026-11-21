@@ -6,7 +6,7 @@ so they average across series of different scales.
 
 import numpy as np
 
-from flab.prediction import QUANTILES, Prediction
+from horizoneval.prediction import QUANTILES, Prediction
 
 
 def scale_of(hist, period=None):

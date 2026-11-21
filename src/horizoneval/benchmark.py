@@ -16,11 +16,11 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from flab.data import expand, load_dataset
-from flab.metrics import horizon_scores, series_scores
-from flab.prediction import as_prediction
-from flab.registry import load
-from flab.stats import comparisons, friedman_nemenyi
+from horizoneval.data import expand, load_dataset
+from horizoneval.metrics import horizon_scores, series_scores
+from horizoneval.prediction import as_prediction
+from horizoneval.registry import load
+from horizoneval.stats import comparisons, friedman_nemenyi
 
 
 def cutoffs(n: int, h: int, windows: int, step: int) -> list[int]:
@@ -116,7 +116,7 @@ def run(models, datasets, h=12, windows=5, step=None, context=256, n_series=30, 
         (out / "ranks.json").write_text(json.dumps(ranks, indent=2) + "\n")
         (out / "config.json").write_text(json.dumps(config, indent=2) + "\n")
         if report:
-            from flab.report import write_report
+            from horizoneval.report import write_report
 
             write_report(out)
     return lb, summary, scores

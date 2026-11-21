@@ -28,7 +28,7 @@ def load_gift(name: str, n_series: int, n_total: int, rng, root="data/gift-eval"
 
     path = Path(root) / name
     if not path.exists():
-        raise FileNotFoundError(f"{path} missing: download it as shown in flab/data/gift.py")
+        raise FileNotFoundError(f"{path} missing: download it as shown in horizoneval/data/gift.py")
     ds = load_from_disk(str(path))
     freq = ds[0]["freq"]
     series = []

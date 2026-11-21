@@ -1,10 +1,10 @@
 # Entropic Force NN on the synthetic suite
 
-Source: kausalflow/physics_models (EFNN, PAPER.md), ported to `src/flab/models/entropic_force.py`.
+Source: kausalflow/physics_models (EFNN, PAPER.md), ported to `src/horizoneval/models/entropic_force.py`.
 
 ```bash
 uv sync --extra physics
-uv run flab run --models naive seasonal_naive drift damped_drift efnn efnn_noent efnn_mlp --data synthetic --out results/physics-efnn-synthetic
+uv run horizoneval run --models naive seasonal_naive drift damped_drift efnn efnn_noent efnn_mlp --data synthetic --out results/physics-efnn-synthetic
 ```
 
 h = 12, 5 windows, context 256, 30 series per dataset, seed 0, reference `naive`. CPU torch 2.15.

@@ -17,7 +17,7 @@ Needs the `physics` extra (torch). Plain torch replaces PyTorch Lightning; the n
 
 import numpy as np
 
-from flab.registry import forecaster
+from horizoneval.registry import forecaster
 
 EPS = 1e-10
 MIN_TEMPERATURE = 0.01

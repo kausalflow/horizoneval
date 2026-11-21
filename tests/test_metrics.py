@@ -1,7 +1,7 @@
 import numpy as np
 
-from flab.metrics import coverage, crps, series_scores
-from flab.prediction import QUANTILES, Prediction
+from horizoneval.metrics import coverage, crps, series_scores
+from horizoneval.prediction import QUANTILES, Prediction
 
 
 def test_perfect_forecast_scores_zero():

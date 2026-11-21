@@ -2,8 +2,8 @@ import json
 
 import numpy as np
 
-from flab import available, forecaster
-from flab.benchmark import cutoffs, run
+from horizoneval import available, forecaster
+from horizoneval.benchmark import cutoffs, run
 
 
 def test_cutoffs_are_rolling_and_end_at_the_horizon():
