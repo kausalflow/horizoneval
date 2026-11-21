@@ -1,12 +1,16 @@
 """Forecast scores. Inputs are (N, h) (quantiles (N, h, Q)); each per-series score returns (N,).
 
 Scaled scores divide by the in-sample MAE of the one-step seasonal naive on the history (as in MASE),
-so they average across series of different scales.
+so they average across series of different scales. Quantile scores take the levels of the last axis
+(default `QUANTILES`); interval scores are computed for the central intervals whose two levels are present.
 """
 
 import numpy as np
 
 from horizoneval.prediction import QUANTILES, Prediction
+
+# central intervals reported when both of their quantiles are present: name -> (lower, upper)
+INTERVALS = {"80": (0.1, 0.9), "90": (0.05, 0.95)}
 
 
 def scale_of(hist, period=None):
@@ -27,40 +31,64 @@ def smape(F, T):
     return np.where(denom > 0, 2 * np.abs(F - T) / np.where(denom > 0, denom, 1), 0.0).mean(axis=1)
 
 
-def pinball(Q, T):
+def pinball(Q, T, levels=QUANTILES):
     """Mean pinball loss over steps and quantile levels, (N,)."""
-    q = np.asarray(QUANTILES)
+    q = np.asarray(levels)
     d = T[..., None] - Q
     return np.maximum(q * d, (q - 1) * d).mean(axis=(1, 2))
 
 
-def crps(Q, T):
+def crps(Q, T, levels=QUANTILES):
     """CRPS approximated on the quantile grid: twice the mean pinball loss."""
-    return 2 * pinball(Q, T)
+    return 2 * pinball(Q, T, levels)
 
 
-def interval(Q, lo: float, hi: float):
-    return Q[..., QUANTILES.index(lo)], Q[..., QUANTILES.index(hi)]
+def _index(levels, q):
+    """Position of level q in levels (to 1e-9), or None."""
+    for i, lv in enumerate(levels):
+        if abs(lv - q) < 1e-9:
+            return i
+    return None
 
 
-def coverage(Q, T, lo=0.1, hi=0.9):
-    L, U = interval(Q, lo, hi)
+def interval(Q, lo: float, hi: float, levels=QUANTILES):
+    i, j = _index(levels, lo), _index(levels, hi)
+    if i is None or j is None:
+        raise KeyError(f"levels {tuple(levels)} do not contain both {lo} and {hi}")
+    return Q[..., i], Q[..., j]
+
+
+def coverage(Q, T, lo=0.1, hi=0.9, levels=QUANTILES):
+    L, U = interval(Q, lo, hi, levels)
     return ((T >= L) & (T <= U)).mean(axis=1)
 
 
-def series_scores(pred: Prediction, T, hist, period=None) -> dict[str, np.ndarray]:
-    s = scale_of(hist, period)
+def scores(pred: Prediction, T, scale) -> dict[str, np.ndarray]:
+    """Every per-series score of one forecast against the truth T, given each series' scale (N,)."""
+    s = np.maximum(np.asarray(scale, dtype=float), 1e-12)
     out = {"mae": mae(pred.point, T), "mse": mse(pred.point, T), "smape": smape(pred.point, T)}
     out["mase"] = out["mae"] / s
     if pred.quantiles is not None:
-        out["crps_scaled"] = crps(pred.quantiles, T) / s
-        out["coverage80"] = coverage(pred.quantiles, T, 0.1, 0.9)
-        out["coverage90"] = coverage(pred.quantiles, T, 0.05, 0.95)
-        L, U = interval(pred.quantiles, 0.1, 0.9)
-        out["width80_scaled"] = (U - L).mean(axis=1) / s
+        out["crps_scaled"] = crps(pred.quantiles, T, pred.levels) / s
+        for name, (lo, hi) in INTERVALS.items():
+            if _index(pred.levels, lo) is None or _index(pred.levels, hi) is None:
+                continue
+            out[f"coverage{name}"] = coverage(pred.quantiles, T, lo, hi, pred.levels)
+        if "coverage80" in out:
+            L, U = interval(pred.quantiles, *INTERVALS["80"], pred.levels)
+            out["width80_scaled"] = (U - L).mean(axis=1) / s
     return out
+
+
+def series_scores(pred: Prediction, T, hist, period=None) -> dict[str, np.ndarray]:
+    return scores(pred, T, scale_of(hist, period))
+
+
+def step_errors(pred: Prediction, T, scale) -> np.ndarray:
+    """Scaled absolute error per series and forecast step: (N, h)."""
+    return np.abs(pred.point - T) / np.maximum(np.asarray(scale, dtype=float), 1e-12)[:, None]
 
 
 def horizon_scores(pred: Prediction, T, hist, period=None) -> np.ndarray:
     """Scaled absolute error by forecast step, averaged over series: (h,)."""
-    return (np.abs(pred.point - T) / scale_of(hist, period)[:, None]).mean(axis=0)
+    return step_errors(pred, T, scale_of(hist, period)).mean(axis=0)

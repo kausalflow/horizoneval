@@ -1,10 +1,11 @@
-"""horizoneval list | horizoneval run --models ... --data ...
+"""horizoneval list | horizoneval run --models ... --data ... | horizoneval score forecasts.parquet --train train.parquet
 
 Examples:
     uv run horizoneval list
     uv run horizoneval run --models seasonal_naive drift damped_drift --data synthetic
     uv run --extra tsfm horizoneval run --models chronos_bolt_small auto_ets damped_drift --data synthetic --out results/first-look
     uv run horizoneval index            # results/index.html over all runs
+    uv run horizoneval score cv.parquet --train train.parquet --period 24 --reference SeasonalNaive --out results/x
 """
 
 import argparse
@@ -25,6 +26,14 @@ def main(argv=None):
     rep.add_argument("run_dir")
     idx = sub.add_parser("index", help="build an index.html over all runs")
     idx.add_argument("results_dir", nargs="?", default="results")
+    sc = sub.add_parser("score", help="score a forecast frame made by any tool (Nixtla cross_validation layout)")
+    sc.add_argument("forecasts", help="parquet or CSV with unique_id, ds, cutoff, y and one column per model")
+    sc.add_argument("--train", default=None, help="history (unique_id, ds, y), needed for MASE and scaled CRPS")
+    sc.add_argument("--series", default=None, help="optional table (unique_id, dataset, period)")
+    sc.add_argument("--period", type=int, default=None, help="seasonal period of every series (default: 1)")
+    sc.add_argument("--dataset", default="data", help="dataset name when --series gives none")
+    sc.add_argument("--reference", default=None, help="model column for skill and paired tests (default: none)")
+    sc.add_argument("--out", default=None, help="results folder (default: results/<timestamp>)")
     r = sub.add_parser("run", help="benchmark forecasters")
     r.add_argument("--models", nargs="+", required=True)
     r.add_argument("--data", nargs="+", default=["synthetic"], help="suites or synthetic:<name> / gift:<dataset>/<freq>")
@@ -54,6 +63,21 @@ def main(argv=None):
         from horizoneval.report import build_index
 
         print(build_index(a.results_dir))
+        return
+
+    if a.cmd == "score":
+        from horizoneval.evaluate import evaluate
+        from horizoneval.frame import read
+
+        ev = evaluate(read(a.forecasts), read(a.train) if a.train else None,
+                      series=read(a.series) if a.series else None, period=a.period, dataset=a.dataset,
+                      reference=a.reference, config={"source": {"forecasts": a.forecasts, "train": a.train}})
+        out = ev.write(a.out or f"results/{time.strftime('%Y%m%d-%H%M%S')}")
+        with pd.option_context("display.width", 160, "display.float_format", "{:.3f}".format):
+            print(ev.leaderboard.to_string(index=False))
+        if ev.config["failures"]:
+            print("not scored:", ev.config["failures"])
+        print(f"\nresults in {out}/ (open {out}/report.html)")
         return
 
     from horizoneval.benchmark import run

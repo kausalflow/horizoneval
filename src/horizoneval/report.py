@@ -81,13 +81,16 @@ def write_report(run_dir) -> Path:
     out = [f"<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'>"
            f"<title>Forecast benchmark</title><style>{CSS}</style></head><body>",
            f"<h1>Forecast benchmark</h1><p class=muted>{html.escape(run_dir.name)} · {cfg.get('created', '')} · "
-           f"h={cfg['h']}, {cfg['windows']} windows every {cfg['step']}, context {cfg['context']}, "
-           f"{cfg['n_series']} series per dataset, seed {cfg['seed']} · reference <code>{ref}</code></p>"]
+           + (f"h={cfg['h']}, {cfg['windows']} windows every {cfg['step']}, context {cfg['context']}, "
+              f"{cfg['n_series']} series per dataset, seed {cfg['seed']}" if "context" in cfg else
+              f"scored from {html.escape(str(cfg.get('source', {}).get('forecasts', 'a forecast frame')))}: "
+              f"h={cfg.get('h')}, {cfg.get('windows')} windows")
+           + f" · reference <code>{html.escape(str(ref))}</code></p>"]
     if cfg.get("failures"):
         out.append("<p class=bad>Failed: " + ", ".join(f"<code>{html.escape(k)}</code> ({html.escape(v)})"
                                                      for k, v in cfg["failures"].items()) + "</p>")
 
-    out.append("<h2>Leaderboard</h2><p class=muted>Mean rank by MASE over datasets (lower is better); skill is "
+    out.append("<h2>Leaderboard</h2><p class=muted>Mean rank by " + cfg.get("rank_by", "mase").upper() + " over datasets (lower is better); skill is "
                f"mean log(MSE<sub>{ref}</sub>/MSE<sub>model</sub>) in nats (higher is better); CRPS is scaled like MASE; "
                "coverage80 should be near 0.80.</p>")
     out.append(_table(lb, skill_cls))

@@ -6,6 +6,11 @@
     "mean",
     "damped_drift"
   ],
+  "reference": "naive",
+  "failures": {},
+  "h": 12,
+  "windows": 5,
+  "rank_by": "mase",
   "datasets": {
     "synthetic:random_walk": {
       "period": null,
@@ -56,14 +61,12 @@
       "sha256_16": "9545ca2a4ce6ef18"
     }
   },
-  "h": 12,
-  "windows": 5,
+  "forecasts_sha256_16": "1c2b7d2b14aec24d",
+  "train_sha256_16": "f250a78a856bcf37",
+  "created": "2026-11-21T20:21:28+0000",
+  "python": "3.11.18",
   "step": 12,
   "context": 256,
   "n_series": 30,
-  "seed": 0,
-  "reference": "naive",
-  "failures": {},
-  "created": "2026-10-31T06:01:11+0000",
-  "python": "3.12.3"
+  "seed": 0
 }
