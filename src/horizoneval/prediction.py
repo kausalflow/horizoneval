@@ -14,14 +14,18 @@ QUANTILES = (0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95)
 @dataclass
 class Prediction:
     point: np.ndarray  # (N, h)
-    quantiles: np.ndarray | None = None  # (N, h, len(QUANTILES)), non-decreasing along the last axis
+    quantiles: np.ndarray | None = None  # (N, h, len(levels)), non-decreasing along the last axis
+    levels: tuple[float, ...] = QUANTILES  # quantile levels of the last axis, increasing
 
     def __post_init__(self):
         self.point = np.asarray(self.point, dtype=float)
+        self.levels = tuple(float(q) for q in self.levels)
+        if list(self.levels) != sorted(set(self.levels)):
+            raise ValueError(f"quantile levels must be increasing and distinct, got {self.levels}")
         if self.quantiles is not None:
             q = np.sort(np.asarray(self.quantiles, dtype=float), axis=-1)  # repair crossings
-            if q.shape != self.point.shape + (len(QUANTILES),):
-                raise ValueError(f"quantiles have shape {q.shape}, expected {self.point.shape + (len(QUANTILES),)}")
+            if q.shape != self.point.shape + (len(self.levels),):
+                raise ValueError(f"quantiles have shape {q.shape}, expected {self.point.shape + (len(self.levels),)}")
             self.quantiles = q
 
 

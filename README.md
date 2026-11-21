@@ -1,7 +1,9 @@
-# forecaster-lab
+# forecaster-lab · horizoneval
 
-A place to invent forecasters and test them against baselines with formal, diverse and reproducible evaluations.
-Every run writes plain CSVs and a self-contained static HTML report.
+`horizoneval` evaluates time series forecasts from any tool (horizoneval's own forecasters, TimeCopilot, Nixtla's
+statsforecast / neuralforecast / mlforecast) with formal, diverse and reproducible evaluations, and is the place to
+invent forecasters and test them against baselines. Every run writes plain CSVs, the forecasts themselves and a
+self-contained static HTML report.
 
 ```bash
 uv sync                       # core: numpy, pandas, scipy
@@ -19,6 +21,44 @@ through [TimeCopilot](https://github.com/TimeCopilot/timecopilot), pinned to the
 uv sync --extra tsfm
 uv run horizoneval run --models chronos_bolt_small tirex auto_ets damped_drift --data synthetic
 ```
+
+## Evaluate forecasts made anywhere
+
+Every forecast becomes one long table in the layout of Nixtla's `cross_validation` output, the *forecast frame*:
+`unique_id`, `ds`, `cutoff`, `y` and one column per model, with optional quantiles as `<model>-q-<p>` (TimeCopilot,
+`p` in percent or as a fraction), `<model>-lo-<l>` / `<model>-hi-<l>` (statsforecast) or `<model>-median`. Scaled
+scores (MASE, scaled CRPS) also need the history in long format (`unique_id`, `ds`, `y`); for each window only the
+rows with `ds <= cutoff` are used.
+
+```python
+from horizoneval import evaluate
+
+cv = sf.cross_validation(df=train_df, h=24, n_windows=5)          # or TimeCopilotForecaster(...).cross_validation(...)
+ev = evaluate(cv, train=train_df, period=24, reference="SeasonalNaive")
+ev.leaderboard; ev.tests; ev.write("results/my-run")              # same files and report as `horizoneval run`
+```
+
+```bash
+uv run horizoneval score cv.parquet --train train.parquet --period 24 --reference SeasonalNaive --out results/my-run
+```
+
+A frame that mixes datasets or periods takes a `series` table (`unique_id`, `dataset`, `period`). The frame is
+checked before scoring: a target at or before its cutoff (leakage), a duplicated row or windows of different lengths
+stop the run with the reason; a model with missing or non-finite forecasts is dropped and listed under `failures`.
+`horizoneval run` builds the same frame from its own forecasters and scores it through the same code, so a number
+never depends on where the forecast was made.
+
+The scores also run inside Nixtla's own evaluation, as utilsforecast losses:
+
+```python
+from utilsforecast.evaluation import evaluate as uf_evaluate
+from horizoneval import nixtla
+
+uf_evaluate(cv, metrics=[nixtla.mase(24), nixtla.smape(), nixtla.coverage80()], train_df=train_df)
+```
+
+utilsforecast's `evaluate` reads intervals only as `-lo-`/`-hi-` columns; `horizoneval.frame.to_intervals` renames
+TimeCopilot's `-q-` columns to that form.
 
 ## Add a forecaster
 
@@ -78,7 +118,10 @@ Add a suite in `src/horizoneval/data/__init__.py`.
 
 | File | Contents |
 |---|---|
-| `scores.csv` | every score per model, dataset, window and series |
+| `forecasts.parquet` | the forecast frame: every forecast of every model, re-scorable with `horizoneval score` |
+| `train.parquet` | the history the scaled scores used |
+| `series.csv` | dataset and period of each series |
+| `scores.csv` | every score per model, dataset, window (cutoff) and series |
 | `by_horizon.csv` | scaled error by forecast step |
 | `summary.csv` | means per model and dataset, with rank |
 | `leaderboard.csv` | means over datasets, sorted by mean rank |

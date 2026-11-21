@@ -1470,6 +1470,7 @@ source = { editable = "." }
 dependencies = [
     { name = "numpy" },
     { name = "pandas" },
+    { name = "pyarrow" },
     { name = "scipy" },
 ]
 
@@ -1488,6 +1489,7 @@ tsfm = [
 [package.dev-dependencies]
 dev = [
     { name = "pytest" },
+    { name = "utilsforecast" },
 ]
 
 [package.metadata]
@@ -1496,6 +1498,7 @@ requires-dist = [
     { name = "huggingface-hub", extras = ["cli"], marker = "extra == 'gift'" },
     { name = "numpy" },
     { name = "pandas" },
+    { name = "pyarrow" },
     { name = "scipy" },
     { name = "timecopilot", marker = "extra == 'tsfm'", specifier = "==0.0.35" },
     { name = "torch", marker = "extra == 'physics'", specifier = ">=2.2" },
@@ -1503,7 +1506,10 @@ requires-dist = [
 provides-extras = ["tsfm", "gift", "physics"]
 
 [package.metadata.requires-dev]
-dev = [{ name = "pytest" }]
+dev = [
+    { name = "pytest" },
+    { name = "utilsforecast", specifier = ">=0.2.17" },
+]
 
 [[package]]
 name = "httpcore"
