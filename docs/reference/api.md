@@ -18,6 +18,10 @@ from horizoneval import evaluate, Evaluation, FrameError, forecaster, available,
 
 ::: horizoneval.verify
 
+## Replication
+
+::: horizoneval.replicate
+
 ## Forecast frame
 
 ::: horizoneval.frame

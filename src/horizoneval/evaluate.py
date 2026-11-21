@@ -39,20 +39,23 @@ class Evaluation:
     series: pd.DataFrame | None = None
     decision: dict | None = None  # which model to choose and how sure that is (horizoneval.choose)
 
-    def write(self, out, report=True) -> Path:
+    def write(self, out, report=True, frames=True, scores=True) -> Path:
+        """Write the run folder. frames=False skips forecasts.parquet, train.parquet and series.csv, scores=False skips the
+        per-window scores.csv: for very large runs whose summaries are what gets committed."""
         out = Path(out)
         out.mkdir(parents=True, exist_ok=True)
-        self.scores.to_csv(out / "scores.csv", index=False)
+        if scores:
+            self.scores.to_csv(out / "scores.csv", index=False)
         self.by_horizon.to_csv(out / "by_horizon.csv", index=False)
         self.summary.to_csv(out / "summary.csv", index=False)
         self.leaderboard.to_csv(out / "leaderboard.csv", index=False)
         self.tests.to_csv(out / "tests.csv", index=False)
         (out / "ranks.json").write_text(json.dumps(self.ranks, indent=2) + "\n")
-        if self.forecasts is not None:
+        if frames and self.forecasts is not None:
             self.forecasts.to_parquet(out / "forecasts.parquet", index=False)
-        if self.train is not None:
+        if frames and self.train is not None:
             self.train.to_parquet(out / "train.parquet", index=False)
-        if self.series is not None:
+        if frames and self.series is not None:
             self.series.to_csv(out / "series.csv", index=False)
         (out / "config.json").write_text(json.dumps(self.config, indent=2, default=str) + "\n")
         if self.decision is not None:
@@ -95,6 +98,13 @@ def _series_table(df, series, period, dataset) -> pd.DataFrame:
         s["period"] = period
     s["period"] = pd.to_numeric(s["period"], errors="coerce").fillna(1).astype(int)
     return s.reset_index()
+
+
+def _horizon(forecasts, meta):
+    """The horizon, or {dataset: horizon} when datasets differ."""
+    h = forecasts.groupby(["unique_id", "cutoff"]).size().groupby(level=0).first()
+    per = h.groupby(meta.set_index("unique_id")["dataset"].reindex(h.index)).first().astype(int)
+    return int(per.iloc[0]) if per.nunique() == 1 else per.to_dict()
 
 
 def summarize(scores: pd.DataFrame, reference: str | None = "naive", rank_by: str = "mase") -> pd.DataFrame:
@@ -143,12 +153,12 @@ def evaluate(forecasts: pd.DataFrame, train: pd.DataFrame | None = None, *, mode
     Returns:
         An Evaluation with scores, by_horizon, summary, leaderboard, tests and ranks; `.write(out)` saves them.
     """
-    models = validate(forecasts, models)
+    meta = _series_table(forecasts, series, period, dataset)
+    models = validate(forecasts, models, meta.set_index("unique_id")["dataset"])
     if train is not None:
         lacking = set(forecasts["unique_id"].unique()) - set(train["unique_id"].unique())
         if lacking:
             raise FrameError(f"the train frame has no history for {len(lacking)} series, e.g. {sorted(lacking)[:3]}")
-    meta = _series_table(forecasts, series, period, dataset)
     failures = {}
     rows, hrows = [], []
     for ds_name, ids in meta.groupby("dataset")["unique_id"]:
@@ -156,7 +166,8 @@ def evaluate(forecasts: pd.DataFrame, train: pd.DataFrame | None = None, *, mode
         w = windows(part)
         per = meta.set_index("unique_id").loc[w.unique_id, "period"].to_numpy()
         scale = scales(train, w.unique_id, w.cutoff, per) if train is not None else np.full(len(w.unique_id), np.nan)
-        window = pd.Series(w.cutoff).rank(method="dense").astype(int).to_numpy() - 1
+        # k-th window of each series (series may have different cutoffs, as in M4 where histories differ in length)
+        window = pd.Series(w.cutoff).groupby(w.unique_id).rank(method="dense").astype(int).to_numpy() - 1
         for m in models:
             try:
                 pred = w.prediction(m)
@@ -189,7 +200,7 @@ def evaluate(forecasts: pd.DataFrame, train: pd.DataFrame | None = None, *, mode
     if tests.empty:
         tests = pd.DataFrame(columns=["metric", "model", "dataset", "mean", "ci_low", "ci_high"])
     cfg = {"models": [m for m in models if m not in failures], "reference": reference, "failures": failures,
-           "h": int(forecasts.groupby(["unique_id", "cutoff"]).size().iloc[0]),
+           "h": _horizon(forecasts, meta),
            "windows": int(forecasts["cutoff"].nunique()), "rank_by": rank_by,
            "datasets": {d: {"series": int(len(g)), "period": int(g["period"].iloc[0])}
                         for d, g in meta.groupby("dataset")},

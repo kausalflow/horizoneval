@@ -13,9 +13,16 @@ from horizoneval.prediction import QUANTILES, Prediction
 INTERVALS = {"80": (0.1, 0.9), "90": (0.05, 0.95)}
 
 
+def _positive(scale):
+    """Scales as floats, with NaN where a series' history never changed (scale 0): scaled scores are undefined there
+    and left out of averages, as in GIFT-Eval, instead of exploding."""
+    s = np.asarray(scale, dtype=float)
+    return np.where(s > 0, s, np.nan)
+
+
 def scale_of(hist, period=None):
     m = period if period and hist.shape[1] > period else 1
-    return np.maximum(np.abs(hist[:, m:] - hist[:, :-m]).mean(axis=1), 1e-12)
+    return np.abs(hist[:, m:] - hist[:, :-m]).mean(axis=1)
 
 
 def mae(F, T):
@@ -65,7 +72,7 @@ def coverage(Q, T, lo=0.1, hi=0.9, levels=QUANTILES):
 
 def scores(pred: Prediction, T, scale) -> dict[str, np.ndarray]:
     """Every per-series score of one forecast against the truth T, given each series' scale (N,)."""
-    s = np.maximum(np.asarray(scale, dtype=float), 1e-12)
+    s = _positive(scale)
     out = {"mae": mae(pred.point, T), "mse": mse(pred.point, T), "smape": smape(pred.point, T)}
     out["mase"] = out["mae"] / s
     if pred.quantiles is not None:
@@ -86,7 +93,7 @@ def series_scores(pred: Prediction, T, hist, period=None) -> dict[str, np.ndarra
 
 def step_errors(pred: Prediction, T, scale) -> np.ndarray:
     """Scaled absolute error per series and forecast step: (N, h)."""
-    return np.abs(pred.point - T) / np.maximum(np.asarray(scale, dtype=float), 1e-12)[:, None]
+    return np.abs(pred.point - T) / _positive(scale)[:, None]
 
 
 def horizon_scores(pred: Prediction, T, hist, period=None) -> np.ndarray:
@@ -116,4 +123,5 @@ def cost(spec, pred: Prediction, T, scale) -> np.ndarray:
         d = T - F
         raw = np.maximum(a * d, (a - 1) * d).mean(axis=1)
     s = np.asarray(scale, dtype=float)
-    return np.where(np.isfinite(s), raw / np.maximum(s, 1e-12), raw)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        return np.where(np.isnan(s), raw, np.where(s > 0, raw / s, np.nan))

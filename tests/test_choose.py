@@ -191,3 +191,12 @@ def test_bad_costs_are_refused():
         evaluate(fc, train, period=PERIOD, cost="linlin:2")
     with pytest.raises(ValueError):
         evaluate(fc, train, period=PERIOD, cost="asymmetric")
+
+
+def test_a_series_whose_history_never_changed_has_no_scaled_score():
+    fc, train = nixtla_frames()
+    train.loc[train["unique_id"] == "s0", "y"] = 5.0
+    ev = evaluate(fc, train, period=PERIOD)
+    s0 = ev.scores[ev.scores["series"] == "s0"]
+    assert s0["mase"].isna().all() and s0["mae"].notna().all()
+    assert np.isfinite(ev.summary["mase"]).all()  # averages leave it out instead of exploding

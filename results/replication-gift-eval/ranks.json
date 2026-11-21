@@ -1,0 +1,10 @@
+{
+  "metric": "mase",
+  "datasets": 24,
+  "models": 2,
+  "mean_ranks": {
+    "seasonal_naive": 1.3125,
+    "naive": 1.6875
+  },
+  "critical_difference": 0.400075973029609
+}

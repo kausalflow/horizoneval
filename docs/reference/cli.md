@@ -40,6 +40,16 @@ Score a [forecast frame](frame.md) made by any tool. See
 | `--cost` | none | your own cost (`linlin:0.9`, `pinball:0.95`); it decides the choice. See [Choosing a forecast](../explain/choosing.md) |
 | `--segment` | none | column of `--series` whose groups may each deserve their own model |
 
+## `horizoneval replicate BENCHMARK`
+
+Reproduce published results with horizoneval's scoring and write the comparison to `replication.csv`. See
+[Do our numbers match the published ones?](../explain/replication.md).
+
+| Option | Default | Meaning |
+|---|---|---|
+| `BENCHMARK` | required | `m4` (needs `--extra replicate`; downloads the data) or `gift-eval` (needs `--extra gift` and the data in `data/gift-eval`) |
+| `--out` | `results/replication-<benchmark>` | results folder |
+
 ## `horizoneval report RUN_DIR`
 
 Rebuild `report.html` of a run folder from its CSVs.

@@ -21,6 +21,8 @@ Issues = "https://github.com/kausalflow/horizoneval/issues"
 tsfm = ["timecopilot==0.0.35"]
 # GIFT-Eval data on disk
 gift = ["datasets", "huggingface_hub[cli]"]
+# M4 replication: unpack the participants' submitted forecast files (.rar) with the system libarchive
+replicate = ["libarchive-c"]
 # physics-inspired neural forecasters (models/entropic_force.py)
 physics = ["torch>=2.2"]
 

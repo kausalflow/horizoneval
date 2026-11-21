@@ -1,0 +1,547 @@
+{
+  "metric": "mase",
+  "winners_curse": {
+    "Daily": {
+      "winner": "m4_237_Pawlikowski",
+      "backtest_score": 2.6420957745503646,
+      "honest_score": 2.6420957745503646,
+      "optimism_rel": 0.0,
+      "same_choice_share": 1.0,
+      "mode": "other half of the series",
+      "rounds": 2
+    },
+    "Hourly": {
+      "winner": "m4_245_MonteroManso",
+      "backtest_score": 0.8185976673772939,
+      "honest_score": 0.8185976673772939,
+      "optimism_rel": 0.0,
+      "same_choice_share": 1.0,
+      "mode": "other half of the series",
+      "rounds": 2
+    },
+    "Monthly": {
+      "winner": "m4_118_Smyl",
+      "backtest_score": 0.8835618377761396,
+      "honest_score": 0.8835618377761396,
+      "optimism_rel": 0.0,
+      "same_choice_share": 1.0,
+      "mode": "other half of the series",
+      "rounds": 2
+    },
+    "Quarterly": {
+      "winner": "m4_245_MonteroManso",
+      "backtest_score": 1.1108897310394397,
+      "honest_score": 1.1108897310394397,
+      "optimism_rel": 0.0,
+      "same_choice_share": 1.0,
+      "mode": "other half of the series",
+      "rounds": 2
+    },
+    "Weekly": {
+      "winner": "m4_245_MonteroManso",
+      "backtest_score": 2.1075903444246724,
+      "honest_score": 2.16188767950729,
+      "optimism_rel": 0.025762755663714998,
+      "same_choice_share": 0.5,
+      "mode": "other half of the series",
+      "rounds": 2
+    },
+    "Yearly": {
+      "winner": "m4_118_Smyl",
+      "backtest_score": 2.979907963397407,
+      "honest_score": 2.979907963397407,
+      "optimism_rel": 0.0,
+      "same_choice_share": 1.0,
+      "mode": "other half of the series",
+      "rounds": 2
+    },
+    "(all)": {
+      "winner": "m4_118_Smyl",
+      "backtest_score": 1.5356956311039964,
+      "honest_score": 1.5356956311039964,
+      "optimism_rel": 0.0,
+      "same_choice_share": 1.0,
+      "mode": "other half of the series",
+      "rounds": 2
+    }
+  },
+  "verdict": {
+    "Daily": "Choose m4_237_Pawlikowski. By mase it is the best model with probability 1.00, in every resample of your series. Choosing this way holds up on other half of the series (within under 0.1%).",
+    "Hourly": "Choose m4_245_MonteroManso. By mase it is the best model with probability 0.97; counting the cases where another model is better, picking it costs on average under 0.1% more than picking the best would. Choosing this way holds up on other half of the series (within under 0.1%).",
+    "Monthly": "Choose m4_118_Smyl. By mase it is the best model with probability 0.98; counting the cases where another model is better, picking it costs on average under 0.1% more than picking the best would. Choosing this way holds up on other half of the series (within under 0.1%).",
+    "Quarterly": "Choose m4_245_MonteroManso. By mase it is the best model with probability 1.00, in every resample of your series. Choosing this way holds up on other half of the series (within under 0.1%).",
+    "Weekly": "Choose m4_245_MonteroManso. By mase it is the best model with probability 0.89; counting the cases where another model is better, picking it costs on average 0.1% more than picking the best would. Backtests flatter the winner: choosing this way scores 2.16 on other half of the series, not 2.11 (2.6% worse).",
+    "Yearly": "Choose m4_118_Smyl. By mase it is the best model with probability 1.00, in every resample of your series. Choosing this way holds up on other half of the series (within under 0.1%).",
+    "(all)": "Choose m4_118_Smyl. By mase it is the best model with probability 1.00, in every resample of your series. Choosing this way holds up on other half of the series (within under 0.1%)."
+  },
+  "segments": {
+    "winners": {
+      "Daily": "m4_237_Pawlikowski",
+      "Hourly": "m4_245_MonteroManso",
+      "Monthly": "m4_118_Smyl",
+      "Quarterly": "m4_245_MonteroManso",
+      "Weekly": "m4_245_MonteroManso",
+      "Yearly": "m4_118_Smyl"
+    },
+    "one_model_score": 1.5356956311039964,
+    "per_segment_score": 1.4987386812330863,
+    "gain_rel": 0.024065282939134347,
+    "p_value": 8.898239505387928e-104,
+    "recommend": true,
+    "mode": "other half of the series"
+  },
+  "disagreement": [],
+  "text": [
+    "Daily: Choose m4_237_Pawlikowski. By mase it is the best model with probability 1.00, in every resample of your series. Choosing this way holds up on other half of the series (within under 0.1%).",
+    "Hourly: Choose m4_245_MonteroManso. By mase it is the best model with probability 0.97; counting the cases where another model is better, picking it costs on average under 0.1% more than picking the best would. Choosing this way holds up on other half of the series (within under 0.1%).",
+    "Monthly: Choose m4_118_Smyl. By mase it is the best model with probability 0.98; counting the cases where another model is better, picking it costs on average under 0.1% more than picking the best would. Choosing this way holds up on other half of the series (within under 0.1%).",
+    "Quarterly: Choose m4_245_MonteroManso. By mase it is the best model with probability 1.00, in every resample of your series. Choosing this way holds up on other half of the series (within under 0.1%).",
+    "Weekly: Choose m4_245_MonteroManso. By mase it is the best model with probability 0.89; counting the cases where another model is better, picking it costs on average 0.1% more than picking the best would. Backtests flatter the winner: choosing this way scores 2.16 on other half of the series, not 2.11 (2.6% worse).",
+    "Yearly: Choose m4_118_Smyl. By mase it is the best model with probability 1.00, in every resample of your series. Choosing this way holds up on other half of the series (within under 0.1%).",
+    "(all): Choose m4_118_Smyl. By mase it is the best model with probability 1.00, in every resample of your series. Choosing this way holds up on other half of the series (within under 0.1%).",
+    "Choose per segment (Daily: m4_237_Pawlikowski, Hourly: m4_245_MonteroManso, Monthly: m4_118_Smyl, Quarterly: m4_245_MonteroManso, Weekly: m4_245_MonteroManso, Yearly: m4_118_Smyl): 2.4% better than one model on other half of the series (p = 0.000)."
+  ],
+  "confidence": [
+    {
+      "model": "m4_237_Pawlikowski",
+      "mean": 2.642095774550369,
+      "p_best": 1.0,
+      "expected_loss": 0.0,
+      "expected_loss_rel": 0.0,
+      "series": 4227,
+      "dataset": "Daily"
+    },
+    {
+      "model": "m4_Naive",
+      "mean": 3.278424295959559,
+      "p_best": 0.0,
+      "expected_loss": 0.6322320482113323,
+      "expected_loss_rel": 0.2393901094676547,
+      "series": 4227,
+      "dataset": "Daily"
+    },
+    {
+      "model": "m4_Naive2",
+      "mean": 3.278424295959559,
+      "p_best": 0.0,
+      "expected_loss": 0.6322320482113323,
+      "expected_loss_rel": 0.2393901094676547,
+      "series": 4227,
+      "dataset": "Daily"
+    },
+    {
+      "model": "naive",
+      "mean": 3.278424295970923,
+      "p_best": 0.0,
+      "expected_loss": 0.632232048218873,
+      "expected_loss_rel": 0.2393901094705636,
+      "series": 4227,
+      "dataset": "Daily"
+    },
+    {
+      "model": "seasonal_naive",
+      "mean": 3.278424295970923,
+      "p_best": 0.0,
+      "expected_loss": 0.632232048218873,
+      "expected_loss_rel": 0.2393901094705636,
+      "series": 4227,
+      "dataset": "Daily"
+    },
+    {
+      "model": "m4_245_MonteroManso",
+      "mean": 3.344473545471258,
+      "p_best": 0.0,
+      "expected_loss": 0.6987419349304573,
+      "expected_loss_rel": 0.26455670644934964,
+      "series": 4227,
+      "dataset": "Daily"
+    },
+    {
+      "model": "m4_118_Smyl",
+      "mean": 3.446274174597333,
+      "p_best": 0.0,
+      "expected_loss": 0.8011384541344264,
+      "expected_loss_rel": 0.30326198209817384,
+      "series": 4227,
+      "dataset": "Daily"
+    },
+    {
+      "model": "m4_245_MonteroManso",
+      "mean": 0.8185976673772938,
+      "p_best": 0.975,
+      "expected_loss": 0.00031157589505261983,
+      "expected_loss_rel": 0.0003685517831226359,
+      "series": 414,
+      "dataset": "Hourly"
+    },
+    {
+      "model": "m4_237_Pawlikowski",
+      "mean": 0.8728020903003969,
+      "p_best": 0.01,
+      "expected_loss": 0.05620229344389002,
+      "expected_loss_rel": 0.06932423935225546,
+      "series": 414,
+      "dataset": "Hourly"
+    },
+    {
+      "model": "m4_118_Smyl",
+      "mean": 0.8930458323756547,
+      "p_best": 0.015,
+      "expected_loss": 0.07572066683187194,
+      "expected_loss_rel": 0.09346519436441005,
+      "series": 414,
+      "dataset": "Hourly"
+    },
+    {
+      "model": "seasonal_naive",
+      "mean": 1.193210207420037,
+      "p_best": 0.0,
+      "expected_loss": 0.37498522642495113,
+      "expected_loss_rel": 0.4606444656264393,
+      "series": 414,
+      "dataset": "Hourly"
+    },
+    {
+      "model": "m4_Naive2",
+      "mean": 2.3950400069486597,
+      "p_best": 0.0,
+      "expected_loss": 1.5744833843529558,
+      "expected_loss_rel": 1.9335746258891653,
+      "series": 414,
+      "dataset": "Hourly"
+    },
+    {
+      "model": "m4_Naive",
+      "mean": 11.607687251623563,
+      "p_best": 0.0,
+      "expected_loss": 10.760079354491886,
+      "expected_loss_rel": 13.203742655229508,
+      "series": 414,
+      "dataset": "Hourly"
+    },
+    {
+      "model": "naive",
+      "mean": 11.607687251623563,
+      "p_best": 0.0,
+      "expected_loss": 10.760079354491886,
+      "expected_loss_rel": 13.203742655229508,
+      "series": 414,
+      "dataset": "Hourly"
+    },
+    {
+      "model": "m4_118_Smyl",
+      "mean": 0.8835618377761295,
+      "p_best": 0.985,
+      "expected_loss": 1.2616199130430772e-05,
+      "expected_loss_rel": 1.4256474292021482e-05,
+      "series": 48000,
+      "dataset": "Monthly"
+    },
+    {
+      "model": "m4_245_MonteroManso",
+      "mean": 0.8928508849510378,
+      "p_best": 0.015,
+      "expected_loss": 0.009627481962866571,
+      "expected_loss_rel": 0.010889898487611838,
+      "series": 48000,
+      "dataset": "Monthly"
+    },
+    {
+      "model": "m4_237_Pawlikowski",
+      "mean": 0.9050176160561805,
+      "p_best": 0.0,
+      "expected_loss": 0.02135256596363321,
+      "expected_loss_rel": 0.02415572444282938,
+      "series": 48000,
+      "dataset": "Monthly"
+    },
+    {
+      "model": "m4_Naive2",
+      "mean": 1.0633594479711155,
+      "p_best": 0.0,
+      "expected_loss": 0.17964883004980764,
+      "expected_loss_rel": 0.20322281737113798,
+      "series": 48000,
+      "dataset": "Monthly"
+    },
+    {
+      "model": "m4_Naive",
+      "mean": 1.205128986895282,
+      "p_best": 0.0,
+      "expected_loss": 0.3214179923223663,
+      "expected_loss_rel": 0.3635948953931549,
+      "series": 48000,
+      "dataset": "Monthly"
+    },
+    {
+      "model": "naive",
+      "mean": 1.205128986899266,
+      "p_best": 0.0,
+      "expected_loss": 0.32141799232679924,
+      "expected_loss_rel": 0.363594895398173,
+      "series": 48000,
+      "dataset": "Monthly"
+    },
+    {
+      "model": "seasonal_naive",
+      "mean": 1.2597170382820027,
+      "p_best": 0.0,
+      "expected_loss": 0.3763201466220573,
+      "expected_loss_rel": 0.4257031047863961,
+      "series": 48000,
+      "dataset": "Monthly"
+    },
+    {
+      "model": "m4_245_MonteroManso",
+      "mean": 1.1108897310394372,
+      "p_best": 1.0,
+      "expected_loss": 0.0,
+      "expected_loss_rel": 0.0,
+      "series": 24000,
+      "dataset": "Quarterly"
+    },
+    {
+      "model": "m4_118_Smyl",
+      "mean": 1.1182423896768345,
+      "p_best": 0.0,
+      "expected_loss": 0.007614550219673039,
+      "expected_loss_rel": 0.006854295953291201,
+      "series": 24000,
+      "dataset": "Quarterly"
+    },
+    {
+      "model": "m4_237_Pawlikowski",
+      "mean": 1.1253701203359439,
+      "p_best": 0.0,
+      "expected_loss": 0.01450926745996822,
+      "expected_loss_rel": 0.01305837886336176,
+      "series": 24000,
+      "dataset": "Quarterly"
+    },
+    {
+      "model": "m4_Naive2",
+      "mean": 1.3713822709772743,
+      "p_best": 0.0,
+      "expected_loss": 0.26095776109273006,
+      "expected_loss_rel": 0.2348520784818698,
+      "series": 24000,
+      "dataset": "Quarterly"
+    },
+    {
+      "model": "m4_Naive",
+      "mean": 1.4770341894270205,
+      "p_best": 0.0,
+      "expected_loss": 0.36623024732724263,
+      "expected_loss_rel": 0.329593823043431,
+      "series": 24000,
+      "dataset": "Quarterly"
+    },
+    {
+      "model": "naive",
+      "mean": 1.477034189441808,
+      "p_best": 0.0,
+      "expected_loss": 0.3662302473423278,
+      "expected_loss_rel": 0.329593823057009,
+      "series": 24000,
+      "dataset": "Quarterly"
+    },
+    {
+      "model": "seasonal_naive",
+      "mean": 1.6022471761870798,
+      "p_best": 0.0,
+      "expected_loss": 0.4914957458181177,
+      "expected_loss_rel": 0.44232991258283044,
+      "series": 24000,
+      "dataset": "Quarterly"
+    },
+    {
+      "model": "m4_245_MonteroManso",
+      "mean": 2.1075903444246737,
+      "p_best": 0.89,
+      "expected_loss": 0.0027945952012455055,
+      "expected_loss_rel": 0.0013185496128732864,
+      "series": 359,
+      "dataset": "Weekly"
+    },
+    {
+      "model": "m4_237_Pawlikowski",
+      "mean": 2.1578412960554094,
+      "p_best": 0.11,
+      "expected_loss": 0.05260891634747592,
+      "expected_loss_rel": 0.025291003367855766,
+      "series": 359,
+      "dataset": "Weekly"
+    },
+    {
+      "model": "m4_118_Smyl",
+      "mean": 2.355912189787892,
+      "p_best": 0.0,
+      "expected_loss": 0.2497854756198806,
+      "expected_loss_rel": 0.11956395993136082,
+      "series": 359,
+      "dataset": "Weekly"
+    },
+    {
+      "model": "m4_Naive",
+      "mean": 2.77729499319748,
+      "p_best": 0.0,
+      "expected_loss": 0.6776479408697036,
+      "expected_loss_rel": 0.3233830442010086,
+      "series": 359,
+      "dataset": "Weekly"
+    },
+    {
+      "model": "m4_Naive2",
+      "mean": 2.77729499319748,
+      "p_best": 0.0,
+      "expected_loss": 0.6776479408697036,
+      "expected_loss_rel": 0.3233830442010086,
+      "series": 359,
+      "dataset": "Weekly"
+    },
+    {
+      "model": "naive",
+      "mean": 2.77729499319748,
+      "p_best": 0.0,
+      "expected_loss": 0.6776479408697036,
+      "expected_loss_rel": 0.3233830442010086,
+      "series": 359,
+      "dataset": "Weekly"
+    },
+    {
+      "model": "seasonal_naive",
+      "mean": 2.77729499319748,
+      "p_best": 0.0,
+      "expected_loss": 0.6776479408697036,
+      "expected_loss_rel": 0.3233830442010086,
+      "series": 359,
+      "dataset": "Weekly"
+    },
+    {
+      "model": "m4_118_Smyl",
+      "mean": 2.9799079633974115,
+      "p_best": 1.0,
+      "expected_loss": 0.0,
+      "expected_loss_rel": 0.0,
+      "series": 23000,
+      "dataset": "Yearly"
+    },
+    {
+      "model": "m4_245_MonteroManso",
+      "mean": 3.0602467457468014,
+      "p_best": 0.0,
+      "expected_loss": 0.08103423057281298,
+      "expected_loss_rel": 0.027170581189543366,
+      "series": 23000,
+      "dataset": "Yearly"
+    },
+    {
+      "model": "m4_237_Pawlikowski",
+      "mean": 3.130046239997095,
+      "p_best": 0.0,
+      "expected_loss": 0.15054393583339634,
+      "expected_loss_rel": 0.050477016829436845,
+      "series": 23000,
+      "dataset": "Yearly"
+    },
+    {
+      "model": "m4_Naive",
+      "mean": 3.9743602651736856,
+      "p_best": 0.0,
+      "expected_loss": 0.9931462431962577,
+      "expected_loss_rel": 0.33298128745172223,
+      "series": 23000,
+      "dataset": "Yearly"
+    },
+    {
+      "model": "m4_Naive2",
+      "mean": 3.9743602651736856,
+      "p_best": 0.0,
+      "expected_loss": 0.9931462431962577,
+      "expected_loss_rel": 0.33298128745172223,
+      "series": 23000,
+      "dataset": "Yearly"
+    },
+    {
+      "model": "naive",
+      "mean": 3.974360265183622,
+      "p_best": 0.0,
+      "expected_loss": 0.9931462432069266,
+      "expected_loss_rel": 0.3329812874553003,
+      "series": 23000,
+      "dataset": "Yearly"
+    },
+    {
+      "model": "seasonal_naive",
+      "mean": 3.974360265183622,
+      "p_best": 0.0,
+      "expected_loss": 0.9931462432069266,
+      "expected_loss_rel": 0.3329812874553003,
+      "series": 23000,
+      "dataset": "Yearly"
+    },
+    {
+      "model": "m4_118_Smyl",
+      "mean": 1.5356956311040209,
+      "p_best": 1.0,
+      "expected_loss": 0.0,
+      "expected_loss_rel": 0.0,
+      "series": 100000,
+      "dataset": "(all)"
+    },
+    {
+      "model": "m4_237_Pawlikowski",
+      "mean": 1.5474493590838512,
+      "p_best": 0.0,
+      "expected_loss": 0.012151084245062277,
+      "expected_loss_rel": 0.007919766182513492,
+      "series": 100000,
+      "dataset": "(all)"
+    },
+    {
+      "model": "m4_245_MonteroManso",
+      "mean": 1.5513648521942298,
+      "p_best": 0.0,
+      "expected_loss": 0.01623646984263372,
+      "expected_loss_rel": 0.010581276798219165,
+      "series": 100000,
+      "dataset": "(all)"
+    },
+    {
+      "model": "m4_Naive2",
+      "mean": 1.9121120906951834,
+      "p_best": 0.0,
+      "expected_loss": 0.37683429856145456,
+      "expected_loss_rel": 0.24556180835215735,
+      "series": 100000,
+      "dataset": "(all)"
+    },
+    {
+      "model": "m4_Naive",
+      "mean": 2.043658289399659,
+      "p_best": 0.0,
+      "expected_loss": 0.5081514503031707,
+      "expected_loss_rel": 0.33113521873642837,
+      "series": 100000,
+      "dataset": "(all)"
+    },
+    {
+      "model": "naive",
+      "mean": 2.0436582894078863,
+      "p_best": 0.0,
+      "expected_loss": 0.5081514503112916,
+      "expected_loss_rel": 0.33113521874172214,
+      "series": 100000,
+      "dataset": "(all)"
+    },
+    {
+      "model": "seasonal_naive",
+      "mean": 2.056795735927455,
+      "p_best": 0.0,
+      "expected_loss": 0.5216655782594042,
+      "expected_loss_rel": 0.3399412297998174,
+      "series": 100000,
+      "dataset": "(all)"
+    }
+  ]
+}

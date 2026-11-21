@@ -63,8 +63,11 @@ def quantile_columns(df: pd.DataFrame, model: str) -> dict[float, str]:
     return dict(sorted(out.items()))
 
 
-def validate(df: pd.DataFrame, models: list[str] | None = None) -> list[str]:
-    """Check that the frame can be scored and return its models. Raises FrameError with the reason."""
+def validate(df: pd.DataFrame, models: list[str] | None = None, group: pd.Series | None = None) -> list[str]:
+    """Check that the frame can be scored and return its models. Raises FrameError with the reason.
+
+    Every window must have the same horizon, within each group when `group` maps unique_id to a group (a dataset):
+    M4's yearly and hourly series, for instance, are forecast 6 and 48 steps ahead."""
     missing = [c for c in KEYS if c not in df.columns]
     if missing:
         raise FrameError(f"the forecast frame needs columns {KEYS}; missing {missing}")
@@ -82,9 +85,13 @@ def validate(df: pd.DataFrame, models: list[str] | None = None) -> list[str]:
                          f"{bad.to_string(index=False)}")
     if df.duplicated(["unique_id", "cutoff", "ds"]).any():
         raise FrameError("each (unique_id, cutoff, ds) must appear once")
-    sizes = df.groupby(["unique_id", "cutoff"]).size()
-    if sizes.nunique() != 1:
-        raise FrameError(f"every (unique_id, cutoff) window must have the same horizon; found {sorted(sizes.unique())}")
+    sizes = df.groupby(["unique_id", "cutoff"]).size().rename("h").reset_index()
+    sizes["group"] = sizes["unique_id"].map(group) if group is not None else 0
+    per = sizes.groupby("group")["h"].nunique()
+    if (per != 1).any():
+        found = sorted(sizes.loc[sizes["group"].isin(per[per != 1].index), "h"].unique())
+        raise FrameError(f"every (unique_id, cutoff) window must have the same horizon"
+                         f"{' within a dataset' if group is not None else ''}; found {found}")
     return models
 
 

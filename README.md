@@ -72,6 +72,14 @@ model for everything on unseen data (`segment="region"`); and, with `cost="linli
 your cost picks a different model than MASE or CRPS. These statistics are checked by simulation in
 `horizoneval.verify`. See [Choosing a forecast](docs/explain/choosing.md).
 
+## Our numbers match the published ones
+
+`horizoneval replicate m4` scores all 100,000 M4 series, from the teams' own submitted forecasts and from our
+baselines, and reproduces all 98 published sMAPE and MASE values of the official table. `horizoneval replicate
+gift-eval` does the same for the GIFT-Eval leaderboard's seasonal naive and naive (184 of 192 numbers within one part in a
+million; the other 8 differ by one documented sMAPE convention). Runs: `results/replication-m4`,
+`results/replication-gift-eval`; details in [docs/explain/replication.md](docs/explain/replication.md).
+
 ## Add a forecaster
 
 Copy `src/horizoneval/models/damped_drift.py` to a new file in `src/horizoneval/models/`. Every module there is picked up

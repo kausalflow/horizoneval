@@ -26,6 +26,9 @@ def main(argv=None):
     rep.add_argument("run_dir")
     idx = sub.add_parser("index", help="build an index.html over all runs")
     idx.add_argument("results_dir", nargs="?", default="results")
+    rp = sub.add_parser("replicate", help="reproduce published results with horizoneval's scoring (needs --extra replicate)")
+    rp.add_argument("benchmark", choices=["m4", "gift-eval"])
+    rp.add_argument("--out", default=None, help="results folder (default: results/replication-<benchmark>)")
     sc = sub.add_parser("score", help="score a forecast frame made by any tool (Nixtla cross_validation layout)")
     sc.add_argument("forecasts", help="parquet or CSV with unique_id, ds, cutoff, y and one column per model")
     sc.add_argument("--train", default=None, help="history (unique_id, ds, y), needed for MASE and scaled CRPS")
@@ -68,6 +71,15 @@ def main(argv=None):
         print(build_index(a.results_dir))
         return
 
+    if a.cmd == "replicate":
+        from horizoneval.replicate import gift_run, m4_run
+
+        a.out = a.out or f"results/replication-{a.benchmark}"
+        _, cmp = (m4_run if a.benchmark == "m4" else gift_run)(a.out)
+        with pd.option_context("display.width", 160):
+            print(cmp.to_string(index=False))
+        print(f"\n{int(cmp['match'].sum())} of {len(cmp)} published numbers reproduced; results in {a.out}/")
+        return
     if a.cmd == "score":
         from horizoneval.evaluate import evaluate
         from horizoneval.frame import read

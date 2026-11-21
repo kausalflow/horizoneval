@@ -1497,6 +1497,9 @@ gift = [
 physics = [
     { name = "torch" },
 ]
+replicate = [
+    { name = "libarchive-c" },
+]
 tsfm = [
     { name = "timecopilot" },
 ]
@@ -1516,6 +1519,7 @@ docs = [
 requires-dist = [
     { name = "datasets", marker = "extra == 'gift'" },
     { name = "huggingface-hub", extras = ["cli"], marker = "extra == 'gift'" },
+    { name = "libarchive-c", marker = "extra == 'replicate'" },
     { name = "numpy" },
     { name = "pandas" },
     { name = "pyarrow" },
@@ -1523,7 +1527,7 @@ requires-dist = [
     { name = "timecopilot", marker = "extra == 'tsfm'", specifier = "==0.0.35" },
     { name = "torch", marker = "extra == 'physics'", specifier = ">=2.2" },
 ]
-provides-extras = ["tsfm", "gift", "physics"]
+provides-extras = ["tsfm", "gift", "replicate", "physics"]
 
 [package.metadata.requires-dev]
 dev = [
@@ -1977,6 +1981,15 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/f4/ce/a7dc71353dd06a4cbe02222773f52d4a28c81e5a452a75797f8ed113dc99/kiwisolver-1.5.1-pp311-pypy311_pp73-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:5daa1f19e097050b9c4d9a78fcc9263cb96c9dfae08037ddc1b7c4ad1889f2a2", size = 79891, upload-time = "2026-08-28T10:28:22.936Z" },
     { url = "https://files.pythonhosted.org/packages/10/b1/d61c61a84ff85d1a36a99df2c152b59ffedb1d356c598902aba44abcdb60/kiwisolver-1.5.1-pp311-pypy311_pp73-manylinux_2_24_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:cdaeeb6c350106df6bf9d873395973e5f066a9713200b72cd64f55d0a3eafab6", size = 77605, upload-time = "2026-08-28T10:28:24.322Z" },
     { url = "https://files.pythonhosted.org/packages/d3/52/5aef56f21a460a6e43ab3cdfc7697d59d7b87deb0ec97a0f7b91aa4a521b/kiwisolver-1.5.1-pp311-pypy311_pp73-win_amd64.whl", hash = "sha256:17851e5dad4484be0cbccbde3b15331deae036de9aebd45eed964487802b172f", size = 98465, upload-time = "2026-08-28T10:28:25.696Z" },
+]
+
+[[package]]
+name = "libarchive-c"
+version = "5.3"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/26/23/e72434d5457c24113e0c22605cbf7dd806a2561294a335047f5aa8ddc1ca/libarchive_c-5.3.tar.gz", hash = "sha256:5ddb42f1a245c927e7686545da77159859d5d4c6d00163c59daff4df314dae82", size = 54349, upload-time = "2025-05-22T08:08:04.604Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/88/3f/ff00c588ebd7eae46a9d6223389f5ae28a3af4b6d975c0f2a6d86b1342b9/libarchive_c-5.3-py3-none-any.whl", hash = "sha256:651550a6ec39266b78f81414140a1e04776c935e72dfc70f1d7c8e0a3672ffba", size = 17035, upload-time = "2025-05-22T08:08:03.045Z" },
 ]
 
 [[package]]

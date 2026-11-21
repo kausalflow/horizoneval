@@ -1,0 +1,17 @@
+{
+  "metric": "mase",
+  "datasets": 6,
+  "models": 7,
+  "mean_ranks": {
+    "m4_245_MonteroManso": 2.1666666666666665,
+    "m4_237_Pawlikowski": 2.3333333333333335,
+    "m4_118_Smyl": 2.8333333333333335,
+    "m4_Naive2": 4.25,
+    "m4_Naive": 4.833333333333333,
+    "seasonal_naive": 5.75,
+    "naive": 5.833333333333333
+  },
+  "friedman_stat": 19.75700934579439,
+  "friedman_p": 0.003059023067645919,
+  "critical_difference": 3.6772011240544606
+}

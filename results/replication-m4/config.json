@@ -1,0 +1,58 @@
+{
+  "models": [
+    "m4_Naive",
+    "m4_Naive2",
+    "m4_118_Smyl",
+    "m4_245_MonteroManso",
+    "m4_237_Pawlikowski",
+    "naive",
+    "seasonal_naive"
+  ],
+  "reference": "m4_Naive2",
+  "failures": {},
+  "h": {
+    "Daily": 14,
+    "Hourly": 48,
+    "Monthly": 18,
+    "Quarterly": 8,
+    "Weekly": 13,
+    "Yearly": 6
+  },
+  "windows": 940,
+  "rank_by": "mase",
+  "datasets": {
+    "Daily": {
+      "series": 4227,
+      "period": 1
+    },
+    "Hourly": {
+      "series": 414,
+      "period": 24
+    },
+    "Monthly": {
+      "series": 48000,
+      "period": 12
+    },
+    "Quarterly": {
+      "series": 24000,
+      "period": 4
+    },
+    "Weekly": {
+      "series": 359,
+      "period": 1
+    },
+    "Yearly": {
+      "series": 23000,
+      "period": 1
+    }
+  },
+  "forecasts_sha256_16": "71c78c6c0a3b4c30",
+  "train_sha256_16": "d8977fcdf44f55de",
+  "protocol_sha256_16": "cc1c96c87bc88862",
+  "decide_by": "mase",
+  "cost": null,
+  "created": "2026-11-21T23:28:59+0000",
+  "python": "3.11.18",
+  "replication": "M4 point forecasts, all 100,000 series",
+  "source_url": "https://raw.githubusercontent.com/Mcompetitions/M4-methods/master"
+}
