@@ -21,6 +21,7 @@ nav = [
   { "Guides" = [
     { "Score forecasts from Nixtla or TimeCopilot" = "guides/score-forecasts.md" },
     { "Run a benchmark" = "guides/benchmark.md" },
+    { "Use from an AI assistant" = "guides/ai-assistants.md" },
     { "Add a forecaster" = "guides/add-forecaster.md" },
   ] },
   { "Reference" = [

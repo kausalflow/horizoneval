@@ -80,6 +80,13 @@ gift-eval` does the same for the GIFT-Eval leaderboard's seasonal naive and naiv
 the ones with missing values, within one part in a million. Runs: `results/replication-m4`,
 `results/replication-gift-eval`; details in [docs/explain/replication.md](docs/explain/replication.md).
 
+## Use from AI assistants
+
+One tool registry (`horizoneval.tools`) behind every front door: `horizoneval-mcp` (MCP server, `mcp` extra), the
+Agent Skill in `skills/horizoneval/`, `--json` on the command line, and function-calling definitions
+(`tools.definitions("anthropic" | "openai")`). All return the same versioned `result.json` document; a test checks
+they are byte-identical. See [docs/guides/ai-assistants.md](docs/guides/ai-assistants.md).
+
 ## Add a forecaster
 
 Copy `src/horizoneval/models/damped_drift.py` to a new file in `src/horizoneval/models/`. Every module there is picked up

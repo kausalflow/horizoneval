@@ -25,14 +25,17 @@ tsfm = ["timecopilot==0.0.35"]
 gift = ["datasets", "huggingface_hub[cli]"]
 # M4 replication: unpack the participants' submitted forecast files (.rar) with the system libarchive
 replicate = ["libarchive-c"]
+# MCP server exposing the horizoneval tools to AI assistants (horizoneval-mcp)
+mcp = ["mcp>=2.3,<3"]
 # physics-inspired neural forecasters (models/entropic_force.py)
 physics = ["torch>=2.2"]
 
 [project.scripts]
 horizoneval = "horizoneval.cli:main"
+horizoneval-mcp = "horizoneval.mcp_server:main"
 
 [dependency-groups]
-dev = ["pytest", "utilsforecast>=0.2.17"]
+dev = ["pytest", "utilsforecast>=0.2.17", "jsonschema"]
 docs = [
     "mkdocstrings[python]>=1.0.8",
     "ruff>=0.17.6",

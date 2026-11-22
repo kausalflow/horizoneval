@@ -1494,6 +1494,9 @@ gift = [
     { name = "datasets" },
     { name = "huggingface-hub" },
 ]
+mcp = [
+    { name = "mcp" },
+]
 physics = [
     { name = "torch" },
 ]
@@ -1506,6 +1509,7 @@ tsfm = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "jsonschema" },
     { name = "pytest" },
     { name = "utilsforecast" },
 ]
@@ -1520,6 +1524,7 @@ requires-dist = [
     { name = "datasets", marker = "extra == 'gift'" },
     { name = "huggingface-hub", extras = ["cli"], marker = "extra == 'gift'" },
     { name = "libarchive-c", marker = "extra == 'replicate'" },
+    { name = "mcp", marker = "extra == 'mcp'", specifier = ">=2.3,<3" },
     { name = "numpy" },
     { name = "pandas" },
     { name = "pyarrow" },
@@ -1527,10 +1532,11 @@ requires-dist = [
     { name = "timecopilot", marker = "extra == 'tsfm'", specifier = "==0.0.35" },
     { name = "torch", marker = "extra == 'physics'", specifier = ">=2.2" },
 ]
-provides-extras = ["tsfm", "gift", "replicate", "physics"]
+provides-extras = ["tsfm", "gift", "replicate", "mcp", "physics"]
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "jsonschema" },
     { name = "pytest" },
     { name = "utilsforecast", specifier = ">=0.2.17" },
 ]

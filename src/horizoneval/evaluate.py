@@ -61,6 +61,9 @@ class Evaluation:
         if frames and self.series is not None:
             self.series.to_csv(out / "series.csv", index=False)
         (out / "config.json").write_text(json.dumps(self.config, indent=2, default=str) + "\n")
+        from horizoneval.result import dumps, to_result
+
+        (out / "result.json").write_text(dumps(to_result(self)) + "\n")
         if self.checks is not None:
             (out / "checks.json").write_text(json.dumps(self.checks, indent=2) + "\n")
         if self.decision is not None:

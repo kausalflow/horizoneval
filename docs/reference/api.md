@@ -18,6 +18,14 @@ from horizoneval import evaluate, Evaluation, FrameError, forecaster, available,
 
 ::: horizoneval.verify
 
+## Result contract and tools
+
+::: horizoneval.result
+
+::: horizoneval.tools
+    options:
+      members: [call, call_json, definitions, TOOLS]
+
 ## Checks and settings
 
 ::: horizoneval.checks

@@ -32,9 +32,11 @@ def main(argv=None):
     ck = sub.add_parser("check", help="pre-flight checks on a forecast frame, without scoring it")
     ck.add_argument("forecasts")
     ck.add_argument("--train", default=None)
+    ck.add_argument("--json", action="store_true", help="print the checks as JSON (horizoneval.tools 'check')")
     df = sub.add_parser("diff", help="say why two run folders disagree: every setting that differs, and the scores it moved")
     df.add_argument("run_a")
     df.add_argument("run_b")
+    df.add_argument("--json", action="store_true", help="print the diff as JSON (horizoneval.tools 'diff')")
     sc = sub.add_parser("score", help="score a forecast frame made by any tool (Nixtla cross_validation layout)")
     sc.add_argument("forecasts", help="parquet or CSV with unique_id, ds, cutoff, y and one column per model")
     sc.add_argument("--train", default=None, help="history (unique_id, ds, y), needed for MASE and scaled CRPS")
@@ -47,6 +49,7 @@ def main(argv=None):
                     "pinball:0.95; it decides the choice")
     sc.add_argument("--smape-zero", default="zero", choices=["zero", "skip"],
                     help="sMAPE where truth and forecast are both 0: zero (M4, utilsforecast) or skip (gluonts)")
+    sc.add_argument("--json", action="store_true", help="print the result document (result.json) instead of a table")
     sc.add_argument("--segment", default=None, help="column of --series whose groups may deserve different models")
     r = sub.add_parser("run", help="benchmark forecasters")
     r.add_argument("--models", nargs="+", required=True)
@@ -84,6 +87,11 @@ def main(argv=None):
         from horizoneval.frame import read
 
         found = preflight(read(a.forecasts), read(a.train) if a.train else None)
+        if a.json:
+            from horizoneval import tools
+
+            print(tools.call_json("check", {k: v for k, v in dict(forecasts=a.forecasts, train=a.train).items() if v}))
+            raise SystemExit(1 if any(c["severity"] == "error" for c in found) else 0)
         print(summary(found))
         for c in found:
             print(f"- {c['severity'].upper()} [{c['check']}] {c['message']}")
@@ -92,6 +100,11 @@ def main(argv=None):
         from horizoneval.settings import diff
 
         d = diff(a.run_a, a.run_b)
+        if a.json:
+            from horizoneval import tools
+
+            print(tools.call_json("diff", {"run_a": a.run_a, "run_b": a.run_b}))
+            return
         print("\n".join(d["text"]))
         for c in d["causes"]:
             print(f"- {c['why']} ({c['setting']}, {c['where']}): {c['a']} -> {c['b']}")
@@ -110,19 +123,21 @@ def main(argv=None):
         print(f"\n{int(cmp['match'].sum())} of {len(cmp)} published numbers reproduced; results in {a.out}/")
         return
     if a.cmd == "score":
-        from horizoneval.evaluate import evaluate
-        from horizoneval.frame import read
+        from horizoneval import tools
 
-        ev = evaluate(read(a.forecasts), read(a.train) if a.train else None,
-                      series=read(a.series) if a.series else None, period=a.period, dataset=a.dataset,
-                      reference=a.reference, config={"source": {"forecasts": a.forecasts, "train": a.train}},
-                      cost=a.cost, segment=a.segment, smape_zero=a.smape_zero)
-        out = ev.write(a.out or f"results/{time.strftime('%Y%m%d-%H%M%S')}")
+        out = a.out or f"results/{time.strftime('%Y%m%d-%H%M%S')}"
+        res = tools.call("score", {k: v for k, v in dict(
+            forecasts=a.forecasts, train=a.train, series=a.series, period=a.period, dataset=a.dataset,
+            reference=a.reference, cost=a.cost, segment=a.segment, smape_zero=a.smape_zero, out=out).items()
+            if v is not None})
+        if a.json:
+            print(tools.dumps(res))
+            return
         with pd.option_context("display.width", 160, "display.float_format", "{:.3f}".format):
-            print(ev.leaderboard.to_string(index=False))
-        print("\n" + "\n".join(ev.decision["text"]))
-        if ev.config["failures"]:
-            print("not scored:", ev.config["failures"])
+            print(pd.DataFrame(res["leaderboard"]).to_string(index=False))
+        print("\n" + "\n".join(res["verdict"]))
+        if res["failures"]:
+            print("not scored:", res["failures"])
         print(f"\nresults in {out}/ (open {out}/report.html)")
         return
 

@@ -39,6 +39,7 @@ Score a [forecast frame](frame.md) made by any tool. See
 | `--out` | `results/<timestamp>` | results folder |
 | `--cost` | none | your own cost (`linlin:0.9`, `pinball:0.95`); it decides the choice. See [Choosing a forecast](../explain/choosing.md) |
 | `--smape-zero` | `zero` | sMAPE where truth and forecast are both 0: `zero` counts a perfect step, `skip` leaves it out |
+| `--json` | off | print the result document instead of a table |
 | `--segment` | none | column of `--series` whose groups may each deserve their own model |
 
 ## `horizoneval replicate BENCHMARK`

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kausalflow.com/horizoneval/schema/result-1.0.json",
+  "title": "horizoneval result",
+  "description": "One evaluation of forecasts: which model to choose, how sure that is, every score, and how it was computed.",
+  "type": "object",
+  "required": ["horizoneval_result", "verdict", "choice", "confidence", "leaderboard", "summary", "checks", "failures", "run"],
+  "properties": {
+    "horizoneval_result": {"const": "1.0", "description": "version of this contract"},
+    "verdict": {"type": "array", "items": {"type": "string"}, "description": "the decision in plain language, one line per dataset, plus segment and cost notes"},
+    "choice": {
+      "type": "object",
+      "description": "per dataset (and '(all)' when several): the model to choose",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["model", "p_best", "expected_loss_rel", "verdict"],
+        "properties": {
+          "model": {"type": "string"},
+          "p_best": {"type": ["number", "null"], "minimum": 0, "maximum": 1, "description": "probability that it is the best model, from a bootstrap over series"},
+          "expected_loss_rel": {"type": ["number", "null"], "description": "how much worse than the best it is on average over the bootstrap"},
+          "claim": {"type": ["object", "null"], "description": "winner against runner-up, verified by simulating equally good forecasters"},
+          "winners_curse": {"type": ["object", "null"], "description": "honest score of choosing this way on data the choice was not made on"},
+          "verdict": {"type": "string"}
+        }
+      }
+    },
+    "confidence": {"type": "array", "items": {"type": "object", "required": ["model", "dataset", "p_best"]}},
+    "segments": {"type": ["object", "null"]},
+    "cost_disagreement": {"type": "array", "items": {"type": "object"}},
+    "leaderboard": {"type": "array", "items": {"type": "object", "required": ["model"]}},
+    "summary": {"type": "array", "items": {"type": "object", "required": ["model", "dataset"]}},
+    "checks": {"type": "array", "items": {"type": "object", "required": ["check", "severity", "message"],
+               "properties": {"severity": {"enum": ["error", "warning", "info"]}}}},
+    "failures": {"type": "object", "additionalProperties": {"type": "string"}},
+    "run": {
+      "type": "object",
+      "required": ["decide_by", "smape_zero", "settings_sha256_16", "forecasts_sha256_16"],
+      "properties": {
+        "decide_by": {"type": "string"},
+        "smape_zero": {"enum": ["zero", "skip"]},
+        "settings_sha256_16": {"type": "string"},
+        "protocol_sha256_16": {"type": "string"},
+        "forecasts_sha256_16": {"type": "string"}
+      }
+    }
+  }
+}

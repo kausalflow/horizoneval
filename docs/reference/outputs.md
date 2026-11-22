@@ -14,6 +14,7 @@
 | `tests.csv` | bootstrap intervals and paired tests per model, dataset and metric |
 | `ranks.json` | Friedman test and Nemenyi critical difference |
 | `decision.json` | which model to choose: the verdict, probability of best, winner's curse, segments, cost disagreements |
+| `result.json` | the versioned result document every entry point returns (see [Use from an AI assistant](../guides/ai-assistants.md)) |
 | `checks.json` | pre-flight findings on the raw forecasts |
 | `confidence.csv` | probability of best and expected loss per model and dataset |
 | `config.json` | settings, failures, fingerprints, and `settings`: everything that can change a score (compare runs with `horizoneval diff`) |
