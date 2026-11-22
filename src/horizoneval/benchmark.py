@@ -53,7 +53,7 @@ def forecast(model, name: str, ds, h: int, windows: int, step: int) -> pd.DataFr
 
 
 def run(models, datasets, h=12, windows=5, step=None, context=256, n_series=30, seed=0, out=None,
-        reference="naive", report=True):
+        reference="naive", report=True, ladder=False):
     step = step or h
     n = context + h + (windows - 1) * step
     rng = np.random.default_rng(seed)
@@ -86,7 +86,7 @@ def run(models, datasets, h=12, windows=5, step=None, context=256, n_series=30, 
                   h=h, windows=windows, step=step, context=context, n_series=n_series, seed=seed,
                   reference=reference, failures=failures, created=time.strftime("%Y-%m-%dT%H:%M:%S%z"),
                   python=platform.python_version())
-    ev = evaluate_frame(fc, train, series=series, reference=reference, config=config)
+    ev = evaluate_frame(fc, train, series=series, reference=reference, config=config, ladder=ladder)
     ev.leaderboard = ev.leaderboard.merge(pd.DataFrame(timings), on="model", how="left")
     if out:
         ev.write(out, report=report)

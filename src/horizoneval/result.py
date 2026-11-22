@@ -64,6 +64,10 @@ def to_result(ev) -> dict:
            "confidence": conf, "segments": d.get("segments"), "cost_disagreement": d.get("disagreement", []),
            "leaderboard": ev.leaderboard, "summary": ev.summary, "checks": ev.checks or [],
            "failures": ev.config.get("failures", {}), "run": run}
+    if getattr(ev, "ladder", None) is not None:
+        from horizoneval.ladder import to_json
+
+        doc["ladder"] = to_json(ev.ladder)
     return json.loads(dumps(doc))
 
 

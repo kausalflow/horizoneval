@@ -41,6 +41,7 @@ class Evaluation:
     series: pd.DataFrame | None = None
     decision: dict | None = None  # which model to choose and how sure that is (horizoneval.choose)
     checks: list | None = None  # pre-flight findings on the raw forecasts (horizoneval.checks)
+    ladder: dict | None = None  # where each model's skill comes from (horizoneval.ladder)
 
     def write(self, out, report=True, frames=True, scores=True) -> Path:
         """Write the run folder. frames=False skips forecasts.parquet, train.parquet and series.csv, scores=False skips the
@@ -69,6 +70,13 @@ class Evaluation:
         if self.decision is not None:
             self.decision["confidence"].to_csv(out / "confidence.csv", index=False)
             (out / "decision.json").write_text(json.dumps(choose.to_json(self.decision), indent=2) + "\n")
+        if self.ladder is not None:
+            from horizoneval.ladder import to_json as ladder_json
+            from horizoneval.result import clean
+
+            self.ladder["rungs"].to_csv(out / "ladder_rungs.csv", index=False)
+            self.ladder["models"].to_csv(out / "ladder_models.csv", index=False)
+            (out / "ladder.json").write_text(json.dumps(clean(ladder_json(self.ladder)), indent=2) + "\n")
         if report:
             from horizoneval.report import write_report
 
@@ -152,7 +160,8 @@ def leaderboard(summary: pd.DataFrame) -> pd.DataFrame:
 def evaluate(forecasts: pd.DataFrame, train: pd.DataFrame | None = None, *, models: list[str] | None = None,
              series: pd.DataFrame | None = None, period: int | None = None, dataset: str = "data",
              reference: str | None = "naive", config: dict | None = None, cost=None, segment: str | None = None,
-             decide: bool = True, n_boot: int = 1000, seed: int = 0, smape_zero: str = "zero") -> Evaluation:
+             decide: bool = True, n_boot: int = 1000, seed: int = 0, smape_zero: str = "zero",
+             ladder: bool = False) -> Evaluation:
     """Score every model column of a forecast frame.
 
     cost      your own cost of a forecast ('linlin:0.9', 'pinball:0.95' or f(truth, point) -> per-series cost); it
@@ -164,6 +173,9 @@ def evaluate(forecasts: pd.DataFrame, train: pd.DataFrame | None = None, *, mode
     number of observed steps (column n), so every observed point counts once.
     decide    add the decision (probability of best, winner's curse, segments; horizoneval.choose)
     A model whose forecasts are missing or non-finite anywhere is dropped and listed under config["failures"].
+    ladder    split each model's skill over repeating the last value into what a simple rule gets, what a
+              linear model fitted on the history adds, and what is left beyond linear, with the decision rule of
+              the naive-forecaster paper (horizoneval.ladder; needs train)
 
     Args:
         forecasts: the forecast frame (unique_id, ds, cutoff, y, one column per model; see horizoneval.frame).
@@ -249,5 +261,10 @@ def evaluate(forecasts: pd.DataFrame, train: pd.DataFrame | None = None, *, mode
     if decide:
         seg = meta.set_index("unique_id")[segment] if segment is not None else None
         decision = choose.decide(sc, metric, seg, n_boot=n_boot, seed=seed)
+    lad = None
+    if ladder:
+        from horizoneval.ladder import ladder as ladder_of
+
+        lad = ladder_of(forecasts, train, meta, [m for m in models if m not in failures])
     return Evaluation(sc, by_h, summary, leaderboard(summary), tests,
-                      friedman_nemenyi(summary, metric=rank_by), cfg, forecasts, train, meta, decision, checks)
+                      friedman_nemenyi(summary, metric=rank_by), cfg, forecasts, train, meta, decision, checks, lad)

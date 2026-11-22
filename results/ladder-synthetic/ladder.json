@@ -1,0 +1,2419 @@
+{
+  "rungs": [
+    {
+      "dataset": "synthetic:ar_differences",
+      "group": "1",
+      "F": 0.11375575343565641,
+      "F_se": 0.07488582847941219,
+      "L": 0.11367947425868181,
+      "L_se": 0.05940447091542992,
+      "F_plus_L": 0.22743522769433822,
+      "saturated": true
+    },
+    {
+      "dataset": "synthetic:lorenz",
+      "group": "1",
+      "F": 0.6634935820544517,
+      "F_se": 0.16444414008795027,
+      "L": 1.3674487753039564,
+      "L_se": 0.13505086141491593,
+      "F_plus_L": 2.0309423573584082,
+      "saturated": true
+    },
+    {
+      "dataset": "synthetic:random_walk",
+      "group": "1",
+      "F": 0.0,
+      "F_se": 0.0,
+      "L": 0.0,
+      "L_se": 0.0,
+      "F_plus_L": 0.0,
+      "saturated": true
+    },
+    {
+      "dataset": "synthetic:rossler",
+      "group": "1",
+      "F": 0.821623260883692,
+      "F_se": 0.11125870430415168,
+      "L": 2.673645428942939,
+      "L_se": 0.1818590277254872,
+      "F_plus_L": 3.4952686898266307,
+      "saturated": false
+    },
+    {
+      "dataset": "synthetic:seasonal_trend",
+      "group": "1",
+      "F": 2.915213960751761,
+      "F_se": 0.15773966953285098,
+      "L": 2.7429492987456303,
+      "L_se": 0.11668547081182068,
+      "F_plus_L": 5.658163259497391,
+      "saturated": false
+    },
+    {
+      "dataset": "synthetic:van_der_pol",
+      "group": "1",
+      "F": 5.818762211221367,
+      "F_se": 0.17442355246097974,
+      "L": 1.838530390603097,
+      "L_se": 0.15251106333475847,
+      "F_plus_L": 7.657292601824464,
+      "saturated": false
+    },
+    {
+      "dataset": "synthetic:ar_differences",
+      "group": "2-4",
+      "F": -0.006534881143503231,
+      "F_se": 0.010816523822654873,
+      "L": 0.16180765492641502,
+      "L_se": 0.047423902683083774,
+      "F_plus_L": 0.1552727737829118,
+      "saturated": true
+    },
+    {
+      "dataset": "synthetic:lorenz",
+      "group": "2-4",
+      "F": 0.014528142782372333,
+      "F_se": 0.015241573535386075,
+      "L": 0.5329452983964885,
+      "L_se": 0.059388685406240156,
+      "F_plus_L": 0.5474734411788609,
+      "saturated": true
+    },
+    {
+      "dataset": "synthetic:random_walk",
+      "group": "2-4",
+      "F": 0.0,
+      "F_se": 0.0,
+      "L": 0.0,
+      "L_se": 0.0,
+      "F_plus_L": 0.0,
+      "saturated": true
+    },
+    {
+      "dataset": "synthetic:rossler",
+      "group": "2-4",
+      "F": 1.857681837815151,
+      "F_se": 0.09402200722168935,
+      "L": 2.308647440866791,
+      "L_se": 0.14687423998159974,
+      "F_plus_L": 4.166329278681943,
+      "saturated": false
+    },
+    {
+      "dataset": "synthetic:seasonal_trend",
+      "group": "2-4",
+      "F": 3.1451801719088874,
+      "F_se": 0.16113773104069518,
+      "L": 1.5072158560776743,
+      "L_se": 0.07755564301946513,
+      "F_plus_L": 4.652396027986562,
+      "saturated": false
+    },
+    {
+      "dataset": "synthetic:van_der_pol",
+      "group": "2-4",
+      "F": 7.469703513263009,
+      "F_se": 0.05672767094496036,
+      "L": 1.917242012151323,
+      "L_se": 0.07754799112059282,
+      "F_plus_L": 9.386945525414331,
+      "saturated": false
+    },
+    {
+      "dataset": "synthetic:ar_differences",
+      "group": "5+",
+      "F": 0.0,
+      "F_se": 0.0,
+      "L": 0.04018753288296364,
+      "L_se": 0.016844134520875974,
+      "F_plus_L": 0.04018753288296364,
+      "saturated": true
+    },
+    {
+      "dataset": "synthetic:lorenz",
+      "group": "5+",
+      "F": 0.19133195991228194,
+      "F_se": 0.07763514508560004,
+      "L": 0.02093009443047166,
+      "L_se": 0.006894311606540996,
+      "F_plus_L": 0.2122620543427536,
+      "saturated": true
+    },
+    {
+      "dataset": "synthetic:random_walk",
+      "group": "5+",
+      "F": 0.0,
+      "F_se": 0.0,
+      "L": 0.0,
+      "L_se": 0.0,
+      "F_plus_L": 0.0,
+      "saturated": true
+    },
+    {
+      "dataset": "synthetic:rossler",
+      "group": "5+",
+      "F": 1.7877394451064899,
+      "F_se": 0.0887286789222998,
+      "L": 1.5487254684862792,
+      "L_se": 0.13687641195999373,
+      "F_plus_L": 3.336464913592769,
+      "saturated": false
+    },
+    {
+      "dataset": "synthetic:seasonal_trend",
+      "group": "5+",
+      "F": 3.158636028872161,
+      "F_se": 0.1314268098640409,
+      "L": 0.42510090595595335,
+      "L_se": 0.06012466356407117,
+      "F_plus_L": 3.5837369348281145,
+      "saturated": true
+    },
+    {
+      "dataset": "synthetic:van_der_pol",
+      "group": "5+",
+      "F": 6.872681804991858,
+      "F_se": 0.025887993874098597,
+      "L": 2.4719769748567897,
+      "L_se": 0.0365095585903085,
+      "F_plus_L": 9.344658779848647,
+      "saturated": false
+    },
+    {
+      "dataset": "synthetic:ar_differences",
+      "group": "all",
+      "F": 0.00017947478403443167,
+      "F_se": 0.00039510990855789763,
+      "L": 0.046191671777273,
+      "L_se": 0.017201349112986944,
+      "F_plus_L": 0.04637114656130743,
+      "saturated": null
+    },
+    {
+      "dataset": "synthetic:lorenz",
+      "group": "all",
+      "F": 0.17121392641643493,
+      "F_se": 0.06734972389293732,
+      "L": 0.07457268026812881,
+      "L_se": 0.011748831610343034,
+      "F_plus_L": 0.24578660668456376,
+      "saturated": null
+    },
+    {
+      "dataset": "synthetic:random_walk",
+      "group": "all",
+      "F": 0.0,
+      "F_se": 0.0,
+      "L": 0.0,
+      "L_se": 0.0,
+      "F_plus_L": 0.0,
+      "saturated": null
+    },
+    {
+      "dataset": "synthetic:rossler",
+      "group": "all",
+      "F": 1.7755301733152187,
+      "F_se": 0.08378610747094123,
+      "L": 1.6670319535725011,
+      "L_se": 0.13232910355780525,
+      "F_plus_L": 3.4425621268877196,
+      "saturated": null
+    },
+    {
+      "dataset": "synthetic:seasonal_trend",
+      "group": "all",
+      "F": 3.1418130827403585,
+      "F_se": 0.12949387906235285,
+      "L": 0.6120028898952844,
+      "L_se": 0.05482669228550848,
+      "F_plus_L": 3.753815972635643,
+      "saturated": null
+    },
+    {
+      "dataset": "synthetic:van_der_pol",
+      "group": "all",
+      "F": 6.934670887419039,
+      "F_se": 0.026286466332509008,
+      "L": 2.3591867423060244,
+      "L_se": 0.03838841575907802,
+      "F_plus_L": 9.293857629725064,
+      "saturated": null
+    }
+  ],
+  "models": [
+    {
+      "dataset": "synthetic:ar_differences",
+      "model": "naive",
+      "group": "1",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -0.22743522769433824,
+      "beyond_linear_se": 0.06591231907431105,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:ar_differences",
+      "model": "seasonal_naive",
+      "group": "1",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -0.22743522769433824,
+      "beyond_linear_se": 0.06591231907431105,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:ar_differences",
+      "model": "drift",
+      "group": "1",
+      "total": -0.02658627661371482,
+      "total_se": 0.010310025390864576,
+      "beyond_linear": -0.2540215043080531,
+      "beyond_linear_se": 0.06756571601125043,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:ar_differences",
+      "model": "damped_drift",
+      "group": "1",
+      "total": -0.022349239322814275,
+      "total_se": 0.008952291855371206,
+      "beyond_linear": -0.2497844670171525,
+      "beyond_linear_se": 0.06714705320182403,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:ar_differences",
+      "model": "mean",
+      "group": "1",
+      "total": -6.612943304644078,
+      "total_se": 0.25204700183294776,
+      "beyond_linear": -6.840378532338416,
+      "beyond_linear_se": 0.26883793084088176,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:lorenz",
+      "model": "naive",
+      "group": "1",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -2.0309423573584082,
+      "beyond_linear_se": 0.16117062609649577,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:lorenz",
+      "model": "seasonal_naive",
+      "group": "1",
+      "total": -2.69834457756502,
+      "total_se": 0.22157824535813586,
+      "beyond_linear": -4.729286934923428,
+      "beyond_linear_se": 0.18248642176884416,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:lorenz",
+      "model": "drift",
+      "group": "1",
+      "total": -0.0013967574738194633,
+      "total_se": 0.0007539495906466501,
+      "beyond_linear": -2.0323391148322276,
+      "beyond_linear_se": 0.1611775765158213,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:lorenz",
+      "model": "damped_drift",
+      "group": "1",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -2.0309423573584082,
+      "beyond_linear_se": 0.16117062609649577,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:lorenz",
+      "model": "mean",
+      "group": "1",
+      "total": -2.371300383951895,
+      "total_se": 0.12063596896551851,
+      "beyond_linear": -4.402242741310303,
+      "beyond_linear_se": 0.12924915683689073,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:random_walk",
+      "model": "naive",
+      "group": "1",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": 0.0,
+      "beyond_linear_se": 0.0,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:random_walk",
+      "model": "seasonal_naive",
+      "group": "1",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": 0.0,
+      "beyond_linear_se": 0.0,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:random_walk",
+      "model": "drift",
+      "group": "1",
+      "total": -0.0022884800731698914,
+      "total_se": 0.0038603520510306446,
+      "beyond_linear": -0.0022884800731698914,
+      "beyond_linear_se": 0.0038603520510306446,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:random_walk",
+      "model": "damped_drift",
+      "group": "1",
+      "total": -5.9907720014381925e-05,
+      "total_se": 0.002013917676622477,
+      "beyond_linear": -5.9907720014381925e-05,
+      "beyond_linear_se": 0.002013917676622477,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:random_walk",
+      "model": "mean",
+      "group": "1",
+      "total": -5.337356733401797,
+      "total_se": 0.24164362998799202,
+      "beyond_linear": -5.337356733401797,
+      "beyond_linear_se": 0.24164362998799202,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:rossler",
+      "model": "naive",
+      "group": "1",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -3.4952686898266325,
+      "beyond_linear_se": 0.14830328865843592,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:rossler",
+      "model": "seasonal_naive",
+      "group": "1",
+      "total": -0.2937640453565849,
+      "total_se": 0.12564237534069592,
+      "beyond_linear": -3.7890327351832167,
+      "beyond_linear_se": 0.16458837016361413,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:rossler",
+      "model": "drift",
+      "group": "1",
+      "total": -0.0009830647747773869,
+      "total_se": 0.0001633948698599803,
+      "beyond_linear": -3.4962517546014094,
+      "beyond_linear_se": 0.14834246399055623,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:rossler",
+      "model": "damped_drift",
+      "group": "1",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -3.4952686898266325,
+      "beyond_linear_se": 0.14830328865843592,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:rossler",
+      "model": "mean",
+      "group": "1",
+      "total": -1.2995440332220651,
+      "total_se": 0.06640524769514593,
+      "beyond_linear": -4.794812723048696,
+      "beyond_linear_se": 0.1647243150729343,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:seasonal_trend",
+      "model": "naive",
+      "group": "1",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -5.65816325949739,
+      "beyond_linear_se": 0.17522630688490845,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:seasonal_trend",
+      "model": "seasonal_naive",
+      "group": "1",
+      "total": 2.4702548822115658,
+      "total_se": 0.2053309446910162,
+      "beyond_linear": -3.187908377285824,
+      "beyond_linear_se": 0.16057591719949865,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:seasonal_trend",
+      "model": "drift",
+      "group": "1",
+      "total": -0.0052847596902037865,
+      "total_se": 0.006360312210737998,
+      "beyond_linear": -5.6634480191875936,
+      "beyond_linear_se": 0.17360327495133,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:seasonal_trend",
+      "model": "damped_drift",
+      "group": "1",
+      "total": -0.0003808563493814236,
+      "total_se": 0.0005387160420400729,
+      "beyond_linear": -5.65854411584677,
+      "beyond_linear_se": 0.17528869278191478,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:seasonal_trend",
+      "model": "mean",
+      "group": "1",
+      "total": -3.3415167904574967,
+      "total_se": 0.3601455202482434,
+      "beyond_linear": -8.999680049954888,
+      "beyond_linear_se": 0.3336672437541569,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:van_der_pol",
+      "model": "naive",
+      "group": "1",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -7.657292601824465,
+      "beyond_linear_se": 0.16405331215408556,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:van_der_pol",
+      "model": "seasonal_naive",
+      "group": "1",
+      "total": 5.818762211221367,
+      "total_se": 0.17442355246097974,
+      "beyond_linear": -1.838530390603097,
+      "beyond_linear_se": 0.15251106333475847,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:van_der_pol",
+      "model": "drift",
+      "group": "1",
+      "total": -0.0012964694364785735,
+      "total_se": 0.00021478976885378932,
+      "beyond_linear": -7.658589071260944,
+      "beyond_linear_se": 0.16398711020707915,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:van_der_pol",
+      "model": "damped_drift",
+      "group": "1",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -7.657292601824465,
+      "beyond_linear_se": 0.16405331215408556,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:van_der_pol",
+      "model": "mean",
+      "group": "1",
+      "total": -1.1672592802831963,
+      "total_se": 0.088605025648049,
+      "beyond_linear": -8.824551882107661,
+      "beyond_linear_se": 0.12477687853982578,
+      "offset": 0.01,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:ar_differences",
+      "model": "naive",
+      "group": "2-4",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -0.15527277378291185,
+      "beyond_linear_se": 0.04759784053151529,
+      "offset": 0.03,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:ar_differences",
+      "model": "seasonal_naive",
+      "group": "2-4",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -0.15527277378291185,
+      "beyond_linear_se": 0.04759784053151529,
+      "offset": 0.03,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:ar_differences",
+      "model": "drift",
+      "group": "2-4",
+      "total": -0.0119001307735358,
+      "total_se": 0.00872262475557509,
+      "beyond_linear": -0.1671729045564477,
+      "beyond_linear_se": 0.04849073772328675,
+      "offset": 0.03,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:ar_differences",
+      "model": "damped_drift",
+      "group": "2-4",
+      "total": -0.008887542950509997,
+      "total_se": 0.006718245455959878,
+      "beyond_linear": -0.16416031673342188,
+      "beyond_linear_se": 0.04872509555421705,
+      "offset": 0.03,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:ar_differences",
+      "model": "mean",
+      "group": "2-4",
+      "total": -4.5481301208227665,
+      "total_se": 0.2442337611951438,
+      "beyond_linear": -4.703402894605678,
+      "beyond_linear_se": 0.25664582441166933,
+      "offset": 0.03,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:lorenz",
+      "model": "naive",
+      "group": "2-4",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -0.547473441178861,
+      "beyond_linear_se": 0.06188110713738966,
+      "offset": 0.03,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:lorenz",
+      "model": "seasonal_naive",
+      "group": "2-4",
+      "total": -0.7121740117468961,
+      "total_se": 0.15191222904121102,
+      "beyond_linear": -1.2596474529257564,
+      "beyond_linear_se": 0.14776109731243037,
+      "offset": 0.03,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:lorenz",
+      "model": "drift",
+      "group": "2-4",
+      "total": -0.003944639802569642,
+      "total_se": 0.0006075652133455734,
+      "beyond_linear": -0.5514180809814306,
+      "beyond_linear_se": 0.0619987979662068,
+      "offset": 0.03,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:lorenz",
+      "model": "damped_drift",
+      "group": "2-4",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -0.547473441178861,
+      "beyond_linear_se": 0.06188110713738966,
+      "offset": 0.03,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:lorenz",
+      "model": "mean",
+      "group": "2-4",
+      "total": -0.31433399623221864,
+      "total_se": 0.06256046502139408,
+      "beyond_linear": -0.8618074374110793,
+      "beyond_linear_se": 0.06251799928901955,
+      "offset": 0.03,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:random_walk",
+      "model": "naive",
+      "group": "2-4",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": 0.0,
+      "beyond_linear_se": 0.0,
+      "offset": 0.03,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:random_walk",
+      "model": "seasonal_naive",
+      "group": "2-4",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": 0.0,
+      "beyond_linear_se": 0.0,
+      "offset": 0.03,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:random_walk",
+      "model": "drift",
+      "group": "2-4",
+      "total": 0.0038118473315631052,
+      "total_se": 0.006523657074019208,
+      "beyond_linear": 0.0038118473315631052,
+      "beyond_linear_se": 0.006523657074019208,
+      "offset": 0.03,
+      "verdict": "not shown"
+    },
+    {
+      "dataset": "synthetic:random_walk",
+      "model": "damped_drift",
+      "group": "2-4",
+      "total": 0.00014663534290948837,
+      "total_se": 0.0032075490740274878,
+      "beyond_linear": 0.00014663534290948837,
+      "beyond_linear_se": 0.0032075490740274878,
+      "offset": 0.03,
+      "verdict": "not shown"
+    },
+    {
+      "dataset": "synthetic:random_walk",
+      "model": "mean",
+      "group": "2-4",
+      "total": -4.25902647078911,
+      "total_se": 0.23262193186633892,
+      "beyond_linear": -4.25902647078911,
+      "beyond_linear_se": 0.23262193186633892,
+      "offset": 0.03,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:rossler",
+      "model": "naive",
+      "group": "2-4",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -4.166329278681943,
+      "beyond_linear_se": 0.12357019766059626,
+      "offset": 0.03,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:rossler",
+      "model": "seasonal_naive",
+      "group": "2-4",
+      "total": 1.8816539448916918,
+      "total_se": 0.0890557435949918,
+      "beyond_linear": -2.28467533379025,
+      "beyond_linear_se": 0.13614408583467796,
+      "offset": 0.03,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:rossler",
+      "model": "drift",
+      "group": "2-4",
+      "total": -0.003700183791659928,
+      "total_se": 0.00011830667690643451,
+      "beyond_linear": -4.170029462473603,
+      "beyond_linear_se": 0.12354866622750418,
+      "offset": 0.03,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:rossler",
+      "model": "damped_drift",
+      "group": "2-4",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -4.166329278681943,
+      "beyond_linear_se": 0.12357019766059626,
+      "offset": 0.03,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:rossler",
+      "model": "mean",
+      "group": "2-4",
+      "total": 0.6904546380895431,
+      "total_se": 0.026272355278026873,
+      "beyond_linear": -3.4758746405923993,
+      "beyond_linear_se": 0.12491394407746832,
+      "offset": 0.03,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:seasonal_trend",
+      "model": "naive",
+      "group": "2-4",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -4.652396027986561,
+      "beyond_linear_se": 0.1608608790539091,
+      "offset": 0.03,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:seasonal_trend",
+      "model": "seasonal_naive",
+      "group": "2-4",
+      "total": 2.7100854317645204,
+      "total_se": 0.1808482570740967,
+      "beyond_linear": -1.9423105962220404,
+      "beyond_linear_se": 0.13442692133617715,
+      "offset": 0.03,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:seasonal_trend",
+      "model": "drift",
+      "group": "2-4",
+      "total": 0.0020630652144823735,
+      "total_se": 0.006290977467370924,
+      "beyond_linear": -4.6503329627720795,
+      "beyond_linear_se": 0.16212048981503116,
+      "offset": 0.03,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:seasonal_trend",
+      "model": "damped_drift",
+      "group": "2-4",
+      "total": -0.0012845843286566423,
+      "total_se": 0.001223514262060708,
+      "beyond_linear": -4.653680612315218,
+      "beyond_linear_se": 0.16082398217536525,
+      "offset": 0.03,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:seasonal_trend",
+      "model": "mean",
+      "group": "2-4",
+      "total": -3.095329165087149,
+      "total_se": 0.32540196857607245,
+      "beyond_linear": -7.747725193073709,
+      "beyond_linear_se": 0.31258506084038706,
+      "offset": 0.03,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:van_der_pol",
+      "model": "naive",
+      "group": "2-4",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -9.386945525414335,
+      "beyond_linear_se": 0.05424842096783963,
+      "offset": 0.03,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:van_der_pol",
+      "model": "seasonal_naive",
+      "group": "2-4",
+      "total": 7.469703513263009,
+      "total_se": 0.05672767094496036,
+      "beyond_linear": -1.917242012151323,
+      "beyond_linear_se": 0.07754799112059282,
+      "offset": 0.03,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:van_der_pol",
+      "model": "drift",
+      "group": "2-4",
+      "total": -0.0035282987707816018,
+      "total_se": 0.00011696399168779576,
+      "beyond_linear": -9.390473824185115,
+      "beyond_linear_se": 0.054214405839987725,
+      "offset": 0.03,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:van_der_pol",
+      "model": "damped_drift",
+      "group": "2-4",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -9.386945525414335,
+      "beyond_linear_se": 0.05424842096783963,
+      "offset": 0.03,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:van_der_pol",
+      "model": "mean",
+      "group": "2-4",
+      "total": 0.6834594375858486,
+      "total_se": 0.013486903135575313,
+      "beyond_linear": -8.703486087828486,
+      "beyond_linear_se": 0.052360505349881264,
+      "offset": 0.03,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:ar_differences",
+      "model": "naive",
+      "group": "5+",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -0.04018753288296364,
+      "beyond_linear_se": 0.016844134520875974,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:ar_differences",
+      "model": "seasonal_naive",
+      "group": "5+",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -0.04018753288296364,
+      "beyond_linear_se": 0.016844134520875974,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:ar_differences",
+      "model": "drift",
+      "group": "5+",
+      "total": -0.007186210633461328,
+      "total_se": 0.018039578340737605,
+      "beyond_linear": -0.04737374351642497,
+      "beyond_linear_se": 0.01798943934260735,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:ar_differences",
+      "model": "damped_drift",
+      "group": "5+",
+      "total": -0.002291655675357355,
+      "total_se": 0.014424561346369399,
+      "beyond_linear": -0.042479188558320995,
+      "beyond_linear_se": 0.016374383655528166,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:ar_differences",
+      "model": "mean",
+      "group": "5+",
+      "total": -2.9959376353733242,
+      "total_se": 0.21747651057964043,
+      "beyond_linear": -3.0361251682562878,
+      "beyond_linear_se": 0.22236102031144903,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:lorenz",
+      "model": "naive",
+      "group": "5+",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -0.21226205434275355,
+      "beyond_linear_se": 0.07964247960724456,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:lorenz",
+      "model": "seasonal_naive",
+      "group": "5+",
+      "total": -0.22194809014452405,
+      "total_se": 0.08416810419502636,
+      "beyond_linear": -0.4342101444872776,
+      "beyond_linear_se": 0.061658562174728676,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:lorenz",
+      "model": "drift",
+      "group": "5+",
+      "total": -0.010048537820075303,
+      "total_se": 0.0010007168487522354,
+      "beyond_linear": -0.22231059216282886,
+      "beyond_linear_se": 0.0802552994274601,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:lorenz",
+      "model": "damped_drift",
+      "group": "5+",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -0.21226205434275355,
+      "beyond_linear_se": 0.07964247960724456,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:lorenz",
+      "model": "mean",
+      "group": "5+",
+      "total": 0.37280715369342066,
+      "total_se": 0.1024227382801958,
+      "beyond_linear": 0.16054509935066716,
+      "beyond_linear_se": 0.05643987012201705,
+      "offset": 0.05,
+      "verdict": "beyond linear"
+    },
+    {
+      "dataset": "synthetic:random_walk",
+      "model": "naive",
+      "group": "5+",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": 0.0,
+      "beyond_linear_se": 0.0,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:random_walk",
+      "model": "seasonal_naive",
+      "group": "5+",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": 0.0,
+      "beyond_linear_se": 0.0,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:random_walk",
+      "model": "drift",
+      "group": "5+",
+      "total": -0.002487178390474602,
+      "total_se": 0.014700511546040239,
+      "beyond_linear": -0.002487178390474602,
+      "beyond_linear_se": 0.014700511546040239,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:random_walk",
+      "model": "damped_drift",
+      "group": "5+",
+      "total": -0.005402768664103578,
+      "total_se": 0.006933697306912507,
+      "beyond_linear": -0.005402768664103578,
+      "beyond_linear_se": 0.006933697306912507,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:random_walk",
+      "model": "mean",
+      "group": "5+",
+      "total": -2.884445859988475,
+      "total_se": 0.21709622422786903,
+      "beyond_linear": -2.884445859988475,
+      "beyond_linear_se": 0.21709622422786903,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:rossler",
+      "model": "naive",
+      "group": "5+",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -3.3364649135927693,
+      "beyond_linear_se": 0.10312901009656258,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:rossler",
+      "model": "seasonal_naive",
+      "group": "5+",
+      "total": 1.8027768361269818,
+      "total_se": 0.09374469231753678,
+      "beyond_linear": -1.5336880774657873,
+      "beyond_linear_se": 0.13989888883567084,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:rossler",
+      "model": "drift",
+      "group": "5+",
+      "total": -0.011718108961309204,
+      "total_se": 0.00038492038703329037,
+      "beyond_linear": -3.348183022554078,
+      "beyond_linear_se": 0.10300814984354024,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:rossler",
+      "model": "damped_drift",
+      "group": "5+",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -3.3364649135927693,
+      "beyond_linear_se": 0.10312901009656258,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:rossler",
+      "model": "mean",
+      "group": "5+",
+      "total": 0.6997716300978897,
+      "total_se": 0.015602054861100407,
+      "beyond_linear": -2.63669328349488,
+      "beyond_linear_se": 0.10405527662454434,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:seasonal_trend",
+      "model": "naive",
+      "group": "5+",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -3.5837369348281145,
+      "beyond_linear_se": 0.14358834884656008,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:seasonal_trend",
+      "model": "seasonal_naive",
+      "group": "5+",
+      "total": 2.5822473549469653,
+      "total_se": 0.173066850288415,
+      "beyond_linear": -1.0014895798811498,
+      "beyond_linear_se": 0.14678714745149862,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:seasonal_trend",
+      "model": "drift",
+      "group": "5+",
+      "total": 0.019875954755954585,
+      "total_se": 0.02316949798476438,
+      "beyond_linear": -3.563860980072161,
+      "beyond_linear_se": 0.14770625511394486,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:seasonal_trend",
+      "model": "damped_drift",
+      "group": "5+",
+      "total": -0.00134316613779187,
+      "total_se": 0.002412912479525009,
+      "beyond_linear": -3.5850801009659063,
+      "beyond_linear_se": 0.14397251457267274,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:seasonal_trend",
+      "model": "mean",
+      "group": "5+",
+      "total": -3.0392356211013607,
+      "total_se": 0.3044278016021519,
+      "beyond_linear": -6.622972555929477,
+      "beyond_linear_se": 0.30067425151513827,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:van_der_pol",
+      "model": "naive",
+      "group": "5+",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -9.34465877984865,
+      "beyond_linear_se": 0.024641036843622652,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:van_der_pol",
+      "model": "seasonal_naive",
+      "group": "5+",
+      "total": 6.872681804991858,
+      "total_se": 0.025887993874098597,
+      "beyond_linear": -2.4719769748567897,
+      "beyond_linear_se": 0.0365095585903085,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:van_der_pol",
+      "model": "drift",
+      "group": "5+",
+      "total": -0.009877232674328067,
+      "total_se": 0.00027550140851862343,
+      "beyond_linear": -9.354536012522976,
+      "beyond_linear_se": 0.02459779550049477,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:van_der_pol",
+      "model": "damped_drift",
+      "group": "5+",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -9.34465877984865,
+      "beyond_linear_se": 0.024641036843622652,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:van_der_pol",
+      "model": "mean",
+      "group": "5+",
+      "total": 0.6946251340441009,
+      "total_se": 0.011020345593435387,
+      "beyond_linear": -8.650033645804548,
+      "beyond_linear_se": 0.024712195244016716,
+      "offset": 0.05,
+      "verdict": "no better than linear"
+    },
+    {
+      "dataset": "synthetic:ar_differences",
+      "model": "naive",
+      "group": "all",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -0.04637114656130743,
+      "beyond_linear_se": 0.017133110373598395,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:ar_differences",
+      "model": "seasonal_naive",
+      "group": "all",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -0.04637114656130743,
+      "beyond_linear_se": 0.017133110373598395,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:ar_differences",
+      "model": "drift",
+      "group": "all",
+      "total": -0.007111210300754115,
+      "total_se": 0.017207451277893915,
+      "beyond_linear": -0.05348235686206155,
+      "beyond_linear_se": 0.018095918444890557,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:ar_differences",
+      "model": "damped_drift",
+      "group": "all",
+      "total": -0.0024656970652470484,
+      "total_se": 0.013748477088602265,
+      "beyond_linear": -0.04883684362655448,
+      "beyond_linear_se": 0.016565838434648483,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:ar_differences",
+      "model": "mean",
+      "group": "all",
+      "total": -3.2137663752586083,
+      "total_se": 0.21990512917711422,
+      "beyond_linear": -3.2601375218199156,
+      "beyond_linear_se": 0.22495497044251014,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:lorenz",
+      "model": "naive",
+      "group": "all",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -0.24578660668456376,
+      "beyond_linear_se": 0.07301661413210622,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:lorenz",
+      "model": "seasonal_naive",
+      "group": "all",
+      "total": -0.37501669345938615,
+      "total_se": 0.08681174873776154,
+      "beyond_linear": -0.6208033001439497,
+      "beyond_linear_se": 0.055878765114903986,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:lorenz",
+      "model": "drift",
+      "group": "all",
+      "total": -0.009440748509744539,
+      "total_se": 0.0009517423458754944,
+      "beyond_linear": -0.2552273551943083,
+      "beyond_linear_se": 0.07359914935792841,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:lorenz",
+      "model": "damped_drift",
+      "group": "all",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -0.24578660668456376,
+      "beyond_linear_se": 0.07301661413210622,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:lorenz",
+      "model": "mean",
+      "group": "all",
+      "total": 0.21593835228813793,
+      "total_se": 0.09111257633187594,
+      "beyond_linear": -0.02984825439642577,
+      "beyond_linear_se": 0.04945990339750873,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:random_walk",
+      "model": "naive",
+      "group": "all",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": 0.0,
+      "beyond_linear_se": 0.0,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:random_walk",
+      "model": "seasonal_naive",
+      "group": "all",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": 0.0,
+      "beyond_linear_se": 0.0,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:random_walk",
+      "model": "drift",
+      "group": "all",
+      "total": -0.001973823378881042,
+      "total_se": 0.013635214259760503,
+      "beyond_linear": -0.001973823378881042,
+      "beyond_linear_se": 0.013635214259760503,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:random_walk",
+      "model": "damped_drift",
+      "group": "all",
+      "total": -0.004860731346094808,
+      "total_se": 0.0063880819653703395,
+      "beyond_linear": -0.004860731346094808,
+      "beyond_linear_se": 0.0063880819653703395,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:random_walk",
+      "model": "mean",
+      "group": "all",
+      "total": -3.089152095974319,
+      "total_se": 0.21598150007148292,
+      "beyond_linear": -3.089152095974319,
+      "beyond_linear_se": 0.21598150007148292,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:rossler",
+      "model": "naive",
+      "group": "all",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -3.442562126887721,
+      "beyond_linear_se": 0.10052839204122634,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:rossler",
+      "model": "seasonal_naive",
+      "group": "all",
+      "total": 1.742433974034786,
+      "total_se": 0.08385250865410004,
+      "beyond_linear": -1.700128152852934,
+      "beyond_linear_se": 0.12812891303409174,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:rossler",
+      "model": "drift",
+      "group": "all",
+      "total": -0.01001350076648538,
+      "total_se": 0.0003224926822039075,
+      "beyond_linear": -3.452575627654206,
+      "beyond_linear_se": 0.10043031600148937,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:rossler",
+      "model": "damped_drift",
+      "group": "all",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -3.442562126887721,
+      "beyond_linear_se": 0.10052839204122634,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:rossler",
+      "model": "mean",
+      "group": "all",
+      "total": 0.6445507299695641,
+      "total_se": 0.01596786920996993,
+      "beyond_linear": -2.798011396918157,
+      "beyond_linear_se": 0.10105210094581966,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:seasonal_trend",
+      "model": "naive",
+      "group": "all",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -3.753815972635644,
+      "beyond_linear_se": 0.14136347918045053,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:seasonal_trend",
+      "model": "seasonal_naive",
+      "group": "all",
+      "total": 2.599693895204823,
+      "total_se": 0.1686553342844204,
+      "beyond_linear": -1.1541220774308194,
+      "beyond_linear_se": 0.13992672555224883,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:seasonal_trend",
+      "model": "drift",
+      "group": "all",
+      "total": 0.017111705486950853,
+      "total_se": 0.01918800467489066,
+      "beyond_linear": -3.7367042671486925,
+      "beyond_linear_se": 0.14518577612838804,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:seasonal_trend",
+      "model": "damped_drift",
+      "group": "all",
+      "total": -0.001128695554250799,
+      "total_se": 0.002075796622333702,
+      "beyond_linear": -3.7549446681898946,
+      "beyond_linear_se": 0.1417033334591235,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:seasonal_trend",
+      "model": "mean",
+      "group": "all",
+      "total": -3.0528772445485814,
+      "total_se": 0.30804784283424025,
+      "beyond_linear": -6.806693217184224,
+      "beyond_linear_se": 0.3000900165513662,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:van_der_pol",
+      "model": "naive",
+      "group": "all",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -9.293857629725066,
+      "beyond_linear_se": 0.02517051185800247,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:van_der_pol",
+      "model": "seasonal_naive",
+      "group": "all",
+      "total": 6.934670887419039,
+      "total_se": 0.026286466332509008,
+      "beyond_linear": -2.3591867423060244,
+      "beyond_linear_se": 0.03838841575907802,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:van_der_pol",
+      "model": "drift",
+      "group": "all",
+      "total": -0.008542225878646474,
+      "total_se": 0.000244894162474798,
+      "beyond_linear": -9.302399855603712,
+      "beyond_linear_se": 0.025114929160154544,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:van_der_pol",
+      "model": "damped_drift",
+      "group": "all",
+      "total": 0.0,
+      "total_se": 0.0,
+      "beyond_linear": -9.293857629725066,
+      "beyond_linear_se": 0.02517051185800247,
+      "offset": null,
+      "verdict": null
+    },
+    {
+      "dataset": "synthetic:van_der_pol",
+      "model": "mean",
+      "group": "all",
+      "total": 0.6391893123708312,
+      "total_se": 0.010688796081910684,
+      "beyond_linear": -8.654668317354234,
+      "beyond_linear_se": 0.025555728430918512,
+      "offset": null,
+      "verdict": null
+    }
+  ],
+  "credited": {
+    "synthetic:ar_differences": {
+      "damped_drift": "no better than linear",
+      "drift": "no better than linear",
+      "mean": "no better than linear",
+      "naive": "no better than linear",
+      "seasonal_naive": "no better than linear"
+    },
+    "synthetic:lorenz": {
+      "damped_drift": "no better than linear",
+      "drift": "no better than linear",
+      "mean": "not shown",
+      "naive": "no better than linear",
+      "seasonal_naive": "no better than linear"
+    },
+    "synthetic:random_walk": {
+      "damped_drift": "not shown",
+      "drift": "not shown",
+      "mean": "no better than linear",
+      "naive": "no better than linear",
+      "seasonal_naive": "no better than linear"
+    },
+    "synthetic:rossler": {
+      "damped_drift": "no better than linear",
+      "drift": "no better than linear",
+      "mean": "no better than linear",
+      "naive": "no better than linear",
+      "seasonal_naive": "no better than linear"
+    },
+    "synthetic:seasonal_trend": {
+      "damped_drift": "no better than linear",
+      "drift": "no better than linear",
+      "mean": "no better than linear",
+      "naive": "no better than linear",
+      "seasonal_naive": "no better than linear"
+    },
+    "synthetic:van_der_pol": {
+      "damped_drift": "no better than linear",
+      "drift": "no better than linear",
+      "mean": "no better than linear",
+      "naive": "no better than linear",
+      "seasonal_naive": "no better than linear"
+    }
+  },
+  "datasets": {
+    "synthetic:ar_differences": {
+      "context": 512,
+      "selection_windows": 24,
+      "validation_windows": 24,
+      "period": 1,
+      "series": 30,
+      "classic_share": [
+        {
+          "naive": 24,
+          "last_change": 6
+        },
+        {
+          "naive": 28,
+          "last_change": 2
+        },
+        {
+          "naive": 29,
+          "last_change": 1
+        },
+        {
+          "naive": 30
+        },
+        {
+          "naive": 30
+        },
+        {
+          "naive": 30
+        },
+        {
+          "naive": 30
+        },
+        {
+          "naive": 30
+        },
+        {
+          "naive": 30
+        },
+        {
+          "naive": 30
+        },
+        {
+          "naive": 30
+        },
+        {
+          "naive": 30
+        },
+        {
+          "naive": 30
+        },
+        {
+          "naive": 30
+        },
+        {
+          "naive": 30
+        },
+        {
+          "naive": 30
+        }
+      ],
+      "linear_reference": [
+        "ar4_diff",
+        "ar4_diff",
+        "ar4_diff",
+        "ar4_diff",
+        "ar4_diff",
+        "ar4_diff",
+        "ar4_diff",
+        "ar4_diff",
+        "ar4_diff",
+        "ar4_diff",
+        "ar4_diff",
+        "ar4_diff",
+        "ar4_diff",
+        "ar4_diff",
+        "classic",
+        "classic"
+      ],
+      "linear_candidates": [
+        "ar16_diff",
+        "ar32_diff",
+        "ar4_diff",
+        "ar64_diff",
+        "ar8_diff",
+        "ar96_diff",
+        "classic"
+      ],
+      "saturation": {
+        "1": {
+          "saturated": true,
+          "memory": [
+            32,
+            96
+          ],
+          "gain": -0.24863117293565573
+        },
+        "2-4": {
+          "saturated": true,
+          "memory": [
+            32,
+            96
+          ],
+          "gain": -0.2683520268929403
+        },
+        "5+": {
+          "saturated": true,
+          "memory": [
+            32,
+            96
+          ],
+          "gain": -0.304282660903273
+        }
+      },
+      "available_h1": {
+        "F": -0.008464583491020675,
+        "L_ar": 0.41667160154223415,
+        "L_ar_optimism": 0.14349775784753363,
+        "L_welch": 0.2581546824145181
+      }
+    },
+    "synthetic:lorenz": {
+      "context": 512,
+      "selection_windows": 24,
+      "validation_windows": 24,
+      "period": 12,
+      "series": 30,
+      "classic_share": [
+        {
+          "naive": 5,
+          "last_change": 25
+        },
+        {
+          "naive": 20,
+          "last_change": 10
+        },
+        {
+          "naive": 30
+        },
+        {
+          "naive": 25,
+          "mean": 4,
+          "seasonal_naive": 1
+        },
+        {
+          "naive": 16,
+          "mean": 14
+        },
+        {
+          "naive": 11,
+          "mean": 18,
+          "seasonal_naive": 1
+        },
+        {
+          "naive": 7,
+          "mean": 21,
+          "seasonal_naive": 2
+        },
+        {
+          "naive": 10,
+          "mean": 18,
+          "seasonal_naive": 2
+        },
+        {
+          "naive": 9,
+          "mean": 19,
+          "seasonal_naive": 2
+        },
+        {
+          "naive": 9,
+          "mean": 19,
+          "seasonal_naive": 2
+        },
+        {
+          "naive": 9,
+          "mean": 19,
+          "seasonal_naive": 2
+        },
+        {
+          "naive": 10,
+          "mean": 20
+        },
+        {
+          "naive": 10,
+          "mean": 20
+        },
+        {
+          "naive": 10,
+          "mean": 20
+        },
+        {
+          "naive": 6,
+          "mean": 24
+        },
+        {
+          "naive": 5,
+          "mean": 25
+        }
+      ],
+      "linear_reference": [
+        "ar16_diff",
+        "ar16_diff",
+        "ar16_diff",
+        "ar16_diff",
+        "ar32_diff",
+        "classic",
+        "classic",
+        "classic",
+        "classic",
+        "classic",
+        "classic",
+        "classic",
+        "classic",
+        "classic",
+        "classic",
+        "classic"
+      ],
+      "linear_candidates": [
+        "ar16_diff",
+        "ar16_sdiff12",
+        "ar32_diff",
+        "ar4_diff",
+        "ar4_sdiff12",
+        "ar64_diff",
+        "ar8_diff",
+        "ar8_sdiff12",
+        "ar96_diff",
+        "classic",
+        "dilated_12",
+        "dilated_12_week"
+      ],
+      "saturation": {
+        "1": {
+          "saturated": true,
+          "memory": [
+            32,
+            96
+          ],
+          "gain": -0.2627851564569099
+        },
+        "2-4": {
+          "saturated": true,
+          "memory": [
+            32,
+            96
+          ],
+          "gain": -0.20988816291852977
+        },
+        "5+": {
+          "saturated": true,
+          "memory": [
+            32,
+            96
+          ],
+          "gain": -0.10237976413409526
+        }
+      },
+      "available_h1": {
+        "F": 0.642850265647072,
+        "L_ar": 1.5581682817064135,
+        "L_ar_optimism": 0.14349775784753363,
+        "L_welch": 1.2530401927249952
+      }
+    },
+    "synthetic:random_walk": {
+      "context": 512,
+      "selection_windows": 24,
+      "validation_windows": 24,
+      "period": 1,
+      "series": 30,
+      "classic_share": [
+        {
+          "naive": 30
+        },
+        {
+          "naive": 30
+        },
+        {
+          "naive": 30
+        },
+        {
+          "naive": 30
+        },
+        {
+          "naive": 30
+        },
+        {
+          "naive": 30
+        },
+        {
+          "naive": 30
+        },
+        {
+          "naive": 30
+        },
+        {
+          "naive": 30
+        },
+        {
+          "naive": 30
+        },
+        {
+          "naive": 30
+        },
+        {
+          "naive": 30
+        },
+        {
+          "naive": 30
+        },
+        {
+          "naive": 30
+        },
+        {
+          "naive": 30
+        },
+        {
+          "naive": 30
+        }
+      ],
+      "linear_reference": [
+        "classic",
+        "classic",
+        "classic",
+        "classic",
+        "classic",
+        "classic",
+        "classic",
+        "classic",
+        "classic",
+        "classic",
+        "classic",
+        "classic",
+        "classic",
+        "classic",
+        "classic",
+        "classic"
+      ],
+      "linear_candidates": [
+        "ar16_diff",
+        "ar32_diff",
+        "ar4_diff",
+        "ar64_diff",
+        "ar8_diff",
+        "ar96_diff",
+        "classic"
+      ],
+      "saturation": {
+        "1": {
+          "saturated": true,
+          "memory": [
+            32,
+            96
+          ],
+          "gain": -0.27986113550063413
+        },
+        "2-4": {
+          "saturated": true,
+          "memory": [
+            32,
+            96
+          ],
+          "gain": -0.2698946334033628
+        },
+        "5+": {
+          "saturated": true,
+          "memory": [
+            32,
+            96
+          ],
+          "gain": -0.20750219576950604
+        }
+      },
+      "available_h1": {
+        "F": 0.0,
+        "L_ar": 0.14648297481041975,
+        "L_ar_optimism": 0.14317673378076062,
+        "L_welch": 0.0018444464540923805
+      }
+    },
+    "synthetic:rossler": {
+      "context": 512,
+      "selection_windows": 24,
+      "validation_windows": 24,
+      "period": 12,
+      "series": 30,
+      "classic_share": [
+        {
+          "naive": 4,
+          "last_change": 26
+        },
+        {
+          "last_change": 1,
+          "seasonal_naive": 29
+        },
+        {
+          "seasonal_naive": 30
+        },
+        {
+          "seasonal_naive": 30
+        },
+        {
+          "seasonal_naive": 30
+        },
+        {
+          "seasonal_naive": 30
+        },
+        {
+          "seasonal_naive": 30
+        },
+        {
+          "seasonal_naive": 30
+        },
+        {
+          "seasonal_naive": 30
+        },
+        {
+          "seasonal_naive": 30
+        },
+        {
+          "naive": 3,
+          "seasonal_naive": 27
+        },
+        {
+          "naive": 30
+        },
+        {
+          "seasonal_naive": 30
+        },
+        {
+          "seasonal_naive": 30
+        },
+        {
+          "seasonal_naive": 30
+        },
+        {
+          "seasonal_naive": 30
+        }
+      ],
+      "linear_reference": [
+        "ar64_diff",
+        "ar64_diff",
+        "ar64_diff",
+        "ar64_diff",
+        "ar64_diff",
+        "ar64_diff",
+        "ar64_diff",
+        "ar96_diff",
+        "ar96_diff",
+        "ar96_diff",
+        "ar96_diff",
+        "ar96_diff",
+        "ar96_diff",
+        "ar64_diff",
+        "ar64_diff",
+        "ar64_diff"
+      ],
+      "linear_candidates": [
+        "ar16_diff",
+        "ar16_sdiff12",
+        "ar32_diff",
+        "ar4_diff",
+        "ar4_sdiff12",
+        "ar64_diff",
+        "ar8_diff",
+        "ar8_sdiff12",
+        "ar96_diff",
+        "classic",
+        "dilated_12",
+        "dilated_12_week"
+      ],
+      "saturation": {
+        "1": {
+          "saturated": false,
+          "memory": [
+            32,
+            96
+          ],
+          "gain": 0.7994037931420008
+        },
+        "2-4": {
+          "saturated": false,
+          "memory": [
+            32,
+            96
+          ],
+          "gain": 0.8246382182833183
+        },
+        "5+": {
+          "saturated": false,
+          "memory": [
+            32,
+            96
+          ],
+          "gain": 0.272876768292407
+        }
+      },
+      "available_h1": {
+        "F": 0.619332892911841,
+        "L_ar": 2.452697443208917,
+        "L_ar_optimism": 0.14349775784753363,
+        "L_welch": 0.9750451405196745
+      }
+    },
+    "synthetic:seasonal_trend": {
+      "context": 512,
+      "selection_windows": 24,
+      "validation_windows": 24,
+      "period": 12,
+      "series": 30,
+      "classic_share": [
+        {
+          "naive": 1,
+          "last_change": 1,
+          "seasonal_naive": 13,
+          "seasonal_drift": 15
+        },
+        {
+          "naive": 1,
+          "seasonal_naive": 14,
+          "seasonal_drift": 15
+        },
+        {
+          "seasonal_naive": 14,
+          "seasonal_drift": 16
+        },
+        {
+          "naive": 2,
+          "seasonal_naive": 11,
+          "seasonal_drift": 17
+        },
+        {
+          "seasonal_naive": 13,
+          "seasonal_drift": 17
+        },
+        {
+          "seasonal_naive": 15,
+          "seasonal_drift": 15
+        },
+        {
+          "seasonal_naive": 16,
+          "seasonal_drift": 14
+        },
+        {
+          "naive": 1,
+          "seasonal_naive": 14,
+          "seasonal_drift": 15
+        },
+        {
+          "seasonal_naive": 14,
+          "seasonal_drift": 16
+        },
+        {
+          "seasonal_naive": 14,
+          "seasonal_drift": 16
+        },
+        {
+          "seasonal_naive": 14,
+          "seasonal_drift": 16
+        },
+        {
+          "naive": 16,
+          "drift": 14
+        },
+        {
+          "naive": 2,
+          "seasonal_naive": 11,
+          "seasonal_drift": 17
+        },
+        {
+          "naive": 1,
+          "seasonal_naive": 11,
+          "seasonal_drift": 18
+        },
+        {
+          "seasonal_naive": 10,
+          "seasonal_drift": 20
+        },
+        {
+          "naive": 1,
+          "drift": 2,
+          "seasonal_naive": 10,
+          "seasonal_drift": 17
+        }
+      ],
+      "linear_reference": [
+        "ar64_diff",
+        "ar64_diff",
+        "ar64_diff",
+        "ar64_diff",
+        "ar64_diff",
+        "ar64_diff",
+        "ar64_diff",
+        "ar64_diff",
+        "ar64_diff",
+        "ar16_diff",
+        "ar16_diff",
+        "ar16_diff",
+        "ar16_sdiff12",
+        "ar16_sdiff12",
+        "ar16_sdiff12",
+        "ar16_sdiff12"
+      ],
+      "linear_candidates": [
+        "ar16_diff",
+        "ar16_sdiff12",
+        "ar32_diff",
+        "ar4_diff",
+        "ar4_sdiff12",
+        "ar64_diff",
+        "ar8_diff",
+        "ar8_sdiff12",
+        "ar96_diff",
+        "classic",
+        "dilated_12",
+        "dilated_12_week"
+      ],
+      "saturation": {
+        "1": {
+          "saturated": false,
+          "memory": [
+            32,
+            96
+          ],
+          "gain": 0.13119185081855989
+        },
+        "2-4": {
+          "saturated": false,
+          "memory": [
+            32,
+            96
+          ],
+          "gain": 0.10526448360687486
+        },
+        "5+": {
+          "saturated": true,
+          "memory": [
+            32,
+            96
+          ],
+          "gain": -0.10268920841578273
+        }
+      },
+      "available_h1": {
+        "F": 3.1316881215543066,
+        "L_ar": 3.2451733112470404,
+        "L_ar_optimism": 0.14678899082568808,
+        "L_welch": 2.291984897744538
+      }
+    },
+    "synthetic:van_der_pol": {
+      "context": 512,
+      "selection_windows": 24,
+      "validation_windows": 24,
+      "period": 12,
+      "series": 30,
+      "classic_share": [
+        {
+          "seasonal_naive": 30
+        },
+        {
+          "seasonal_naive": 30
+        },
+        {
+          "seasonal_naive": 30
+        },
+        {
+          "seasonal_naive": 30
+        },
+        {
+          "seasonal_naive": 30
+        },
+        {
+          "seasonal_naive": 30
+        },
+        {
+          "seasonal_naive": 30
+        },
+        {
+          "seasonal_naive": 30
+        },
+        {
+          "seasonal_naive": 30
+        },
+        {
+          "seasonal_naive": 30
+        },
+        {
+          "seasonal_naive": 30
+        },
+        {
+          "naive": 30
+        },
+        {
+          "seasonal_naive": 30
+        },
+        {
+          "seasonal_naive": 30
+        },
+        {
+          "seasonal_naive": 30
+        },
+        {
+          "seasonal_naive": 30
+        }
+      ],
+      "linear_reference": [
+        "ar96_diff",
+        "ar64_diff",
+        "ar96_diff",
+        "ar96_diff",
+        "ar96_diff",
+        "ar64_diff",
+        "ar96_diff",
+        "ar96_diff",
+        "ar64_diff",
+        "ar96_diff",
+        "ar96_diff",
+        "ar96_diff",
+        "ar96_diff",
+        "ar96_diff",
+        "ar96_diff",
+        "ar96_diff"
+      ],
+      "linear_candidates": [
+        "ar16_diff",
+        "ar16_sdiff12",
+        "ar32_diff",
+        "ar4_diff",
+        "ar4_sdiff12",
+        "ar64_diff",
+        "ar8_diff",
+        "ar8_sdiff12",
+        "ar96_diff",
+        "classic",
+        "dilated_12",
+        "dilated_12_week"
+      ],
+      "saturation": {
+        "1": {
+          "saturated": false,
+          "memory": [
+            32,
+            96
+          ],
+          "gain": 0.13084050818607196
+        },
+        "2-4": {
+          "saturated": false,
+          "memory": [
+            32,
+            96
+          ],
+          "gain": 0.10735946606297375
+        },
+        "5+": {
+          "saturated": false,
+          "memory": [
+            32,
+            96
+          ],
+          "gain": 0.3249758536681581
+        }
+      },
+      "available_h1": {
+        "F": 5.773424070813219,
+        "L_ar": 1.9838337414522045,
+        "L_ar_optimism": 0.14678899082568808,
+        "L_welch": 1.1695888268611196
+      }
+    }
+  },
+  "text": [
+    "synthetic:ar_differences: a simple rule (mostly naive) has 0% lower squared error than repeating the last value, and a linear model fitted on the history has 5% lower.",
+    "naive has 0% lower squared error than repeating the last value; it does no better than the linear model, so a linear model gets the same or more.",
+    "seasonal_naive has 0% lower squared error than repeating the last value; it does no better than the linear model, so a linear model gets the same or more.",
+    "drift has 1% higher squared error than repeating the last value; it does no better than the linear model, so a linear model gets the same or more.",
+    "damped_drift has 0% higher squared error than repeating the last value; it does no better than the linear model, so a linear model gets the same or more.",
+    "mean has 2387% higher squared error than repeating the last value; it does no better than the linear model, so a linear model gets the same or more.",
+    "synthetic:lorenz: a simple rule (mostly mean) has 16% lower squared error than repeating the last value, and a linear model fitted on the history has 22% lower.",
+    "naive has 0% lower squared error than repeating the last value; it does no better than the linear model, so a linear model gets the same or more.",
+    "seasonal_naive has 46% higher squared error than repeating the last value; it does no better than the linear model, so a linear model gets the same or more.",
+    "drift has 1% higher squared error than repeating the last value; it does no better than the linear model, so a linear model gets the same or more.",
+    "damped_drift has 0% lower squared error than repeating the last value; it does no better than the linear model, so a linear model gets the same or more.",
+    "mean has 19% lower squared error than repeating the last value; against the linear model it has 3% higher squared error, which is not enough in every horizon group to rule out fitting noise: no skill beyond linear is shown.",
+    "synthetic:random_walk: a simple rule (mostly naive) has 0% lower squared error than repeating the last value, and a linear model fitted on the history has 0% lower.",
+    "naive has 0% lower squared error than repeating the last value; it does no better than the linear model, so a linear model gets the same or more.",
+    "seasonal_naive has 0% lower squared error than repeating the last value; it does no better than the linear model, so a linear model gets the same or more.",
+    "drift has 0% higher squared error than repeating the last value; against the linear model it has 0% higher squared error, which is not enough in every horizon group to rule out fitting noise: no skill beyond linear is shown.",
+    "damped_drift has 0% higher squared error than repeating the last value; against the linear model it has 0% higher squared error, which is not enough in every horizon group to rule out fitting noise: no skill beyond linear is shown.",
+    "mean has 2096% higher squared error than repeating the last value; it does no better than the linear model, so a linear model gets the same or more.",
+    "synthetic:rossler: a simple rule (mostly seasonal naive) has 83% lower squared error than repeating the last value, and a linear model fitted on the history has 97% lower.",
+    "naive has 0% lower squared error than repeating the last value; it does no better than the linear model, so a linear model gets the same or more.",
+    "seasonal_naive has 82% lower squared error than repeating the last value; it does no better than the linear model, so a linear model gets the same or more.",
+    "drift has 1% higher squared error than repeating the last value; it does no better than the linear model, so a linear model gets the same or more.",
+    "damped_drift has 0% lower squared error than repeating the last value; it does no better than the linear model, so a linear model gets the same or more.",
+    "mean has 48% lower squared error than repeating the last value; it does no better than the linear model, so a linear model gets the same or more.",
+    "synthetic:seasonal_trend: a simple rule (mostly seasonal drift) has 96% lower squared error than repeating the last value, and a linear model fitted on the history has 98% lower.",
+    "naive has 0% lower squared error than repeating the last value; it does no better than the linear model, so a linear model gets the same or more.",
+    "seasonal_naive has 93% lower squared error than repeating the last value; it does no better than the linear model, so a linear model gets the same or more.",
+    "drift has 2% lower squared error than repeating the last value; it does no better than the linear model, so a linear model gets the same or more.",
+    "damped_drift has 0% higher squared error than repeating the last value; it does no better than the linear model, so a linear model gets the same or more.",
+    "mean has 2018% higher squared error than repeating the last value; it does no better than the linear model, so a linear model gets the same or more.",
+    "synthetic:van_der_pol: a simple rule (mostly seasonal naive) has 99.9% lower squared error than repeating the last value, and a linear model fitted on the history has 100.0% lower.",
+    "naive has 0% lower squared error than repeating the last value; it does no better than the linear model, so a linear model gets the same or more.",
+    "seasonal_naive has 99.9% lower squared error than repeating the last value; it does no better than the linear model, so a linear model gets the same or more.",
+    "drift has 1% higher squared error than repeating the last value; it does no better than the linear model, so a linear model gets the same or more.",
+    "damped_drift has 0% lower squared error than repeating the last value; it does no better than the linear model, so a linear model gets the same or more.",
+    "mean has 47% lower squared error than repeating the last value; it does no better than the linear model, so a linear model gets the same or more."
+  ]
+}

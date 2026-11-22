@@ -104,6 +104,19 @@ def write_report(run_dir) -> Path:
                    "in which the model is best. expected_loss_rel: how much worse than the best it is on average, "
                    "counting the resamples where it is not best.</p>")
         out.append(_table(conf[["dataset", "model", "mean", "p_best", "expected_loss_rel", "series"]]))
+    if (run_dir / "ladder.json").exists():
+        lad = json.loads((run_dir / "ladder.json").read_text())
+        out.append("<h2>Where the skill comes from</h2>" + "".join(f"<p>{html.escape(t)}</p>" for t in lad["text"]))
+        out.append("<p class=muted>Skill in nats over repeating the last value, log(MSE<sub>naive</sub>/MSE); x nats "
+                   "is a squared error lower by 1 &minus; e<sup>&minus;x</sup>. F: a simple rule chosen per series "
+                   "(drift, seasonal naive, ...). L: a least-squares linear model fitted on the history. "
+                   "beyond_linear: what the model adds on top of L; it counts only if the linear model is saturated, "
+                   "it exceeds twice its standard error and the offset a fitted linear model leaves "
+                   "(Ma, <i>Naive forecasters</i>, Result 4 and the decision rule).</p>")
+        if lad["rungs"]:
+            out.append(_table(pd.DataFrame(lad["rungs"])))
+            m = pd.DataFrame(lad["models"])
+            out.append(_table(m[m["group"] != "all"], {"beyond_linear": lambda v: "good" if v > 0 else "bad"}))
     out.append("<h2>Leaderboard</h2><p class=muted>Mean rank by " + cfg.get("rank_by", "mase").upper() + " over datasets (lower is better); skill is "
                f"mean log(MSE<sub>{ref}</sub>/MSE<sub>model</sub>) in nats (higher is better); CRPS is scaled like MASE; "
                "coverage80 should be near 0.80.</p>")

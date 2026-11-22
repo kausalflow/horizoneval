@@ -72,6 +72,15 @@ model for everything on unseen data (`segment="region"`); and, with `cost="linli
 your cost picks a different model than MASE or CRPS. These statistics are checked by simulation in
 `horizoneval.verify`. See [Choosing a forecast](docs/explain/choosing.md).
 
+## Where the skill comes from
+
+`--ladder` (or `ladder=True`) splits each model's gain over repeating the last value into what a simple rule already
+gets, what a linear model fitted on the history adds, and what is left beyond linear, and says whether that last
+part is real by the decision rule of L. Ma's *Naive forecasters* paper (saturated reference, twice the standard
+error, above the offset of a fitted linear model, in every horizon group). The paper's calibration is reproduced by
+`horizoneval replicate ladder` (`results/replication-ladder`); see
+[docs/explain/skill-ladder.md](docs/explain/skill-ladder.md).
+
 ## Our numbers match the published ones
 
 `horizoneval replicate m4` scores all 100,000 M4 series, from the teams' own submitted forecasts and from our
@@ -155,6 +164,7 @@ Add a suite in `src/horizoneval/data/__init__.py`.
 | `tests.csv` | bootstrap intervals and paired tests per model, dataset and metric |
 | `ranks.json` | Friedman test and Nemenyi critical difference |
 | `decision.json`, `confidence.csv` | which model to choose, probability of best, expected loss, winner's curse, segments |
+| `ladder.json`, `ladder_rungs.csv`, `ladder_models.csv` | with `--ladder`: where each model's skill comes from |
 | `config.json` | settings, dataset fingerprints, failures |
 | `report.html` | everything above as one static page, light and dark |
 

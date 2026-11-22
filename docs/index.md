@@ -48,6 +48,7 @@ These are real reports from runs committed under `results/` in the repository:
 
 - [Classic baselines on synthetic data](examples/example-synthetic-baselines.html)
 - [Physics-inspired neural forecasters on synthetic data](examples/physics-efnn-synthetic.html)
+- [Where the skill comes from: the skill ladder on synthetic data](examples/ladder-synthetic.html)
 
 ## License
 

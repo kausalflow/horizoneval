@@ -32,6 +32,18 @@
     "checks": {"type": "array", "items": {"type": "object", "required": ["check", "severity", "message"],
                "properties": {"severity": {"enum": ["error", "warning", "info"]}}}},
     "failures": {"type": "object", "additionalProperties": {"type": "string"}},
+    "ladder": {
+      "type": "object",
+      "description": "present when the ladder was asked for: each model's skill over repeating the last value split into a simple rule (F), a linear model fitted on the history (L) and what is left beyond linear, with the verdict of the naive-forecaster paper's decision rule",
+      "required": ["rungs", "models", "credited", "datasets", "text"],
+      "properties": {
+        "rungs": {"type": "array", "items": {"type": "object", "required": ["dataset", "group", "F", "L"]}},
+        "models": {"type": "array", "items": {"type": "object", "required": ["dataset", "model", "group", "total", "beyond_linear"]}},
+        "credited": {"type": "object", "additionalProperties": {"type": "object", "additionalProperties": {"enum": ["beyond linear", "no better than linear", "not shown"]}}},
+        "datasets": {"type": "object"},
+        "text": {"type": "array", "items": {"type": "string"}}
+      }
+    },
     "run": {
       "type": "object",
       "required": ["decide_by", "smape_zero", "settings_sha256_16", "forecasts_sha256_16"],

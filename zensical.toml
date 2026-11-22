@@ -15,6 +15,7 @@ nav = [
     { "How the evaluation works" = "explain/evaluation.md" },
     { "Reading a report" = "explain/report.md" },
     { "Can you trust a comparison?" = "explain/trust.md" },
+    { "Where does a model's skill come from?" = "explain/skill-ladder.md" },
     { "Do our numbers match the published ones?" = "explain/replication.md" },
     { "Glossary" = "explain/glossary.md" },
   ] },

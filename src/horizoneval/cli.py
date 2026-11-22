@@ -9,7 +9,9 @@ Examples:
 """
 
 import argparse
+import json
 import time
+from pathlib import Path
 
 import pandas as pd
 
@@ -27,7 +29,7 @@ def main(argv=None):
     idx = sub.add_parser("index", help="build an index.html over all runs")
     idx.add_argument("results_dir", nargs="?", default="results")
     rp = sub.add_parser("replicate", help="reproduce published results with horizoneval's scoring (needs --extra replicate)")
-    rp.add_argument("benchmark", choices=["m4", "gift-eval"])
+    rp.add_argument("benchmark", choices=["m4", "gift-eval", "ladder"])
     rp.add_argument("--out", default=None, help="results folder (default: results/replication-<benchmark>)")
     ck = sub.add_parser("check", help="pre-flight checks on a forecast frame, without scoring it")
     ck.add_argument("forecasts")
@@ -51,6 +53,8 @@ def main(argv=None):
                     help="sMAPE where truth and forecast are both 0: zero (M4, utilsforecast) or skip (gluonts)")
     sc.add_argument("--json", action="store_true", help="print the result document (result.json) instead of a table")
     sc.add_argument("--segment", default=None, help="column of --series whose groups may deserve different models")
+    sc.add_argument("--ladder", action="store_true", help="say where each model's skill comes from: a simple rule, "
+                    "a linear model fitted on the history, or beyond linear (needs --train)")
     r = sub.add_parser("run", help="benchmark forecasters")
     r.add_argument("--models", nargs="+", required=True)
     r.add_argument("--data", nargs="+", default=["synthetic"], help="suites or synthetic:<name> / gift:<dataset>/<freq>")
@@ -61,6 +65,7 @@ def main(argv=None):
     r.add_argument("--n-series", type=int, default=30)
     r.add_argument("--seed", type=int, default=0)
     r.add_argument("--reference", default="naive", help="model the skill column is measured against")
+    r.add_argument("--ladder", action="store_true", help="add the skill ladder (simple rule / linear / beyond)")
     r.add_argument("--out", default=None, help="results folder (default: results/<timestamp>)")
     a = p.parse_args(argv)
 
@@ -113,6 +118,20 @@ def main(argv=None):
             for r in d["moved"][:10]:
                 print(f"  {r['metric']} {r['model']} on {r['dataset']}: {r['a']:.6g} -> {r['b']:.6g}")
         return
+    if a.cmd == "replicate" and a.benchmark == "ladder":
+        from horizoneval.ladder import calibrate
+        from horizoneval.result import clean
+
+        out = Path(a.out or "results/replication-ladder")
+        out.mkdir(parents=True, exist_ok=True)
+        d, summary = calibrate()
+        d.to_csv(out / "calibration.csv", index=False)
+        (out / "summary.json").write_text(json.dumps(clean(summary), indent=2) + "\n")
+        with pd.option_context("display.width", 160, "display.float_format", "{:.3f}".format):
+            print(pd.DataFrame({"mean": summary["mean"], "se": summary["se"]}).to_string())
+        print(f"\nexact model credited beyond linear in {summary['credited_beyond_linear']} of {summary['seeds']} "
+              f"seeds; results in {out}/")
+        return
     if a.cmd == "replicate":
         from horizoneval.replicate import gift_run, m4_run
 
@@ -128,7 +147,7 @@ def main(argv=None):
         out = a.out or f"results/{time.strftime('%Y%m%d-%H%M%S')}"
         res = tools.call("score", {k: v for k, v in dict(
             forecasts=a.forecasts, train=a.train, series=a.series, period=a.period, dataset=a.dataset,
-            reference=a.reference, cost=a.cost, segment=a.segment, smape_zero=a.smape_zero, out=out).items()
+            reference=a.reference, cost=a.cost, segment=a.segment, smape_zero=a.smape_zero, ladder=a.ladder or None, out=out).items()
             if v is not None})
         if a.json:
             print(tools.dumps(res))
@@ -136,6 +155,8 @@ def main(argv=None):
         with pd.option_context("display.width", 160, "display.float_format", "{:.3f}".format):
             print(pd.DataFrame(res["leaderboard"]).to_string(index=False))
         print("\n" + "\n".join(res["verdict"]))
+        if "ladder" in res:
+            print("\nWhere the skill comes from:\n" + "\n".join(res["ladder"]["text"]))
         if res["failures"]:
             print("not scored:", res["failures"])
         print(f"\nresults in {out}/ (open {out}/report.html)")
@@ -145,7 +166,7 @@ def main(argv=None):
 
     out = a.out or f"results/{time.strftime('%Y%m%d-%H%M%S')}"
     lb, _, _ = run(a.models, a.data, h=a.h, windows=a.windows, step=a.step, context=a.context,
-                   n_series=a.n_series, seed=a.seed, out=out, reference=a.reference)
+                   n_series=a.n_series, seed=a.seed, out=out, reference=a.reference, ladder=a.ladder)
     with pd.option_context("display.width", 160, "display.float_format", "{:.3f}".format):
         print(lb.to_string(index=False))
     print(f"\nresults in {out}/ (open {out}/report.html)")

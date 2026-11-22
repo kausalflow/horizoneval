@@ -1,0 +1,9 @@
+[
+  {
+    "check": "history_beyond_cutoff",
+    "severity": "info",
+    "model": null,
+    "share": null,
+    "message": "the history runs past the first cutoff; only rows up to each window's cutoff are used for scaling, so nothing leaks"
+  }
+]

@@ -1,0 +1,196 @@
+{
+  "models": [
+    "naive",
+    "seasonal_naive",
+    "drift",
+    "damped_drift",
+    "mean"
+  ],
+  "reference": "naive",
+  "failures": {},
+  "h": 16,
+  "windows": 8,
+  "rank_by": "mase",
+  "datasets": {
+    "synthetic:random_walk": {
+      "period": null,
+      "shape": [
+        30,
+        1024
+      ],
+      "sha256_16": "053f37b267c70d50"
+    },
+    "synthetic:ar_differences": {
+      "period": null,
+      "shape": [
+        30,
+        1024
+      ],
+      "sha256_16": "c8e48c03eb9484ba"
+    },
+    "synthetic:seasonal_trend": {
+      "period": 12,
+      "shape": [
+        30,
+        1024
+      ],
+      "sha256_16": "8fbe3c7e535ec29b"
+    },
+    "synthetic:lorenz": {
+      "period": 12,
+      "shape": [
+        30,
+        1024
+      ],
+      "sha256_16": "f5e5d5c77233b1c9"
+    },
+    "synthetic:rossler": {
+      "period": 12,
+      "shape": [
+        30,
+        1024
+      ],
+      "sha256_16": "129557fcdbf46dd6"
+    },
+    "synthetic:van_der_pol": {
+      "period": 12,
+      "shape": [
+        30,
+        1024
+      ],
+      "sha256_16": "1a92a5f063055970"
+    }
+  },
+  "forecasts_sha256_16": "6f5566e3a0ae0b99",
+  "train_sha256_16": "f533dd3093cdd8d1",
+  "protocol_sha256_16": "a914d9e2f2f47eda",
+  "decide_by": "mase",
+  "smape_zero": "zero",
+  "missing_targets": 0,
+  "cost": null,
+  "created": "2026-11-22T07:37:45+0000",
+  "python": "3.11.18",
+  "settings": {
+    "datasets": {
+      "synthetic:ar_differences": {
+        "series": 30,
+        "series_sha": "913ffe0e5e755ba4",
+        "h": 16,
+        "windows": 8,
+        "cutoffs": "41e88f4cd2553305",
+        "period": 1,
+        "truth": "f7c7e43f910aecc5",
+        "history": "c012fc905ab8fdc6"
+      },
+      "synthetic:lorenz": {
+        "series": 30,
+        "series_sha": "9c0da768f4e71605",
+        "h": 16,
+        "windows": 8,
+        "cutoffs": "b18d3060767f9df2",
+        "period": 12,
+        "truth": "e5318932b304d77f",
+        "history": "fc617f1e2a577c23"
+      },
+      "synthetic:random_walk": {
+        "series": 30,
+        "series_sha": "5bdade6bafdf17fb",
+        "h": 16,
+        "windows": 8,
+        "cutoffs": "f8407261eb9338ee",
+        "period": 1,
+        "truth": "4d87d01d75dec228",
+        "history": "d2510bdf3a99d732"
+      },
+      "synthetic:rossler": {
+        "series": 30,
+        "series_sha": "edc15639b017eb3f",
+        "h": 16,
+        "windows": 8,
+        "cutoffs": "e995954f8a808b0a",
+        "period": 12,
+        "truth": "8eac924f4dd94b1d",
+        "history": "1d9802e159cd1384"
+      },
+      "synthetic:seasonal_trend": {
+        "series": 30,
+        "series_sha": "8c9da113c47a81a3",
+        "h": 16,
+        "windows": 8,
+        "cutoffs": "ee1fb20068c002fd",
+        "period": 12,
+        "truth": "7702d813203ccc02",
+        "history": "5ff3c3486b5d6d2a"
+      },
+      "synthetic:van_der_pol": {
+        "series": 30,
+        "series_sha": "e1d929b8c70e63e8",
+        "h": 16,
+        "windows": 8,
+        "cutoffs": "bacd552c4a200fb3",
+        "period": 12,
+        "truth": "473c57af7c703d84",
+        "history": "79ff9e78209e676a"
+      }
+    },
+    "models": {
+      "naive": {
+        "levels": [
+          0.05,
+          0.1,
+          0.25,
+          0.5,
+          0.75,
+          0.9,
+          0.95
+        ],
+        "forecasts": "8aa563d24687f472"
+      },
+      "seasonal_naive": {
+        "levels": [
+          0.05,
+          0.1,
+          0.25,
+          0.5,
+          0.75,
+          0.9,
+          0.95
+        ],
+        "forecasts": "a78ae1998449ab84"
+      },
+      "drift": {
+        "levels": [],
+        "forecasts": "8bf4e44c4f8d5abb"
+      },
+      "damped_drift": {
+        "levels": [],
+        "forecasts": "9dd0f7d9ee40b6f6"
+      },
+      "mean": {
+        "levels": [],
+        "forecasts": "b98a274f85c6fec6"
+      }
+    },
+    "reference": "naive",
+    "decide_by": "mase",
+    "cost": null,
+    "smape_zero": "zero",
+    "conventions": {
+      "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+      "crps": "twice the mean pinball loss over the model's quantile levels",
+      "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+      "quantile_crossing": "quantiles are sorted before scoring"
+    },
+    "versions": {
+      "horizoneval": "0.0.1",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "scipy": "1.15.3"
+    }
+  },
+  "settings_sha256_16": "35e81a01bdaab3b9",
+  "step": 16,
+  "context": 896,
+  "n_series": 30,
+  "seed": 0
+}

@@ -18,6 +18,10 @@ from horizoneval import evaluate, Evaluation, FrameError, forecaster, available,
 
 ::: horizoneval.verify
 
+## Where the skill comes from
+
+::: horizoneval.ladder
+
 ## Result contract and tools
 
 ::: horizoneval.result

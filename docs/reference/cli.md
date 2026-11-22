@@ -41,6 +41,7 @@ Score a [forecast frame](frame.md) made by any tool. See
 | `--smape-zero` | `zero` | sMAPE where truth and forecast are both 0: `zero` counts a perfect step, `skip` leaves it out |
 | `--json` | off | print the result document instead of a table |
 | `--segment` | none | column of `--series` whose groups may each deserve their own model |
+| `--ladder` | off | split each model's skill into a simple rule, a linear model fitted on the history and what is left beyond linear ([explained here](../explain/skill-ladder.md)); needs `--train` |
 
 ## `horizoneval replicate BENCHMARK`
 
@@ -49,7 +50,7 @@ Reproduce published results with horizoneval's scoring and write the comparison 
 
 | Option | Default | Meaning |
 |---|---|---|
-| `BENCHMARK` | required | `m4` (needs `--extra replicate`; downloads the data) or `gift-eval` (needs `--extra gift` and the data in `data/gift-eval`) |
+| `BENCHMARK` | required | `m4` (needs `--extra replicate`; downloads the data), `gift-eval` (needs `--extra gift` and the data in `data/gift-eval`) or `ladder` (the skill ladder's calibration on simulated series; no data needed) |
 | `--out` | `results/replication-<benchmark>` | results folder |
 
 ## `horizoneval check FORECASTS [--train TRAIN]`

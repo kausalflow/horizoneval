@@ -26,6 +26,8 @@ Install once: `pip install horizoneval` (or `uv add horizoneval`). Then, in orde
      95% service level. The cost then decides the choice.
    - `--series series.csv --segment region` to test whether a model per group beats one model.
    - `--reference <model>` for skill scores and paired tests against a baseline.
+   - `--ladder` when the user asks whether a fancy model is worth it: it says how much of its gain a simple rule
+     or a linear model fitted on the history already gets, and whether anything beyond linear is shown.
 3. **Compare two runs** that disagree: `horizoneval diff results/a results/b --json`.
 
 The forecast file is one row per series, target time and forecast origin: columns `unique_id`, `ds`, `cutoff`, `y`
@@ -46,6 +48,8 @@ The JSON document (`result.json`, contract version in `horizoneval_result`) has:
 - `cost_disagreement`: when the user's cost picks a different model than MASE or CRPS.
 - `checks`: pre-flight findings. `failures`: models that could not be scored, and why.
 - `summary`, `leaderboard`: every score. `run`: settings and fingerprints.
+- `ladder` (with `--ladder`): `text` explains in plain language where each model's skill comes from;
+  `credited[dataset][model]` is `beyond linear`, `no better than linear` or `not shown`.
 
 ## Explain it
 

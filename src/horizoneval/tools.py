@@ -23,13 +23,13 @@ class Tool:
 
 
 def _score(forecasts, train=None, series=None, period=None, dataset="data", reference=None, cost=None, segment=None,
-           smape_zero="zero", out=None):
+           smape_zero="zero", ladder=False, out=None):
     from horizoneval.evaluate import evaluate
     from horizoneval.frame import read
 
     ev = evaluate(read(forecasts), read(train) if train else None, series=read(series) if series else None,
                   period=period, dataset=dataset, reference=reference, cost=cost, segment=segment,
-                  smape_zero=smape_zero, config={"source": {"forecasts": forecasts, "train": train}})
+                  smape_zero=smape_zero, ladder=ladder, config={"source": {"forecasts": forecasts, "train": train}})
     if out:
         ev.write(out)
     return to_result(ev)
@@ -78,6 +78,10 @@ TOOLS = {t.name: t for t in [
                                                        "overshoots) or 'pinball:0.95'; it decides the choice"},
              "segment": {"type": "string", "description": "column of series whose groups may each deserve a model"},
              "smape_zero": {"enum": ["zero", "skip"], "description": "sMAPE where truth and forecast are both 0"},
+             "ladder": {"type": "boolean", "description": "also say where each model's skill comes from: how much a "
+                                                       "simple rule already gets, how much a linear model fitted on "
+                                                       "the history adds, and whether anything beyond linear is "
+                                                       "shown (needs train)"},
              "out": {"type": "string", "description": "folder to write the run (report.html, CSVs, result.json)"}}},
          _score),
     Tool("check",

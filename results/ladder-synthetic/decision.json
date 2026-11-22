@@ -1,0 +1,500 @@
+{
+  "metric": "mase",
+  "winners_curse": {
+    "synthetic:ar_differences": {
+      "winner": "naive",
+      "backtest_score": 4.663932323394909,
+      "honest_score": 4.68397434765734,
+      "optimism_rel": 0.004297237368110496,
+      "same_choice_share": 0.42857142857142855,
+      "mode": "later windows",
+      "rounds": 7
+    },
+    "synthetic:lorenz": {
+      "winner": "mean",
+      "backtest_score": 0.977917670695087,
+      "honest_score": 0.9779176706950871,
+      "optimism_rel": 2.220446049250313e-16,
+      "same_choice_share": 1.0,
+      "mode": "later windows",
+      "rounds": 7
+    },
+    "synthetic:random_walk": {
+      "winner": "naive",
+      "backtest_score": 2.8338435925945347,
+      "honest_score": 2.833843592594535,
+      "optimism_rel": 2.220446049250313e-16,
+      "same_choice_share": 1.0,
+      "mode": "later windows",
+      "rounds": 7
+    },
+    "synthetic:rossler": {
+      "winner": "seasonal_naive",
+      "backtest_score": 0.9726894355403726,
+      "honest_score": 0.9726894355403726,
+      "optimism_rel": 0.0,
+      "same_choice_share": 1.0,
+      "mode": "later windows",
+      "rounds": 7
+    },
+    "synthetic:seasonal_trend": {
+      "winner": "seasonal_naive",
+      "backtest_score": 1.093887668675879,
+      "honest_score": 1.093887668675879,
+      "optimism_rel": 0.0,
+      "same_choice_share": 1.0,
+      "mode": "later windows",
+      "rounds": 7
+    },
+    "synthetic:van_der_pol": {
+      "winner": "seasonal_naive",
+      "backtest_score": 1.213350433827227,
+      "honest_score": 1.213350433827227,
+      "optimism_rel": 0.0,
+      "same_choice_share": 1.0,
+      "mode": "later windows",
+      "rounds": 7
+    },
+    "(all)": {
+      "winner": "seasonal_naive",
+      "backtest_score": 1.9782451454956709,
+      "honest_score": 1.9782451454956709,
+      "optimism_rel": 0.0,
+      "same_choice_share": 1.0,
+      "mode": "later windows",
+      "rounds": 7
+    }
+  },
+  "claims": {
+    "synthetic:ar_differences": {
+      "better": "naive",
+      "than": "seasonal_naive",
+      "identical": true,
+      "verified": false
+    },
+    "synthetic:lorenz": {
+      "better": "mean",
+      "than": "damped_drift",
+      "mean_diff": -0.09553086167429291,
+      "t": -1.832344245544896,
+      "p_t": 0.07718781545720685,
+      "false_alarm_rate": 0.062,
+      "p_robust": 0.021979252104394515,
+      "df_robust": 7,
+      "verified": false,
+      "windows": 8,
+      "series": 30
+    },
+    "synthetic:random_walk": {
+      "better": "naive",
+      "than": "seasonal_naive",
+      "identical": true,
+      "verified": false
+    },
+    "synthetic:rossler": {
+      "better": "seasonal_naive",
+      "than": "mean",
+      "mean_diff": -0.8458263749947991,
+      "t": -13.241508990688418,
+      "p_t": 7.99222009691973e-14,
+      "false_alarm_rate": 0.102,
+      "p_robust": 1.119710026960288e-05,
+      "df_robust": 7,
+      "verified": true,
+      "windows": 8,
+      "series": 30
+    },
+    "synthetic:seasonal_trend": {
+      "better": "seasonal_naive",
+      "than": "drift",
+      "mean_diff": -3.128508549709593,
+      "t": -9.52071215616504,
+      "p_t": 1.9872346312784981e-10,
+      "false_alarm_rate": 0.07,
+      "p_robust": 1.964081406542856e-05,
+      "df_robust": 7,
+      "verified": true,
+      "windows": 8,
+      "series": 30
+    },
+    "synthetic:van_der_pol": {
+      "better": "seasonal_naive",
+      "than": "mean",
+      "mean_diff": -36.5246504051627,
+      "t": -378.46229854514166,
+      "p_t": 4.053956326096338e-55,
+      "false_alarm_rate": 0.218,
+      "p_robust": 1.5588219604221774e-14,
+      "df_robust": 7,
+      "verified": true,
+      "windows": 8,
+      "series": 30
+    },
+    "(all)": {
+      "better": "seasonal_naive",
+      "than": "naive",
+      "mean_diff": -8.034645928103114,
+      "t": -6.723525849550431,
+      "p_t": 2.2964232290359365e-10,
+      "false_alarm_rate": 0.062,
+      "p_robust": 0.0001801113142017773,
+      "df_robust": 7,
+      "verified": true,
+      "windows": 8,
+      "series": 180
+    }
+  },
+  "verdict": {
+    "synthetic:ar_differences": "Choose naive. By mase it is the best model with probability 0.59; counting the cases where another model is better, picking it costs on average 0.2% more than picking the best would. damped_drift could also be best: the data cannot separate them yet. naive and seasonal_naive give identical forecasts here. Choosing this way holds up on later windows (within 0.4%).",
+    "synthetic:lorenz": "Choose mean. By mase it is the best model with probability 0.98; counting the cases where another model is better, picking it costs on average 0.1% more than picking the best would. mean and damped_drift are not significantly different (p = 0.077). Choosing this way holds up on later windows (within under 0.1%).",
+    "synthetic:random_walk": "Choose naive. By mase it is the best model with probability 0.60; counting the cases where another model is better, picking it costs on average 0.2% more than picking the best would. drift could also be best: the data cannot separate them yet. naive and seasonal_naive give identical forecasts here. Choosing this way holds up on later windows (within under 0.1%).",
+    "synthetic:rossler": "Choose seasonal_naive. By mase it is the best model with probability 1.00, in every resample of your series. seasonal_naive beats mean (p = 1.12e-05, confirmed by simulating equally good forecasters on your data). Choosing this way holds up on later windows (within under 0.1%).",
+    "synthetic:seasonal_trend": "Choose seasonal_naive. By mase it is the best model with probability 1.00, in every resample of your series. seasonal_naive beats drift (p = 1.96e-05, confirmed by simulating equally good forecasters on your data). Choosing this way holds up on later windows (within under 0.1%).",
+    "synthetic:van_der_pol": "Choose seasonal_naive. By mase it is the best model with probability 1.00, in every resample of your series. seasonal_naive beats mean (p = 1.56e-14, confirmed by simulating equally good forecasters on your data). Choosing this way holds up on later windows (within under 0.1%).",
+    "(all)": "Choose seasonal_naive. By mase it is the best model with probability 1.00, in every resample of your series. seasonal_naive beats naive (p = 0.00018, confirmed by simulating equally good forecasters on your data). Choosing this way holds up on later windows (within under 0.1%)."
+  },
+  "segments": {
+    "winners": {
+      "synthetic:ar_differences": "naive",
+      "synthetic:lorenz": "mean",
+      "synthetic:random_walk": "naive",
+      "synthetic:rossler": "seasonal_naive",
+      "synthetic:seasonal_trend": "seasonal_naive",
+      "synthetic:van_der_pol": "seasonal_naive"
+    },
+    "one_model_score": 1.9782451454956709,
+    "per_segment_score": 1.96261052483174,
+    "gain_rel": 0.007903277659763175,
+    "p_value": 0.07599082677189581,
+    "recommend": false,
+    "mode": "later windows"
+  },
+  "disagreement": [],
+  "text": [
+    "synthetic:ar_differences: Choose naive. By mase it is the best model with probability 0.59; counting the cases where another model is better, picking it costs on average 0.2% more than picking the best would. damped_drift could also be best: the data cannot separate them yet. naive and seasonal_naive give identical forecasts here. Choosing this way holds up on later windows (within 0.4%).",
+    "synthetic:lorenz: Choose mean. By mase it is the best model with probability 0.98; counting the cases where another model is better, picking it costs on average 0.1% more than picking the best would. mean and damped_drift are not significantly different (p = 0.077). Choosing this way holds up on later windows (within under 0.1%).",
+    "synthetic:random_walk: Choose naive. By mase it is the best model with probability 0.60; counting the cases where another model is better, picking it costs on average 0.2% more than picking the best would. drift could also be best: the data cannot separate them yet. naive and seasonal_naive give identical forecasts here. Choosing this way holds up on later windows (within under 0.1%).",
+    "synthetic:rossler: Choose seasonal_naive. By mase it is the best model with probability 1.00, in every resample of your series. seasonal_naive beats mean (p = 1.12e-05, confirmed by simulating equally good forecasters on your data). Choosing this way holds up on later windows (within under 0.1%).",
+    "synthetic:seasonal_trend: Choose seasonal_naive. By mase it is the best model with probability 1.00, in every resample of your series. seasonal_naive beats drift (p = 1.96e-05, confirmed by simulating equally good forecasters on your data). Choosing this way holds up on later windows (within under 0.1%).",
+    "synthetic:van_der_pol: Choose seasonal_naive. By mase it is the best model with probability 1.00, in every resample of your series. seasonal_naive beats mean (p = 1.56e-14, confirmed by simulating equally good forecasters on your data). Choosing this way holds up on later windows (within under 0.1%).",
+    "(all): Choose seasonal_naive. By mase it is the best model with probability 1.00, in every resample of your series. seasonal_naive beats naive (p = 0.00018, confirmed by simulating equally good forecasters on your data). Choosing this way holds up on later windows (within under 0.1%).",
+    "One model for everything is enough: choosing per segment (synthetic:ar_differences: naive, synthetic:lorenz: mean, synthetic:random_walk: naive, synthetic:rossler: seasonal_naive, synthetic:seasonal_trend: seasonal_naive, synthetic:van_der_pol: seasonal_naive) changes the score by 0.8% on later windows, which is not a reliable gain (p = 0.08)."
+  ],
+  "confidence": [
+    {
+      "model": "naive",
+      "mean": 4.615739365931688,
+      "p_best": 0.586,
+      "expected_loss": 0.009083369298833325,
+      "expected_loss_rel": 0.002010340976659633,
+      "series": 30,
+      "dataset": "synthetic:ar_differences"
+    },
+    {
+      "model": "seasonal_naive",
+      "mean": 4.615739365931688,
+      "p_best": 0.0,
+      "expected_loss": 0.009083369298833325,
+      "expected_loss_rel": 0.002010340976659633,
+      "series": 30,
+      "dataset": "synthetic:ar_differences"
+    },
+    {
+      "model": "damped_drift",
+      "mean": 4.6218842214102285,
+      "p_best": 0.323,
+      "expected_loss": 0.015700863287972745,
+      "expected_loss_rel": 0.0033846478650216296,
+      "series": 30,
+      "dataset": "synthetic:ar_differences"
+    },
+    {
+      "model": "drift",
+      "mean": 4.632344617365289,
+      "p_best": 0.091,
+      "expected_loss": 0.0261412283811759,
+      "expected_loss_rel": 0.005661052515581918,
+      "series": 30,
+      "dataset": "synthetic:ar_differences"
+    },
+    {
+      "model": "mean",
+      "mean": 33.53762799128337,
+      "p_best": 0.0,
+      "expected_loss": 29.023373222396327,
+      "expected_loss_rel": 6.303394264804445,
+      "series": 30,
+      "dataset": "synthetic:ar_differences"
+    },
+    {
+      "model": "mean",
+      "mean": 0.9762858424912981,
+      "p_best": 0.976,
+      "expected_loss": 0.0005104609539062432,
+      "expected_loss_rel": 0.0005426320999647676,
+      "series": 30,
+      "dataset": "synthetic:lorenz"
+    },
+    {
+      "model": "damped_drift",
+      "mean": 1.0718167041655908,
+      "p_best": 0.024,
+      "expected_loss": 0.09617252091542297,
+      "expected_loss_rel": 0.09877681265586195,
+      "series": 30,
+      "dataset": "synthetic:lorenz"
+    },
+    {
+      "model": "naive",
+      "mean": 1.0718167041655908,
+      "p_best": 0.0,
+      "expected_loss": 0.09617252091542297,
+      "expected_loss_rel": 0.09877681265586195,
+      "series": 30,
+      "dataset": "synthetic:lorenz"
+    },
+    {
+      "model": "drift",
+      "mean": 1.0765546847978904,
+      "p_best": 0.0,
+      "expected_loss": 0.10089988250200006,
+      "expected_loss_rel": 0.10362706526674671,
+      "series": 30,
+      "dataset": "synthetic:lorenz"
+    },
+    {
+      "model": "seasonal_naive",
+      "mean": 1.0958247979354465,
+      "p_best": 0.0,
+      "expected_loss": 0.12116537078661904,
+      "expected_loss_rel": 0.12454258587629605,
+      "series": 30,
+      "dataset": "synthetic:lorenz"
+    },
+    {
+      "model": "naive",
+      "mean": 2.83530995999142,
+      "p_best": 0.604,
+      "expected_loss": 0.006405761439245601,
+      "expected_loss_rel": 0.0022828450266508924,
+      "series": 30,
+      "dataset": "synthetic:random_walk"
+    },
+    {
+      "model": "seasonal_naive",
+      "mean": 2.83530995999142,
+      "p_best": 0.0,
+      "expected_loss": 0.006405761439245601,
+      "expected_loss_rel": 0.0022828450266508924,
+      "series": 30,
+      "dataset": "synthetic:random_walk"
+    },
+    {
+      "model": "drift",
+      "mean": 2.840671984589024,
+      "p_best": 0.379,
+      "expected_loss": 0.011953501814897067,
+      "expected_loss_rel": 0.0042070544436613,
+      "series": 30,
+      "dataset": "synthetic:random_walk"
+    },
+    {
+      "model": "damped_drift",
+      "mean": 2.8419149842908302,
+      "p_best": 0.017,
+      "expected_loss": 0.012978467649008198,
+      "expected_loss_rel": 0.00459468291045977,
+      "series": 30,
+      "dataset": "synthetic:random_walk"
+    },
+    {
+      "model": "mean",
+      "mean": 18.601913309727916,
+      "p_best": 0.0,
+      "expected_loss": 15.730547318836338,
+      "expected_loss_rel": 5.5687992696534225,
+      "series": 30,
+      "dataset": "synthetic:random_walk"
+    },
+    {
+      "model": "seasonal_naive",
+      "mean": 0.9782400035047428,
+      "p_best": 1.0,
+      "expected_loss": 0.0,
+      "expected_loss_rel": 0.0,
+      "series": 30,
+      "dataset": "synthetic:rossler"
+    },
+    {
+      "model": "mean",
+      "mean": 1.8240663784995415,
+      "p_best": 0.0,
+      "expected_loss": 0.8430054425344194,
+      "expected_loss_rel": 0.8631555697558262,
+      "series": 30,
+      "dataset": "synthetic:rossler"
+    },
+    {
+      "model": "naive",
+      "mean": 2.4150230193955355,
+      "p_best": 0.0,
+      "expected_loss": 1.4358463584148478,
+      "expected_loss_rel": 1.4680919475008587,
+      "series": 30,
+      "dataset": "synthetic:rossler"
+    },
+    {
+      "model": "damped_drift",
+      "mean": 2.4150230193955355,
+      "p_best": 0.0,
+      "expected_loss": 1.4358463584148478,
+      "expected_loss_rel": 1.4680919475008587,
+      "series": 30,
+      "dataset": "synthetic:rossler"
+    },
+    {
+      "model": "drift",
+      "mean": 2.4260523387343147,
+      "p_best": 0.0,
+      "expected_loss": 1.4469024686623064,
+      "expected_loss_rel": 1.4793803848710079,
+      "series": 30,
+      "dataset": "synthetic:rossler"
+    },
+    {
+      "model": "seasonal_naive",
+      "mean": 1.1165832235043334,
+      "p_best": 1.0,
+      "expected_loss": 0.0,
+      "expected_loss_rel": 0.0,
+      "series": 30,
+      "dataset": "synthetic:seasonal_trend"
+    },
+    {
+      "model": "drift",
+      "mean": 4.245091773213926,
+      "p_best": 0.0,
+      "expected_loss": 3.1351946574189435,
+      "expected_loss_rel": 2.8202946372770157,
+      "series": 30,
+      "dataset": "synthetic:seasonal_trend"
+    },
+    {
+      "model": "damped_drift",
+      "mean": 4.269392453485,
+      "p_best": 0.0,
+      "expected_loss": 3.1593045617775393,
+      "expected_loss_rel": 2.841772739902921,
+      "series": 30,
+      "dataset": "synthetic:seasonal_trend"
+    },
+    {
+      "model": "naive",
+      "mean": 4.271568063720175,
+      "p_best": 0.0,
+      "expected_loss": 3.1614550370259353,
+      "expected_loss_rel": 2.8436793614178844,
+      "series": 30,
+      "dataset": "synthetic:seasonal_trend"
+    },
+    {
+      "model": "mean",
+      "mean": 24.72829630693987,
+      "p_best": 0.0,
+      "expected_loss": 23.51369544329603,
+      "expected_loss_rel": 21.113834392992935,
+      "series": 30,
+      "dataset": "synthetic:seasonal_trend"
+    },
+    {
+      "model": "seasonal_naive",
+      "mean": 1.226148573514656,
+      "p_best": 1.0,
+      "expected_loss": 0.0,
+      "expected_loss_rel": 0.0,
+      "series": 30,
+      "dataset": "synthetic:van_der_pol"
+    },
+    {
+      "model": "mean",
+      "mean": 37.75079897867736,
+      "p_best": 0.0,
+      "expected_loss": 36.519846213744636,
+      "expected_loss_rel": 29.806973207094668,
+      "series": 30,
+      "dataset": "synthetic:van_der_pol"
+    },
+    {
+      "model": "naive",
+      "mean": 44.866264379796554,
+      "p_best": 0.0,
+      "expected_loss": 43.64295819845519,
+      "expected_loss_rel": 35.620929290352784,
+      "series": 30,
+      "dataset": "synthetic:van_der_pol"
+    },
+    {
+      "model": "damped_drift",
+      "mean": 44.866264379796554,
+      "p_best": 0.0,
+      "expected_loss": 43.64295819845519,
+      "expected_loss_rel": 35.620929290352784,
+      "series": 30,
+      "dataset": "synthetic:van_der_pol"
+    },
+    {
+      "model": "drift",
+      "mean": 45.10676605973206,
+      "p_best": 0.0,
+      "expected_loss": 43.883619659270224,
+      "expected_loss_rel": 35.81734190412227,
+      "series": 30,
+      "dataset": "synthetic:van_der_pol"
+    },
+    {
+      "model": "seasonal_naive",
+      "mean": 1.9779743207303824,
+      "p_best": 1.0,
+      "expected_loss": 0.0,
+      "expected_loss_rel": 0.0,
+      "series": 180,
+      "dataset": "(all)"
+    },
+    {
+      "model": "naive",
+      "mean": 10.012620248833494,
+      "p_best": 0.0,
+      "expected_loss": 8.0482805792228,
+      "expected_loss_rel": 4.095351299151408,
+      "series": 180,
+      "dataset": "(all)"
+    },
+    {
+      "model": "damped_drift",
+      "mean": 10.014382627090624,
+      "p_best": 0.0,
+      "expected_loss": 8.050253279857854,
+      "expected_loss_rel": 4.096328148209485,
+      "series": 180,
+      "dataset": "(all)"
+    },
+    {
+      "model": "drift",
+      "mean": 10.054580243072085,
+      "p_best": 0.0,
+      "expected_loss": 8.090189924274842,
+      "expected_loss_rel": 4.116637742464517,
+      "series": 180,
+      "dataset": "(all)"
+    },
+    {
+      "model": "mean",
+      "mean": 19.569831467936552,
+      "p_best": 0.0,
+      "expected_loss": 17.61125156662325,
+      "expected_loss_rel": 8.929305736581103,
+      "series": 180,
+      "dataset": "(all)"
+    }
+  ]
+}
