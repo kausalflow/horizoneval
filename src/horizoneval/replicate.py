@@ -154,7 +154,10 @@ def gift_frames(configs=GIFT_CONFIGS, models=("naive", "seasonal_naive"), root="
             rows = []
             for k in range(W):
                 start = lengths - h * (W - k)  # first target index of window k, per series
-                hist = [last_value_imputation(s[:c]) for s, c in zip(ser, start)]
+                # the point forecasts of naive and seasonal naive need only the last season; the baselines also
+                # estimate quantiles from the whole history, which the point metrics compared here never use
+                keep = max(4 * period, 2 * h, 200)
+                hist = [last_value_imputation(s[:c])[-keep:] for s, c in zip(ser, start)]  # fill, then cut
                 cols = {"unique_id": np.repeat(uids, h), "ds": (start[:, None] + np.arange(h)).ravel(),
                         "cutoff": np.repeat(start - 1, h),
                         "y": np.concatenate([s[c:c + h] for s, c in zip(ser, start)])}
@@ -191,16 +194,25 @@ def compare_gift(scores: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def gift_run(out="results/replication-gift-eval", root="data/gift-eval", n_boot=200):
-    fc, train, series = gift_frames(root=root)
-    ev = evaluate(fc, train, series=series, reference="naive", n_boot=n_boot, smape_zero="skip",
-                  config={"replication": "GIFT-Eval seasonal naive and naive",
-                          "source_url": "huggingface.co/datasets/Salesforce/GiftEval"})
+def gift_run(out="results/replication-gift-eval", root="data/gift-eval", configs=GIFT_CONFIGS):
+    """Score each configuration through horizoneval.evaluate (one at a time, to bound memory) and compare with the
+    leaderboard. Writes summary.csv (every score per model and dataset), replication.csv/json and settings.json."""
     out = Path(out)
-    ev.write(out, frames=False, scores=False)
-    cmp = compare_gift(ev.scores)
+    out.mkdir(parents=True, exist_ok=True)
+    summaries, cmps, settings = [], [], {}
+    for name in configs:
+        fc, train, series = gift_frames([name], root=root)
+        ev = evaluate(fc, train, series=series, reference="naive", decide=False, smape_zero="skip")
+        summaries.append(ev.summary)
+        cmps.append(compare_gift(ev.scores))
+        settings[name] = {"settings_sha256_16": ev.config["settings_sha256_16"], **ev.config["settings"]}
+        del fc, train, ev
+    cmp = pd.concat(cmps, ignore_index=True)
+    pd.concat(summaries, ignore_index=True).to_csv(out / "summary.csv", index=False)
     cmp.to_csv(out / "replication.csv", index=False)
+    (out / "settings.json").write_text(json.dumps(settings, indent=1, default=str) + "\n")
     (out / "replication.json").write_text(json.dumps(
-        {"matched": int(cmp["match"].sum()), "compared": len(cmp),
-         "max_rel_diff": {m: float(g["rel_diff"].max()) for m, g in cmp.groupby("metric")}}, indent=2) + "\n")
-    return ev, cmp
+        {"matched": int(cmp["match"].sum()), "compared": len(cmp), "datasets": int(cmp["dataset"].nunique()),
+         "smape_zero": "skip", "max_rel_diff": {m: float(g["rel_diff"].max()) for m, g in cmp.groupby("metric")}},
+        indent=2) + "\n")
+    return None, cmp

@@ -1,0 +1,1556 @@
+{
+ "m4_yearly": {
+  "settings_sha256_16": "96fc536809060096",
+  "datasets": {
+   "m4_yearly/A/short": {
+    "series": 22974,
+    "series_sha": "34366c32921a9c2c",
+    "h": 6,
+    "windows": 1,
+    "cutoffs": "4bba24381679dd92",
+    "period": 1,
+    "truth": "316ca87086fe32aa",
+    "history": "a54db61356712145"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "4dda783def4a9f16"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "4dda783def4a9f16"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "m4_quarterly": {
+  "settings_sha256_16": "9741d286ae42424b",
+  "datasets": {
+   "m4_quarterly/Q/short": {
+    "series": 24000,
+    "series_sha": "495078d33578d9fd",
+    "h": 8,
+    "windows": 1,
+    "cutoffs": "0491604f447fb267",
+    "period": 4,
+    "truth": "1cd85e1dc13bdca5",
+    "history": "4fb1cd5678dc07dd"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "87bf0a8f08bee344"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "375f6b1622b77df4"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "m4_monthly": {
+  "settings_sha256_16": "ccfc145b013820d8",
+  "datasets": {
+   "m4_monthly/M/short": {
+    "series": 48000,
+    "series_sha": "c1a02088d0d16cdc",
+    "h": 18,
+    "windows": 1,
+    "cutoffs": "065f557739ca2267",
+    "period": 12,
+    "truth": "2c9d55eeabae191f",
+    "history": "8603a942d53cd21d"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "8ab1083bdbefe4f0"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "87cb42282ae6e712"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "m4_weekly": {
+  "settings_sha256_16": "018e46dfc637dc9e",
+  "datasets": {
+   "m4_weekly/W/short": {
+    "series": 359,
+    "series_sha": "8b99e3d1f3871eb0",
+    "h": 13,
+    "windows": 1,
+    "cutoffs": "a97a94eafd3af065",
+    "period": 1,
+    "truth": "1b85301fac5682be",
+    "history": "12a09aa756d6b90d"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "8982c184b9b8b779"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "8982c184b9b8b779"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "m4_daily": {
+  "settings_sha256_16": "b83eba475fb96f7b",
+  "datasets": {
+   "m4_daily/D/short": {
+    "series": 4227,
+    "series_sha": "a7f1160c08f2ad95",
+    "h": 14,
+    "windows": 1,
+    "cutoffs": "4981d247d48661dc",
+    "period": 1,
+    "truth": "3320dc2439a63853",
+    "history": "d6f19345c356f187"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "6a38cad759314b87"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "6a38cad759314b87"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "m4_hourly": {
+  "settings_sha256_16": "bfeab19d79990f1c",
+  "datasets": {
+   "m4_hourly/H/short": {
+    "series": 414,
+    "series_sha": "d9f931e591a1ff6a",
+    "h": 48,
+    "windows": 1,
+    "cutoffs": "9ba595607a046d16",
+    "period": 24,
+    "truth": "f0d55d52028560c1",
+    "history": "126cb4c62ce71fea"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "d81fcca5647fbe07"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "5a94d00c85e23202"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "ett1/H": {
+  "settings_sha256_16": "29bb0658a63d7568",
+  "datasets": {
+   "ett1/H/long": {
+    "series": 7,
+    "series_sha": "a24a4b229f885137",
+    "h": 720,
+    "windows": 3,
+    "cutoffs": "0a72c984509fcaf3",
+    "period": 24,
+    "truth": "a5f4d5ba7dfef450",
+    "history": "c59b66301dded641"
+   },
+   "ett1/H/medium": {
+    "series": 7,
+    "series_sha": "1c062a5c372d9a52",
+    "h": 480,
+    "windows": 4,
+    "cutoffs": "14d80fcdda594659",
+    "period": 24,
+    "truth": "ae62c751050366ef",
+    "history": "1caf408882110a06"
+   },
+   "ett1/H/short": {
+    "series": 7,
+    "series_sha": "52e566519fa60f94",
+    "h": 48,
+    "windows": 20,
+    "cutoffs": "0abba5c7469af4fe",
+    "period": 24,
+    "truth": "ef3a5efa35bbd997",
+    "history": "edc9fe1cb28b9204"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "9224bf85aede0126"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "deba7370d7376400"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "ett2/H": {
+  "settings_sha256_16": "24f852295fcd9da0",
+  "datasets": {
+   "ett2/H/long": {
+    "series": 7,
+    "series_sha": "3e5810f038304d0d",
+    "h": 720,
+    "windows": 3,
+    "cutoffs": "64ed37a639b318ca",
+    "period": 24,
+    "truth": "7e6ec7a934fa7f10",
+    "history": "c57192fd87c51781"
+   },
+   "ett2/H/medium": {
+    "series": 7,
+    "series_sha": "d47bd0526c6de0fb",
+    "h": 480,
+    "windows": 4,
+    "cutoffs": "b50ce76b0812cc42",
+    "period": 24,
+    "truth": "ec8e21089a74c241",
+    "history": "1994e8dd96614cbb"
+   },
+   "ett2/H/short": {
+    "series": 7,
+    "series_sha": "ba7bde8e4d8be9d5",
+    "h": 48,
+    "windows": 20,
+    "cutoffs": "6b3a05ed9eb0a6f5",
+    "period": 24,
+    "truth": "37653d5f45d65b4b",
+    "history": "c8b8b74296b0e950"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "b2b81b29c6a74bb0"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "d87dd185b18a2f07"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "ett1/D": {
+  "settings_sha256_16": "e64048a82f3aaa90",
+  "datasets": {
+   "ett1/D/short": {
+    "series": 7,
+    "series_sha": "10082aa92190e051",
+    "h": 30,
+    "windows": 3,
+    "cutoffs": "9899d374ca2ea654",
+    "period": 1,
+    "truth": "6b5cd335e46484c1",
+    "history": "af14b6d67d0121dd"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "fdfcff884a95e8e6"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "fdfcff884a95e8e6"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "ett2/D": {
+  "settings_sha256_16": "cd2fbfed7bc78be5",
+  "datasets": {
+   "ett2/D/short": {
+    "series": 7,
+    "series_sha": "824e59a3e6d3c647",
+    "h": 30,
+    "windows": 3,
+    "cutoffs": "0eadb22adc54b4a3",
+    "period": 1,
+    "truth": "5bd69d1f11c1a7ad",
+    "history": "3f048c63419eeff5"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "f540b19492b6f71b"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "f540b19492b6f71b"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "ett1/W": {
+  "settings_sha256_16": "fae79ee90a819be6",
+  "datasets": {
+   "ett1/W/short": {
+    "series": 7,
+    "series_sha": "d94da3f4f2f1a2f5",
+    "h": 8,
+    "windows": 2,
+    "cutoffs": "56afe47de91794be",
+    "period": 1,
+    "truth": "1450fc18149d0044",
+    "history": "d00e32b331499bb0"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "80f53521f06e9dc9"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "80f53521f06e9dc9"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "ett2/W": {
+  "settings_sha256_16": "3231ab417e27ee49",
+  "datasets": {
+   "ett2/W/short": {
+    "series": 7,
+    "series_sha": "07540b2aaaa89a93",
+    "h": 8,
+    "windows": 2,
+    "cutoffs": "ce05df7da5531bc8",
+    "period": 1,
+    "truth": "1ea6fb215c0aae2b",
+    "history": "8d8d417f33920d7d"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "1af3a48a616754cc"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "1af3a48a616754cc"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "solar/H": {
+  "settings_sha256_16": "a6b4f3e37e14f0bb",
+  "datasets": {
+   "solar/H/long": {
+    "series": 137,
+    "series_sha": "08936cb0382e39f7",
+    "h": 720,
+    "windows": 2,
+    "cutoffs": "ea6d8aea613f932b",
+    "period": 24,
+    "truth": "71a92c9d88a4de26",
+    "history": "d8d34284c76ea0d6"
+   },
+   "solar/H/medium": {
+    "series": 137,
+    "series_sha": "7e9b958cbc734136",
+    "h": 480,
+    "windows": 2,
+    "cutoffs": "00a906a91817c3cc",
+    "period": 24,
+    "truth": "fd020978d861bfdb",
+    "history": "f131f636ad034e42"
+   },
+   "solar/H/short": {
+    "series": 137,
+    "series_sha": "782fc957bc8a438f",
+    "h": 48,
+    "windows": 19,
+    "cutoffs": "7a7af73fbbd024b4",
+    "period": 24,
+    "truth": "3d7d896a40e78680",
+    "history": "c2dc7e05679624a6"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "876d6d5c01e37015"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "32bef235a7ac03d3"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "solar/D": {
+  "settings_sha256_16": "ce70f249510ef4ae",
+  "datasets": {
+   "solar/D/short": {
+    "series": 137,
+    "series_sha": "d7247af6765327aa",
+    "h": 30,
+    "windows": 2,
+    "cutoffs": "d17de01f43f39d7e",
+    "period": 1,
+    "truth": "6b52a836154acb0c",
+    "history": "8278fbf00442d7af"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "04b1a32edddeb705"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "04b1a32edddeb705"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "us_births/D": {
+  "settings_sha256_16": "3d01302ab78ed794",
+  "datasets": {
+   "us_births/D/short": {
+    "series": 1,
+    "series_sha": "167679ac6c432fe7",
+    "h": 30,
+    "windows": 20,
+    "cutoffs": "155d4dd68fc373e9",
+    "period": 1,
+    "truth": "a6d1efaead120ad3",
+    "history": "e728632c04d56747"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "268f3f7984ebc6a4"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "268f3f7984ebc6a4"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "saugeenday/D": {
+  "settings_sha256_16": "881d1cb2521982b4",
+  "datasets": {
+   "saugeen/D/short": {
+    "series": 1,
+    "series_sha": "131419d477732957",
+    "h": 30,
+    "windows": 20,
+    "cutoffs": "46896350e986c5af",
+    "period": 1,
+    "truth": "5af2d5e86d5ffd3a",
+    "history": "5726d45ae228e489"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "d58584e657eea9d2"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "d58584e657eea9d2"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "hospital": {
+  "settings_sha256_16": "8e67d4192ca7d982",
+  "datasets": {
+   "hospital/M/short": {
+    "series": 767,
+    "series_sha": "7ba0014de4cd31dc",
+    "h": 12,
+    "windows": 1,
+    "cutoffs": "84e95133ac491789",
+    "period": 12,
+    "truth": "e828d0458d3c3989",
+    "history": "724b8e47c1204890"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "d5ba20b57acccefb"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "ab9cea71464fb0d1"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "covid_deaths": {
+  "settings_sha256_16": "38a09d7026b2196f",
+  "datasets": {
+   "covid_deaths/D/short": {
+    "series": 266,
+    "series_sha": "d965bb20cf32d374",
+    "h": 30,
+    "windows": 1,
+    "cutoffs": "f9882d4e371666f5",
+    "period": 1,
+    "truth": "3fae77ad512a5186",
+    "history": "7508dffddb522521"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "0483e7664f5bf967"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "0483e7664f5bf967"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "LOOP_SEATTLE/H": {
+  "settings_sha256_16": "3e43de6813e0dcfa",
+  "datasets": {
+   "loop_seattle/H/long": {
+    "series": 323,
+    "series_sha": "1f1636862ab9bf42",
+    "h": 720,
+    "windows": 2,
+    "cutoffs": "603e9b7a9fa94619",
+    "period": 24,
+    "truth": "8abbf1bbdf12d54f",
+    "history": "83927fa4b6accb80"
+   },
+   "loop_seattle/H/medium": {
+    "series": 323,
+    "series_sha": "d5b44ae47f868d7d",
+    "h": 480,
+    "windows": 2,
+    "cutoffs": "4be760df43d48bd4",
+    "period": 24,
+    "truth": "7cff177bc946f4fc",
+    "history": "c0d8efb78a53bc4c"
+   },
+   "loop_seattle/H/short": {
+    "series": 323,
+    "series_sha": "deed67122b898df3",
+    "h": 48,
+    "windows": 19,
+    "cutoffs": "1ebdf2c0eb52779b",
+    "period": 24,
+    "truth": "41550a186ce665cd",
+    "history": "66199140b7c5e777"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "627993f42753d098"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "81ac88ec269e5766"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "LOOP_SEATTLE/D": {
+  "settings_sha256_16": "5b2ec0bad740fa18",
+  "datasets": {
+   "loop_seattle/D/short": {
+    "series": 323,
+    "series_sha": "e43109c30d870093",
+    "h": 30,
+    "windows": 2,
+    "cutoffs": "ac1b48079d5a8408",
+    "period": 1,
+    "truth": "ea8e2a3b23439bf9",
+    "history": "4007553c053a24d4"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "2aafc1cfa3502d84"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "2aafc1cfa3502d84"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "M_DENSE/H": {
+  "settings_sha256_16": "9c58e26a661dab34",
+  "datasets": {
+   "m_dense/H/long": {
+    "series": 30,
+    "series_sha": "3dc166147a447c6b",
+    "h": 720,
+    "windows": 3,
+    "cutoffs": "940af14d3e8d1d7a",
+    "period": 24,
+    "truth": "686d709113dffe54",
+    "history": "95b6e055a2b5eb8b"
+   },
+   "m_dense/H/medium": {
+    "series": 30,
+    "series_sha": "4aa9452f0a182b66",
+    "h": 480,
+    "windows": 4,
+    "cutoffs": "caf144355ddb562e",
+    "period": 24,
+    "truth": "73405f96b257fdd5",
+    "history": "d91b0278ceda0e7a"
+   },
+   "m_dense/H/short": {
+    "series": 30,
+    "series_sha": "f7491e89158ad704",
+    "h": 48,
+    "windows": 20,
+    "cutoffs": "7377b7751908b179",
+    "period": 24,
+    "truth": "260a0c791f2fa868",
+    "history": "b57f87eb3d10efc0"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "4bc3f5d8eef3ebfc"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "d5c0e13645fa294c"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "M_DENSE/D": {
+  "settings_sha256_16": "e4c01380a727650d",
+  "datasets": {
+   "m_dense/D/short": {
+    "series": 30,
+    "series_sha": "11259b66141ef498",
+    "h": 30,
+    "windows": 3,
+    "cutoffs": "fe40e5de36f6c785",
+    "period": 1,
+    "truth": "ab9d2c2a5c9576f7",
+    "history": "876912b9a7fdbfd0"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "f011f1b0e5ac3524"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "f011f1b0e5ac3524"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "SZ_TAXI/H": {
+  "settings_sha256_16": "30c0b87cfe9a79e3",
+  "datasets": {
+   "sz_taxi/H/short": {
+    "series": 156,
+    "series_sha": "d0ca0602967c11dd",
+    "h": 48,
+    "windows": 2,
+    "cutoffs": "5d2b2fa9d6736205",
+    "period": 24,
+    "truth": "b916fd094ff8fea7",
+    "history": "f61d1fb075f40995"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "9fa6df5d66b6078c"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "7b069bce76186b92"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "jena_weather/H": {
+  "settings_sha256_16": "f42f025066e01daa",
+  "datasets": {
+   "jena_weather/H/long": {
+    "series": 21,
+    "series_sha": "68402d2badee813d",
+    "h": 720,
+    "windows": 2,
+    "cutoffs": "eceeb604bcf34f8a",
+    "period": 24,
+    "truth": "1e841f824913b7a8",
+    "history": "79a61632ba00752a"
+   },
+   "jena_weather/H/medium": {
+    "series": 21,
+    "series_sha": "e6c816a741636c0c",
+    "h": 480,
+    "windows": 2,
+    "cutoffs": "73d7fc3b76198ac1",
+    "period": 24,
+    "truth": "5be40bdc8ccc82b6",
+    "history": "4ddd96db7850a42b"
+   },
+   "jena_weather/H/short": {
+    "series": 21,
+    "series_sha": "2b58456c35e3228d",
+    "h": 48,
+    "windows": 19,
+    "cutoffs": "be30b94b662a5dd3",
+    "period": 24,
+    "truth": "e52b00f27e15bd71",
+    "history": "89d793107bcc3625"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "8b22e3c6369bb106"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "7deb317724cc8228"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "jena_weather/D": {
+  "settings_sha256_16": "6c3a0458f1595e62",
+  "datasets": {
+   "jena_weather/D/short": {
+    "series": 21,
+    "series_sha": "dd8b4304d1975314",
+    "h": 30,
+    "windows": 2,
+    "cutoffs": "e51b811ff1d6c462",
+    "period": 1,
+    "truth": "a1aa4ea2686e3c64",
+    "history": "9ed92bd0318102a7"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "fee1ba12e88f6db4"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "fee1ba12e88f6db4"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "electricity/H": {
+  "settings_sha256_16": "f4f2fb250b018d9e",
+  "datasets": {
+   "electricity/H/long": {
+    "series": 370,
+    "series_sha": "7eaec11d3dc2b264",
+    "h": 720,
+    "windows": 5,
+    "cutoffs": "30fa5cd0cb187bb2",
+    "period": 24,
+    "truth": "3c2aa8f49a0bd8b5",
+    "history": "a7b732fe6f06318b"
+   },
+   "electricity/H/medium": {
+    "series": 370,
+    "series_sha": "0a7a687a4a4de976",
+    "h": 480,
+    "windows": 8,
+    "cutoffs": "a5d2bbe56eb9da26",
+    "period": 24,
+    "truth": "4cbff84deb363c3e",
+    "history": "7945b16b7b46eb0b"
+   },
+   "electricity/H/short": {
+    "series": 370,
+    "series_sha": "72a3e04877f917eb",
+    "h": 48,
+    "windows": 20,
+    "cutoffs": "baa1c1db2c970ad0",
+    "period": 24,
+    "truth": "794f42a961de2eae",
+    "history": "602e7ad8b0945a6f"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "f7d0f7b9fc31e004"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "c71f43f9c3712e14"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "electricity/D": {
+  "settings_sha256_16": "83b799541ac3ca2f",
+  "datasets": {
+   "electricity/D/short": {
+    "series": 370,
+    "series_sha": "803c02bcd79669dc",
+    "h": 30,
+    "windows": 5,
+    "cutoffs": "5c330e7de3d081bf",
+    "period": 1,
+    "truth": "fe8500c14f605908",
+    "history": "dd95f807d9326f58"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "3ff49f9d4c36dadd"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "3ff49f9d4c36dadd"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "electricity/W": {
+  "settings_sha256_16": "e6eda559e657f245",
+  "datasets": {
+   "electricity/W/short": {
+    "series": 370,
+    "series_sha": "27c14b3df2f91ec4",
+    "h": 8,
+    "windows": 3,
+    "cutoffs": "688bc56cc02031a0",
+    "period": 1,
+    "truth": "0513afaa47312603",
+    "history": "c8ffe78abdec4545"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "beb9c68af636c768"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "beb9c68af636c768"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "kdd_cup_2018_with_missing/H": {
+  "settings_sha256_16": "846bb281cc048c5d",
+  "datasets": {
+   "kdd_cup_2018/H/long": {
+    "series": 270,
+    "series_sha": "b3a68ae7236b10fa",
+    "h": 720,
+    "windows": 2,
+    "cutoffs": "e59b2765e5292165",
+    "period": 24,
+    "truth": "207891438229da3d",
+    "history": "52f9b8ae339388a4"
+   },
+   "kdd_cup_2018/H/medium": {
+    "series": 270,
+    "series_sha": "4ba77228c18a2bd7",
+    "h": 480,
+    "windows": 2,
+    "cutoffs": "34bf5d272a04dfb0",
+    "period": 24,
+    "truth": "8405610815f1872b",
+    "history": "512fd5731ba443a8"
+   },
+   "kdd_cup_2018/H/short": {
+    "series": 270,
+    "series_sha": "863cb84b362677ed",
+    "h": 48,
+    "windows": 20,
+    "cutoffs": "67cf604dd2dc403b",
+    "period": 24,
+    "truth": "8405610815f1872b",
+    "history": "abe26232e2ce94cd"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "9e732b626c8ed91c"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "9df934ba077ad4eb"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "kdd_cup_2018_with_missing/D": {
+  "settings_sha256_16": "4f2a1d215271f613",
+  "datasets": {
+   "kdd_cup_2018/D/short": {
+    "series": 270,
+    "series_sha": "df933998a0ffa993",
+    "h": 30,
+    "windows": 2,
+    "cutoffs": "657504d084762a2f",
+    "period": 1,
+    "truth": "1113ed7ae02b85e5",
+    "history": "ac19696d9e1a1637"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "f5c75cd9d500f6b0"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "f5c75cd9d500f6b0"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "car_parts_with_missing": {
+  "settings_sha256_16": "bf9f64cb218b2417",
+  "datasets": {
+   "car_parts/M/short": {
+    "series": 2674,
+    "series_sha": "efe169e8cf12f3ef",
+    "h": 12,
+    "windows": 1,
+    "cutoffs": "882546a99f7847ed",
+    "period": 12,
+    "truth": "b67b05849caa584a",
+    "history": "36ad4c40c7d2a5a9"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "75dbf3b7b89ea680"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "1b8a7cadea4b2568"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "restaurant": {
+  "settings_sha256_16": "143339536604a5c9",
+  "datasets": {
+   "restaurant/D/short": {
+    "series": 807,
+    "series_sha": "fa7fb65322607175",
+    "h": 30,
+    "windows": 1,
+    "cutoffs": "f3704f351fe120f0",
+    "period": 1,
+    "truth": "502989bbb5f33020",
+    "history": "a72ff8d9a8a1e7cc"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "b46d9a124ca58ede"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "b46d9a124ca58ede"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "hierarchical_sales/D": {
+  "settings_sha256_16": "53af0e7d1e7b8a53",
+  "datasets": {
+   "hierarchical_sales/D/short": {
+    "series": 118,
+    "series_sha": "7ab8cdfbefb0fc7b",
+    "h": 30,
+    "windows": 7,
+    "cutoffs": "6328e3022ee42a22",
+    "period": 1,
+    "truth": "c5b5325302f4460d",
+    "history": "18607ccc36ecf2a1"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "5621605851d56293"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "5621605851d56293"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ },
+ "bitbrains_rnd/H": {
+  "settings_sha256_16": "d124ee3d8ff1c6e7",
+  "datasets": {
+   "bitbrains_rnd/H/short": {
+    "series": 1000,
+    "series_sha": "908191c1d0614fa7",
+    "h": 48,
+    "windows": 2,
+    "cutoffs": "9c8daa9722c2c724",
+    "period": 24,
+    "truth": "77a036270640e17c",
+    "history": "81a20b02c7cc1cff"
+   }
+  },
+  "models": {
+   "naive": {
+    "levels": [],
+    "forecasts": "3bdd508d304d03d7"
+   },
+   "seasonal_naive": {
+    "levels": [],
+    "forecasts": "f953d540b7426fad"
+   }
+  },
+  "reference": "naive",
+  "decide_by": "mase",
+  "cost": null,
+  "smape_zero": "skip",
+  "conventions": {
+   "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+   "crps": "twice the mean pinball loss over the model's quantile levels",
+   "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+   "quantile_crossing": "quantiles are sorted before scoring"
+  },
+  "versions": {
+   "horizoneval": "0.0.1",
+   "numpy": "2.4.6",
+   "pandas": "2.3.3",
+   "scipy": "1.15.3"
+  }
+ }
+}

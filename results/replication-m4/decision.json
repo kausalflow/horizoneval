@@ -65,14 +65,107 @@
       "rounds": 2
     }
   },
+  "claims": {
+    "Daily": {
+      "better": "m4_237_Pawlikowski",
+      "than": "m4_Naive",
+      "mean_diff": -0.6363285214091928,
+      "t": -18.292559681485706,
+      "p_t": 5.332096021323764e-72,
+      "false_alarm_rate": 0.048,
+      "p_robust": 5.332096021323764e-72,
+      "df_robust": 4226,
+      "verified": true,
+      "windows": 1,
+      "series": 4227
+    },
+    "Hourly": {
+      "better": "m4_245_MonteroManso",
+      "than": "m4_237_Pawlikowski",
+      "mean_diff": -0.05420442292310297,
+      "t": -2.331255356894956,
+      "p_t": 0.020220254365414515,
+      "false_alarm_rate": 0.052,
+      "p_robust": 0.020220254365414483,
+      "df_robust": 413,
+      "verified": true,
+      "windows": 1,
+      "series": 414
+    },
+    "Monthly": {
+      "better": "m4_118_Smyl",
+      "than": "m4_245_MonteroManso",
+      "mean_diff": -0.009289047174902193,
+      "t": -1.357440914275531,
+      "p_t": 0.17464753758610188,
+      "false_alarm_rate": 0.358,
+      "p_robust": 0.17464753758610188,
+      "df_robust": 47999,
+      "verified": false,
+      "windows": 1,
+      "series": 48000
+    },
+    "Quarterly": {
+      "better": "m4_245_MonteroManso",
+      "than": "m4_118_Smyl",
+      "mean_diff": -0.007352658637404752,
+      "t": -3.1900007999474815,
+      "p_t": 0.0014245530078419778,
+      "false_alarm_rate": 0.046,
+      "p_robust": 0.0014245530078419778,
+      "df_robust": 23999,
+      "verified": true,
+      "windows": 1,
+      "series": 24000
+    },
+    "Weekly": {
+      "better": "m4_245_MonteroManso",
+      "than": "m4_237_Pawlikowski",
+      "mean_diff": -0.05025095163073843,
+      "t": -1.0467552091121965,
+      "p_t": 0.2959186984476708,
+      "false_alarm_rate": 0.054,
+      "p_robust": 0.29591869844767066,
+      "df_robust": 358,
+      "verified": false,
+      "windows": 1,
+      "series": 359
+    },
+    "Yearly": {
+      "better": "m4_118_Smyl",
+      "than": "m4_245_MonteroManso",
+      "mean_diff": -0.08033878234939112,
+      "t": -8.521635844941224,
+      "p_t": 1.6683756843809225e-17,
+      "false_alarm_rate": 0.038,
+      "p_robust": 1.6683756843809585e-17,
+      "df_robust": 22999,
+      "verified": true,
+      "windows": 1,
+      "series": 23000
+    },
+    "(all)": {
+      "better": "m4_118_Smyl",
+      "than": "m4_237_Pawlikowski",
+      "mean_diff": -0.011753727979853884,
+      "t": -3.765769793461439,
+      "p_t": 0.00016613173019590586,
+      "false_alarm_rate": 0.032,
+      "p_robust": 0.00016613173019590586,
+      "df_robust": 99999,
+      "verified": true,
+      "windows": 1,
+      "series": 100000
+    }
+  },
   "verdict": {
-    "Daily": "Choose m4_237_Pawlikowski. By mase it is the best model with probability 1.00, in every resample of your series. Choosing this way holds up on other half of the series (within under 0.1%).",
-    "Hourly": "Choose m4_245_MonteroManso. By mase it is the best model with probability 0.97; counting the cases where another model is better, picking it costs on average under 0.1% more than picking the best would. Choosing this way holds up on other half of the series (within under 0.1%).",
-    "Monthly": "Choose m4_118_Smyl. By mase it is the best model with probability 0.98; counting the cases where another model is better, picking it costs on average under 0.1% more than picking the best would. Choosing this way holds up on other half of the series (within under 0.1%).",
-    "Quarterly": "Choose m4_245_MonteroManso. By mase it is the best model with probability 1.00, in every resample of your series. Choosing this way holds up on other half of the series (within under 0.1%).",
-    "Weekly": "Choose m4_245_MonteroManso. By mase it is the best model with probability 0.89; counting the cases where another model is better, picking it costs on average 0.1% more than picking the best would. Backtests flatter the winner: choosing this way scores 2.16 on other half of the series, not 2.11 (2.6% worse).",
-    "Yearly": "Choose m4_118_Smyl. By mase it is the best model with probability 1.00, in every resample of your series. Choosing this way holds up on other half of the series (within under 0.1%).",
-    "(all)": "Choose m4_118_Smyl. By mase it is the best model with probability 1.00, in every resample of your series. Choosing this way holds up on other half of the series (within under 0.1%)."
+    "Daily": "Choose m4_237_Pawlikowski. By mase it is the best model with probability 1.00, in every resample of your series. m4_237_Pawlikowski beats m4_Naive (p = 5.33e-72, confirmed by simulating equally good forecasters on your data). Choosing this way holds up on other half of the series (within under 0.1%).",
+    "Hourly": "Choose m4_245_MonteroManso. By mase it is the best model with probability 0.97; counting the cases where another model is better, picking it costs on average under 0.1% more than picking the best would. m4_245_MonteroManso beats m4_237_Pawlikowski (p = 0.0202, confirmed by simulating equally good forecasters on your data). Choosing this way holds up on other half of the series (within under 0.1%).",
+    "Monthly": "Choose m4_118_Smyl. By mase it is the best model with probability 0.98; counting the cases where another model is better, picking it costs on average under 0.1% more than picking the best would. m4_118_Smyl and m4_245_MonteroManso are not significantly different (p = 0.17). Choosing this way holds up on other half of the series (within under 0.1%).",
+    "Quarterly": "Choose m4_245_MonteroManso. By mase it is the best model with probability 1.00, in every resample of your series. m4_245_MonteroManso beats m4_118_Smyl (p = 0.00142, confirmed by simulating equally good forecasters on your data). Choosing this way holds up on other half of the series (within under 0.1%).",
+    "Weekly": "Choose m4_245_MonteroManso. By mase it is the best model with probability 0.89; counting the cases where another model is better, picking it costs on average 0.1% more than picking the best would. m4_245_MonteroManso and m4_237_Pawlikowski are not significantly different (p = 0.3). Backtests flatter the winner: choosing this way scores 2.16 on other half of the series, not 2.11 (2.6% worse).",
+    "Yearly": "Choose m4_118_Smyl. By mase it is the best model with probability 1.00, in every resample of your series. m4_118_Smyl beats m4_245_MonteroManso (p = 1.67e-17, confirmed by simulating equally good forecasters on your data). Choosing this way holds up on other half of the series (within under 0.1%).",
+    "(all)": "Choose m4_118_Smyl. By mase it is the best model with probability 1.00, in every resample of your series. m4_118_Smyl beats m4_237_Pawlikowski (p = 0.000166, confirmed by simulating equally good forecasters on your data). Choosing this way holds up on other half of the series (within under 0.1%)."
   },
   "segments": {
     "winners": {
@@ -92,13 +185,13 @@
   },
   "disagreement": [],
   "text": [
-    "Daily: Choose m4_237_Pawlikowski. By mase it is the best model with probability 1.00, in every resample of your series. Choosing this way holds up on other half of the series (within under 0.1%).",
-    "Hourly: Choose m4_245_MonteroManso. By mase it is the best model with probability 0.97; counting the cases where another model is better, picking it costs on average under 0.1% more than picking the best would. Choosing this way holds up on other half of the series (within under 0.1%).",
-    "Monthly: Choose m4_118_Smyl. By mase it is the best model with probability 0.98; counting the cases where another model is better, picking it costs on average under 0.1% more than picking the best would. Choosing this way holds up on other half of the series (within under 0.1%).",
-    "Quarterly: Choose m4_245_MonteroManso. By mase it is the best model with probability 1.00, in every resample of your series. Choosing this way holds up on other half of the series (within under 0.1%).",
-    "Weekly: Choose m4_245_MonteroManso. By mase it is the best model with probability 0.89; counting the cases where another model is better, picking it costs on average 0.1% more than picking the best would. Backtests flatter the winner: choosing this way scores 2.16 on other half of the series, not 2.11 (2.6% worse).",
-    "Yearly: Choose m4_118_Smyl. By mase it is the best model with probability 1.00, in every resample of your series. Choosing this way holds up on other half of the series (within under 0.1%).",
-    "(all): Choose m4_118_Smyl. By mase it is the best model with probability 1.00, in every resample of your series. Choosing this way holds up on other half of the series (within under 0.1%).",
+    "Daily: Choose m4_237_Pawlikowski. By mase it is the best model with probability 1.00, in every resample of your series. m4_237_Pawlikowski beats m4_Naive (p = 5.33e-72, confirmed by simulating equally good forecasters on your data). Choosing this way holds up on other half of the series (within under 0.1%).",
+    "Hourly: Choose m4_245_MonteroManso. By mase it is the best model with probability 0.97; counting the cases where another model is better, picking it costs on average under 0.1% more than picking the best would. m4_245_MonteroManso beats m4_237_Pawlikowski (p = 0.0202, confirmed by simulating equally good forecasters on your data). Choosing this way holds up on other half of the series (within under 0.1%).",
+    "Monthly: Choose m4_118_Smyl. By mase it is the best model with probability 0.98; counting the cases where another model is better, picking it costs on average under 0.1% more than picking the best would. m4_118_Smyl and m4_245_MonteroManso are not significantly different (p = 0.17). Choosing this way holds up on other half of the series (within under 0.1%).",
+    "Quarterly: Choose m4_245_MonteroManso. By mase it is the best model with probability 1.00, in every resample of your series. m4_245_MonteroManso beats m4_118_Smyl (p = 0.00142, confirmed by simulating equally good forecasters on your data). Choosing this way holds up on other half of the series (within under 0.1%).",
+    "Weekly: Choose m4_245_MonteroManso. By mase it is the best model with probability 0.89; counting the cases where another model is better, picking it costs on average 0.1% more than picking the best would. m4_245_MonteroManso and m4_237_Pawlikowski are not significantly different (p = 0.3). Backtests flatter the winner: choosing this way scores 2.16 on other half of the series, not 2.11 (2.6% worse).",
+    "Yearly: Choose m4_118_Smyl. By mase it is the best model with probability 1.00, in every resample of your series. m4_118_Smyl beats m4_245_MonteroManso (p = 1.67e-17, confirmed by simulating equally good forecasters on your data). Choosing this way holds up on other half of the series (within under 0.1%).",
+    "(all): Choose m4_118_Smyl. By mase it is the best model with probability 1.00, in every resample of your series. m4_118_Smyl beats m4_237_Pawlikowski (p = 0.000166, confirmed by simulating equally good forecasters on your data). Choosing this way holds up on other half of the series (within under 0.1%).",
     "Choose per segment (Daily: m4_237_Pawlikowski, Hourly: m4_245_MonteroManso, Monthly: m4_118_Smyl, Quarterly: m4_245_MonteroManso, Weekly: m4_245_MonteroManso, Yearly: m4_118_Smyl): 2.4% better than one model on other half of the series (p = 0.000)."
   ],
   "confidence": [

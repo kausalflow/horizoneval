@@ -50,9 +50,122 @@
   "train_sha256_16": "d8977fcdf44f55de",
   "protocol_sha256_16": "cc1c96c87bc88862",
   "decide_by": "mase",
+  "smape_zero": "zero",
+  "missing_targets": 0,
   "cost": null,
-  "created": "2026-11-21T23:28:59+0000",
+  "created": "2026-11-22T01:03:26+0000",
   "python": "3.11.18",
+  "settings": {
+    "datasets": {
+      "Daily": {
+        "series": 4227,
+        "series_sha": "cdb0e858e7d8d854",
+        "h": 14,
+        "windows": 1,
+        "cutoffs": "43af1ba5ccd52812",
+        "period": 1,
+        "truth": "5ea3288391354211",
+        "history": "d88cf6b96f79f9dc"
+      },
+      "Hourly": {
+        "series": 414,
+        "series_sha": "43c232f8839a1536",
+        "h": 48,
+        "windows": 1,
+        "cutoffs": "055c8a933eb7edbb",
+        "period": 24,
+        "truth": "7f7aeccc9997d2f1",
+        "history": "f8cb33d831db77eb"
+      },
+      "Monthly": {
+        "series": 48000,
+        "series_sha": "93eb4a86bfa5f20e",
+        "h": 18,
+        "windows": 1,
+        "cutoffs": "36ccc43c9b18fe93",
+        "period": 12,
+        "truth": "5553381a1af877ee",
+        "history": "b6de77d1be6664f3"
+      },
+      "Quarterly": {
+        "series": 24000,
+        "series_sha": "016857cd807c081e",
+        "h": 8,
+        "windows": 1,
+        "cutoffs": "9522eceb4f2fa693",
+        "period": 4,
+        "truth": "aef5c5a858b43223",
+        "history": "3a67e9d8ec58f3de"
+      },
+      "Weekly": {
+        "series": 359,
+        "series_sha": "06e0738e719aaa37",
+        "h": 13,
+        "windows": 1,
+        "cutoffs": "242ef555d5271f77",
+        "period": 1,
+        "truth": "7c1d40b0c361a0e4",
+        "history": "6d60c54c6fa24d1d"
+      },
+      "Yearly": {
+        "series": 23000,
+        "series_sha": "b5c507bcd055683e",
+        "h": 6,
+        "windows": 1,
+        "cutoffs": "c8f17b21262a91a9",
+        "period": 1,
+        "truth": "d91fd8f5b45391f0",
+        "history": "2ea27806fc818f8d"
+      }
+    },
+    "models": {
+      "m4_Naive": {
+        "levels": [],
+        "forecasts": "a479b15384fd0f54"
+      },
+      "m4_Naive2": {
+        "levels": [],
+        "forecasts": "c230399b5b5cd897"
+      },
+      "m4_118_Smyl": {
+        "levels": [],
+        "forecasts": "6712638bdfaaacb8"
+      },
+      "m4_245_MonteroManso": {
+        "levels": [],
+        "forecasts": "a2da5704756db7ea"
+      },
+      "m4_237_Pawlikowski": {
+        "levels": [],
+        "forecasts": "e60bc1de4249af54"
+      },
+      "naive": {
+        "levels": [],
+        "forecasts": "c026598daff16842"
+      },
+      "seasonal_naive": {
+        "levels": [],
+        "forecasts": "892a7775bbafca13"
+      }
+    },
+    "reference": "m4_Naive2",
+    "decide_by": "mase",
+    "cost": null,
+    "smape_zero": "zero",
+    "conventions": {
+      "mase_scale": "in-sample MAE of the seasonal naive on the history up to each cutoff; pairs with a missing value left out; a flat history gives no scaled score",
+      "crps": "twice the mean pinball loss over the model's quantile levels",
+      "missing_truth": "steps with missing truth are not scored; means weight each observed step once",
+      "quantile_crossing": "quantiles are sorted before scoring"
+    },
+    "versions": {
+      "horizoneval": "0.0.1",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "scipy": "1.15.3"
+    }
+  },
+  "settings_sha256_16": "e2cb17f2851eb236",
   "replication": "M4 point forecasts, all 100,000 series",
   "source_url": "https://raw.githubusercontent.com/Mcompetitions/M4-methods/master"
 }

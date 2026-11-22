@@ -4,7 +4,8 @@ A tool that helps you choose forecasts must compute scores exactly the way the f
 reproducing published results with horizoneval's own scoring: the same data, the same forecasts, and the published
 number at the end. Both runs are committed, with every comparison, under `results/replication-m4` and
 `results/replication-gift-eval`, and their reports are published with these docs:
-[M4](../examples/replication-m4.html), [GIFT-Eval](../examples/replication-gift-eval.html).
+the [M4 report](../examples/replication-m4.html), and GIFT-Eval's comparison table in
+`results/replication-gift-eval/replication.csv`.
 
 ## M4: all 98 published numbers reproduced
 
@@ -36,25 +37,30 @@ but choosing a different team's method per frequency is 2.4% better on series it
 uv run --extra replicate horizoneval replicate m4      # downloads M4 into data/m4
 ```
 
-## GIFT-Eval: seasonal naive and naive on the leaderboard
+## GIFT-Eval: all 400 leaderboard numbers reproduced
 
 [GIFT-Eval](https://huggingface.co/spaces/Salesforce/GIFT-Eval) publishes per-configuration results for every model.
 We follow its test protocol (prediction length per frequency and term, the number of rolling test windows, gluonts'
-seasonal period for both the seasonal naive and MASE), run horizoneval's `seasonal_naive` and `naive`, and compare
-MASE, sMAPE, MAE and MSE with the leaderboard on 18 datasets whose series have no missing values (24 dataset and
-term combinations, 192 published numbers).
+seasonal period for both the seasonal naive and MASE, gluonts' filling of missing history before forecasting), run
+horizoneval's `seasonal_naive` and `naive`, and compare MASE, sMAPE, MAE and MSE with the leaderboard on 34 datasets,
+9 of them with missing values (electricity, KDD Cup 2018, car parts, restaurant, hierarchical sales, bitbrains): 50
+dataset and term combinations, 400 published numbers.
 
-184 of the 192 are reproduced to within one part in a million (the data are stored as 32-bit floats). The other 8
-are one documented convention: sMAPE on datasets with stretches of exact zeros (solar at night, days without COVID
-deaths). When both the truth and the forecast are 0, gluonts leaves the point out of the average; horizoneval, M4
-and utilsforecast count it as a perfect forecast (0). Leaving those points out reproduces the published values
-exactly (for example 0.6200 for seasonal naive on solar/H/short).
+All 400 are reproduced to within one part in a million (the data are stored as 32-bit floats). Two of GIFT-Eval's
+conventions differ from M4's, and horizoneval offers both:
+
+- **Missing truth.** Steps without a true value are not scored, and averages weight every observed step once.
+- **sMAPE when truth and forecast are both 0** (solar at night, days without COVID deaths). gluonts leaves such steps
+  out; M4 and utilsforecast count them as perfect. horizoneval's default is M4's; `smape_zero="skip"` gives
+  GIFT-Eval's, which the replication uses. With the default, the 8 sMAPE values on solar and COVID deaths differ,
+  as expected (for example 0.258 instead of 0.620 for seasonal naive on solar/H/short).
 
 Two things this replication taught us, both now part of horizoneval:
 
 - **Series with different histories.** M4 and GIFT-Eval forecast each series from its own cutoff and with its own
   horizon per frequency. The forecast frame now accepts a different horizon per dataset and counts windows per
   series.
+- **Missing values.** Frames with gaps in the truth or the history are scored, with the conventions above.
 - **Series whose history never changed.** MASE divides by how much the history moves; for a flat history that is 0.
   horizoneval now leaves such series out of scaled averages, as GIFT-Eval does, instead of reporting an enormous
   number.
@@ -65,6 +71,3 @@ slightly from the M4 table (MASE 3.966 against 3.974). We reproduce both, each o
 ```bash
 uv run --extra gift horizoneval replicate gift-eval    # needs the configurations in data/gift-eval
 ```
-
-Configurations with missing values (electricity, KDD Cup, and others) are not yet included: gluonts masks missing
-targets, and horizoneval's frame does not accept them yet.

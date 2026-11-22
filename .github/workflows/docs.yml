@@ -22,7 +22,7 @@ jobs:
       - name: Copy committed example reports into the site
         run: |
           mkdir -p docs/examples
-          for r in example-synthetic-baselines physics-efnn-synthetic replication-m4 replication-gift-eval; do
+          for r in example-synthetic-baselines physics-efnn-synthetic replication-m4; do
             cp "results/$r/report.html" "docs/examples/$r.html"
           done
       - run: uv run zensical build --strict

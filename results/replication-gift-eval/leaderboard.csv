@@ -1,3 +1,0 @@
-model,mean_rank,mean_mase,mean_skill,datasets
-seasonal_naive,1.3125,3.5138069129648826,0.41102491117637774,24
-naive,1.6875,4.196935619846894,0.0,24
