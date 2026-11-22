@@ -64,7 +64,11 @@ class Evaluation:
         (out / "config.json").write_text(json.dumps(self.config, indent=2, default=str) + "\n")
         from horizoneval.result import dumps, to_result
 
-        (out / "result.json").write_text(dumps(to_result(self)) + "\n")
+        doc = to_result(self)
+        (out / "result.json").write_text(dumps(doc) + "\n")
+        from horizoneval.explain import explain
+
+        (out / "explanation.json").write_text(json.dumps(explain(doc), indent=2, allow_nan=False) + "\n")
         if self.checks is not None:
             (out / "checks.json").write_text(json.dumps(self.checks, indent=2) + "\n")
         if self.decision is not None:

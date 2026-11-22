@@ -43,6 +43,12 @@ Score a [forecast frame](frame.md) made by any tool. See
 | `--segment` | none | column of `--series` whose groups may each deserve their own model |
 | `--ladder` | off | split each model's skill into a simple rule, a linear model fitted on the history and what is left beyond linear ([explained here](../explain/skill-ladder.md)); needs `--train` |
 
+## `horizoneval explain RUN`
+
+Prints what an AI assistant needs to explain a run folder to a non-forecaster (the `explain` tool): the answer, how
+to read each table, caveats, why to trust it, and every quotable number. With `--check draft.txt`, prints the numbers
+in a draft explanation that the result does not support (the `check_explanation` tool).
+
 ## `horizoneval replicate BENCHMARK`
 
 Reproduce published results with horizoneval's scoring and write the comparison to `replication.csv`. See

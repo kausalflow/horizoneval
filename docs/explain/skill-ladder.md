@@ -33,6 +33,42 @@ Everything is chosen and fitted on history before each series' first cutoff, so 
 being scored. The rungs are added to the forecast table as the columns `ladder_naive`, `ladder_classic` and
 `ladder_linear` and scored by the same `evaluate` as every other model.
 
+## How to read the table
+
+Each row is one dataset and one **group** of forecast steps: `1` is one step ahead, `2-4` and `5+` further ahead.
+The row `all` pools squared errors over every step, so it is dominated by the far steps, where errors are largest;
+it is not the average of the other rows.
+
+- `F`, `L`, `F_plus_L` describe your **data**: how much a simple rule, and then a linear model, beat repeating the
+  last value. `*_pct` gives the same number as a percentage of squared error removed.
+- `total` and `beyond_linear` (second table) belong to each **model**.
+- `*_se` is the standard error over series. A value within about two standard errors of 0 is not distinguishable
+  from 0; the 95% interval is the value ± 1.96 standard errors.
+- `saturated` says whether more memory had stopped helping the linear model on the history. If not, L is a lower
+  bound and no model can be credited with skill beyond linear on that dataset.
+
+Big numbers are not errors. 7.47 nats at steps 2–4 on van der Pol means the simple rule (seasonal naive, since the
+oscillation repeats) has a squared error e^7.47 ≈ 1,750 times smaller than repeating the last value: the series is
+a nearly noise-free cycle. The run flags such datasets as `near_perfect`: there the gain a linear model can reach
+has no finite bound (it is set by the noise floor), so read it as "almost perfectly forecastable", not as a precise
+amount, and compare models by ratios, since all percentages are close to 100%.
+
+## Can you trust it?
+
+Four things back the numbers, and the run reports each of them in `ladder.flags` and in the report:
+
+1. **One scoring path.** The rungs are forecast columns scored by `horizoneval.evaluate`, the function that
+   reproduces all 98 M4 and all 400 GIFT-Eval published numbers.
+2. **A known answer.** On the paper's calibration case the linear rung recovers the true value and the exact optimal
+   model is never credited (below).
+3. **An independent check on every run.** At one step ahead, F and F + L can be read from the history alone,
+   without forecasting the scored windows (variance ratios and the spectrum, the paper's Result 4). `check_F_h1`
+   and `check_FL_h1` compare them with the measured values. On the synthetic example all six datasets agree on F,
+   van der Pol included (5.819 measured against 5.773 from the history).
+4. **Sanity flags** that say when to read with care: `near_perfect`, `not_saturated`, `few_series`,
+   `negative_F` / `negative_L` (a rule chosen on the history did worse on the scored period, so the two differ),
+   and `partial_beyond_linear`.
+
 ## When does "beyond linear" count?
 
 A fitted linear model is a little worse than the best possible linear model, so even a model that is exactly

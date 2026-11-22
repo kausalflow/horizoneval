@@ -43,6 +43,22 @@ tools.definitions("anthropic")   # or "openai": tool definitions with JSON Schem
 tools.call("score", {"forecasts": "cv.csv", "train": "train.csv", "period": 7})
 ```
 
+## Explaining a result
+
+Two tools let an assistant explain a result to someone who is not a forecaster without inventing anything:
+
+- `explain` (`horizoneval explain results/run`) returns the answer in plain sentences, how to read every table, the
+  caveats that must be mentioned, why the numbers can be trusted, and `facts`: every number an explanation may quote,
+  labelled in plain words, with its percentage, its "times smaller" ratio and its 95% interval. The same document
+  is written to `explanation.json` in every run folder.
+- `check_explanation` (`horizoneval explain results/run --check draft.txt`) lists every number in a draft that the
+  result does not support, at the precision it is written with ("0.8" passes for 0.822, "37.4%" fails if nothing
+  in the result rounds to it). It catches invented numbers; it cannot catch a true number attached to the wrong
+  claim, which is why the facts carry plain labels.
+
+The Agent Skill tells the assistant to explain only from `explain`, mention every warning, and run
+`check_explanation` before it replies.
+
 ## The result document
 
 Validated against `horizoneval/schema/result.schema.json` (`horizoneval.result.validate`). Its version,

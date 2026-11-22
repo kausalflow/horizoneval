@@ -355,8 +355,9 @@ def ladder(forecasts: pd.DataFrame, train: pd.DataFrame, meta: pd.DataFrame, mod
                 F, Fse = _mean_se(lg["ladder_naive"] - lg["ladder_classic"])
                 L, Lse = _mean_se(lg["ladder_classic"] - lg["ladder_linear"])
                 sat = info[ds_name]["saturation"].get(g, {}).get("saturated") if g != "all" else None
+                FL, FLse = _mean_se(lg["ladder_naive"] - lg["ladder_linear"])
                 rung_rows.append({"dataset": ds_name, "group": g, "F": F, "F_se": Fse, "L": L, "L_se": Lse,
-                                  "F_plus_L": F + L, "saturated": sat})
+                                  "F_plus_L": FL, "F_plus_L_se": FLse, "saturated": sat})
                 for m in models:
                     tot, tse = _mean_se(lg["ladder_naive"] - lg[m])
                     R, Rse = _mean_se(lg["ladder_linear"] - lg[m])
@@ -365,6 +366,10 @@ def ladder(forecasts: pd.DataFrame, train: pd.DataFrame, meta: pd.DataFrame, mod
                                        "beyond_linear": R, "beyond_linear_se": Rse, "offset": off,
                                        "verdict": None if g == "all" else _verdict(R, Rse, off, sat)})
     rung_df, model_df = pd.DataFrame(rung_rows), pd.DataFrame(model_rows)
+    for df, cols in ((rung_df, ["F", "L", "F_plus_L"]), (model_df, ["total", "beyond_linear"])):
+        for c in cols:
+            if c in df:
+                df[f"{c}_pct"] = nats_to_percent(df[c].to_numpy(float))
     credited = {}
     for (ds_name, m), t in (model_df.groupby(["dataset", "model"]) if len(model_df) else []):
         v = t.loc[t["group"] != "all", "verdict"]
@@ -372,7 +377,94 @@ def ladder(forecasts: pd.DataFrame, train: pd.DataFrame, meta: pd.DataFrame, mod
                                                "no better than linear" if (v == "no better than linear").all() else
                                                "not shown")
     out = {"rungs": rung_df, "models": model_df, "credited": credited, "datasets": info}
+    out["flags"] = flags(out)
     out["text"] = narrate(out)
+    return out
+
+
+NEAR_PERFECT = float(np.log(100))  # nats: squared error 100 times smaller than repeating the last value
+CONSISTENT_F = 0.5  # nats: measured F at step 1 against its value read from the history (paper: within 0.4)
+FEW_SERIES = 10
+
+
+def flags(lad: dict) -> list[dict]:
+    """Deterministic sanity checks on a ladder, each with the numbers it rests on: what an explanation must mention.
+
+    severity "warning": read the numbers with this caveat; "info": an independent check that agrees (evidence the
+    numbers can be trusted); "error": the ladder could not be built."""
+    out = []
+    r, m = lad["rungs"], lad["models"]
+    for ds_name, i in lad["datasets"].items():
+        def add(flag, severity, message, **values):
+            out.append({"dataset": ds_name, "flag": flag, "severity": severity, "message": message, "values": values})
+
+        if "skipped" in i:
+            add("skipped", "error", i["skipped"])
+            continue
+        rd = r[r["dataset"] == ds_name].set_index("group")
+        if i["series"] < FEW_SERIES:
+            add("few_series", "warning", f"only {i['series']} series: standard errors over series are rough and the "
+                "verdicts can flip with a few more series", series=i["series"])
+        top = rd.drop(index="all", errors="ignore")["F_plus_L"]
+        if len(top) and top.max() > NEAR_PERFECT:
+            g = top.idxmax()
+            add("near_perfect", "warning",
+                f"at steps {g} the linear model's squared error is {np.exp(top.max()):.0f} times smaller than repeating "
+                "the last value: the series is nearly deterministic (smooth or periodic). There the attainable linear "
+                "gain has no finite bound (it is set by the noise floor and by how much memory the model gets), so "
+                "read these rungs as 'almost perfectly forecastable' rather than as a precise amount, and compare "
+                "models by ratios, not by percentages, which are all close to 100%.",
+                group=g, F_plus_L=float(top.max()), ratio=float(np.exp(top.max())))
+        unsat = [g for g, s in i["saturation"].items() if not s["saturated"]]
+        if unsat:
+            add("not_saturated", "warning",
+                f"the linear reference is not saturated at steps {', '.join(unsat)} (more memory still helped it by "
+                f"{max(i['saturation'][g]['gain'] for g in unsat):.2f} nats on the history): L there is a lower bound "
+                "of what a linear model can do, and no model can be credited with skill beyond linear on this dataset",
+                groups=unsat, gain={g: i["saturation"][g]["gain"] for g in unsat})
+        for c, what in (("F", "the simple rule"), ("L", "the linear model")):
+            for g, row in rd.drop(index="all", errors="ignore").iterrows():
+                se = row[f"{c}_se"]
+                if np.isfinite(se) and row[c] < -2 * se and row[c] < -0.05:
+                    add(f"negative_{c}", "warning",
+                        f"{what} chosen on the history did worse on the scored windows at steps {g} ({row[c]:.3f} "
+                        "nats): the scored period behaves differently from the history it was chosen on",
+                        group=g, value=float(row[c]), se=float(se))
+        av = i["available_h1"]
+        if "1" in rd.index and av.get("F") is not None:
+            F1, diff = float(rd.loc["1", "F"]), float(rd.loc["1", "F"] - av["F"])
+            ok = abs(diff) <= CONSISTENT_F
+            add("check_F_h1", "info" if ok else "warning",
+                f"independent check: F at step 1 measured on the scored windows is {F1:.3f} nats, and read from the "
+                f"history alone without forecasting it is {av['F']:.3f} nats; " + (
+                    "they agree" if ok else f"they differ by {abs(diff):.2f} nats, so the history and the scored "
+                    "period differ, or the series are too few or too short for a stable estimate"),
+                measured=F1, from_history=float(av["F"]), difference=diff)
+        if "1" in rd.index and None not in (av.get("F"), av.get("L_ar"), av.get("L_welch")):
+            # F + L at step 1 is the stable quantity (the split depends on the simple rule chosen), compared with the
+            # history's F plus the price of naivety, whose two estimates are biased in opposite directions
+            FL = float(rd.loc["1", "F_plus_L"])
+            se = float(rd.loc["1", "F_plus_L_se"])
+            lo, hi = sorted([float(av["F"] + av["L_welch"]), float(av["F"] + av["L_ar"])])
+            slack = 2 * (se if np.isfinite(se) else 0) + 0.05
+            inside = lo - slack <= FL <= hi + slack
+            near = len(top) and top.max() > NEAR_PERFECT
+            add("check_FL_h1", "info" if inside else "warning",
+                f"independent check: F + L at step 1 measured on the scored windows is {FL:.3f} nats; read from the "
+                f"history's spectrum without forecasting it (the price of naivety) it is between {lo:.3f} and "
+                f"{hi:.3f} nats; " + ("the measured value is consistent with it" if inside else
+                                      "the measured value is outside that range" + (
+                                          ", as expected for a nearly deterministic series, where the bound does "
+                                          "not hold" if near else ", so read the step-1 rungs with care")),
+                measured=FL, se=se, low=lo, high=hi)
+        md = m[(m["dataset"] == ds_name) & (m["group"] != "all")]
+        for mod, t in md.groupby("model"):
+            if (t["verdict"] == "beyond linear").any() and not (t["verdict"] == "beyond linear").all():
+                groups_ = list(t.loc[t["verdict"] == "beyond linear", "group"])
+                add("partial_beyond_linear", "warning",
+                    f"{mod} passes the beyond-linear test only at steps {', '.join(groups_)}; the paper's rule counts "
+                    "it only when it holds in every horizon group, because a run reads many cells and one passing "
+                    "alone can be chance", model=mod, groups=groups_)
     return out
 
 
@@ -430,7 +522,7 @@ def narrate(lad: dict) -> list[str]:
 
 def to_json(lad: dict) -> dict:
     return {"rungs": lad["rungs"], "models": lad["models"], "credited": lad["credited"],
-            "datasets": lad["datasets"], "text": lad["text"]}
+            "datasets": lad["datasets"], "flags": lad.get("flags", []), "text": lad["text"]}
 
 
 # --------------------------------------------------------------------------------------------------------------------

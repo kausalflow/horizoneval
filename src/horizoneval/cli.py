@@ -39,6 +39,10 @@ def main(argv=None):
     df.add_argument("run_a")
     df.add_argument("run_b")
     df.add_argument("--json", action="store_true", help="print the diff as JSON (horizoneval.tools 'diff')")
+    ex = sub.add_parser("explain", help="what an assistant needs to explain a run to a non-forecaster (JSON), or with "
+                        "--check FILE, the numbers in a draft explanation that the result does not support")
+    ex.add_argument("run")
+    ex.add_argument("--check", default=None, help="text file with a draft explanation to check")
     sc = sub.add_parser("score", help="score a forecast frame made by any tool (Nixtla cross_validation layout)")
     sc.add_argument("forecasts", help="parquet or CSV with unique_id, ds, cutoff, y and one column per model")
     sc.add_argument("--train", default=None, help="history (unique_id, ds, y), needed for MASE and scaled CRPS")
@@ -117,6 +121,15 @@ def main(argv=None):
             print(f"\n{len(d['moved'])} scores moved, e.g.:")
             for r in d["moved"][:10]:
                 print(f"  {r['metric']} {r['model']} on {r['dataset']}: {r['a']:.6g} -> {r['b']:.6g}")
+        return
+    if a.cmd == "explain":
+        from horizoneval import tools
+
+        if a.check:
+            res = tools.call("check_explanation", {"run": a.run, "text": Path(a.check).read_text()})
+        else:
+            res = tools.call("explain", {"run": a.run})
+        print(tools.dumps(res))
         return
     if a.cmd == "replicate" and a.benchmark == "ladder":
         from horizoneval.ladder import calibrate

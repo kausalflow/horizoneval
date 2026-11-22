@@ -117,6 +117,18 @@ def write_report(run_dir) -> Path:
             out.append(_table(pd.DataFrame(lad["rungs"])))
             m = pd.DataFrame(lad["models"])
             out.append(_table(m[m["group"] != "all"], {"beyond_linear": lambda v: "good" if v > 0 else "bad"}))
+        from horizoneval.explain import HOW_TO_READ
+
+        out.append("<h3>How to read these tables</h3>" + "".join(f"<p class=muted>{html.escape(t)}</p>"
+                                                                  for t in HOW_TO_READ["ladder"]))
+        warn = [f for f in lad.get("flags", []) if f["severity"] != "info"]
+        good = [f for f in lad.get("flags", []) if f["severity"] == "info"]
+        if warn:
+            out.append("<h3>Read with care</h3>" + "".join(
+                f"<p>{html.escape(f['dataset'])}: {html.escape(f['message'])}</p>" for f in warn))
+        if good:
+            out.append("<h3>Independent checks that agree</h3>" + "".join(
+                f"<p class=good>{html.escape(f['dataset'])}: {html.escape(f['message'])}</p>" for f in good))
     out.append("<h2>Leaderboard</h2><p class=muted>Mean rank by " + cfg.get("rank_by", "mase").upper() + " over datasets (lower is better); skill is "
                f"mean log(MSE<sub>{ref}</sub>/MSE<sub>model</sub>) in nats (higher is better); CRPS is scaled like MASE; "
                "coverage80 should be near 0.80.</p>")

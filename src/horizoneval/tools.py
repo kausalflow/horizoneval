@@ -54,6 +54,18 @@ def _read_result(run):
     return json.loads((Path(run) / "result.json").read_text())
 
 
+def _explain(run):
+    from horizoneval.explain import explain
+
+    return explain(_read_result(run))
+
+
+def _check_explanation(run, text):
+    from horizoneval.explain import check_numbers
+
+    return check_numbers(text, _read_result(run))
+
+
 def _forecasters():
     from horizoneval.registry import available
 
@@ -103,6 +115,22 @@ TOOLS = {t.name: t for t in [
          {"type": "object", "required": ["run"], "additionalProperties": False,
           "properties": {"run": {"type": "string", "description": "run folder"}}},
          _read_result),
+    Tool("explain",
+         "Everything needed to explain a run's result to someone who is not a forecaster: the answer in plain "
+         "sentences, how to read each table (what nats, F, L, beyond_linear, p_best mean), the caveats that must be "
+         "mentioned, why the numbers can be trusted (independent checks that agreed, replications), and a flat list "
+         "of facts: every number an explanation may quote, with its percentage and 95% interval. Explain only from "
+         "this; then run check_explanation on the draft.",
+         {"type": "object", "required": ["run"], "additionalProperties": False,
+          "properties": {"run": {"type": "string", "description": "run folder (holds result.json)"}}},
+         _explain),
+    Tool("check_explanation",
+         "Check a draft explanation of a run against its result: lists every number in the text that the result does "
+         "not support, at the precision it is written with. Fix or remove each one before replying.",
+         {"type": "object", "required": ["run", "text"], "additionalProperties": False,
+          "properties": {"run": {"type": "string", "description": "run folder (holds result.json)"},
+                         "text": {"type": "string", "description": "the draft explanation"}}},
+         _check_explanation),
     Tool("list_forecasters",
          "List the forecasters horizoneval can run itself (baselines, invented models, foundation-model wrappers).",
          {"type": "object", "additionalProperties": False, "properties": {}},

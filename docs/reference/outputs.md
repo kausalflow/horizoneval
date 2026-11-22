@@ -14,6 +14,7 @@
 | `tests.csv` | bootstrap intervals and paired tests per model, dataset and metric |
 | `ranks.json` | Friedman test and Nemenyi critical difference |
 | `ladder.json`, `ladder_rungs.csv`, `ladder_models.csv` | with `--ladder`: each model's skill split into a simple rule (F), a linear model (L) and beyond linear, with the verdict of the decision rule |
+| `explanation.json` | the answer in plain sentences, how to read each table, caveats, why to trust it, and every quotable number with its percentage and 95% interval (`horizoneval explain`) |
 | `decision.json` | which model to choose: the verdict, probability of best, winner's curse, segments, cost disagreements |
 | `result.json` | the versioned result document every entry point returns (see [Use from an AI assistant](../guides/ai-assistants.md)) |
 | `checks.json` | pre-flight findings on the raw forecasts |

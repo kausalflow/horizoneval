@@ -35,12 +35,13 @@
     "ladder": {
       "type": "object",
       "description": "present when the ladder was asked for: each model's skill over repeating the last value split into a simple rule (F), a linear model fitted on the history (L) and what is left beyond linear, with the verdict of the naive-forecaster paper's decision rule",
-      "required": ["rungs", "models", "credited", "datasets", "text"],
+      "required": ["rungs", "models", "credited", "datasets", "flags", "text"],
       "properties": {
         "rungs": {"type": "array", "items": {"type": "object", "required": ["dataset", "group", "F", "L"]}},
         "models": {"type": "array", "items": {"type": "object", "required": ["dataset", "model", "group", "total", "beyond_linear"]}},
         "credited": {"type": "object", "additionalProperties": {"type": "object", "additionalProperties": {"enum": ["beyond linear", "no better than linear", "not shown"]}}},
         "datasets": {"type": "object"},
+        "flags": {"type": "array", "description": "sanity checks: warning = read with this caveat, info = an independent check that agrees, error = no ladder", "items": {"type": "object", "required": ["dataset", "flag", "severity", "message", "values"], "properties": {"severity": {"enum": ["info", "warning", "error"]}}}},
         "text": {"type": "array", "items": {"type": "string"}}
       }
     },

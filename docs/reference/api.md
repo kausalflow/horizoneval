@@ -27,6 +27,8 @@ from horizoneval import evaluate, Evaluation, FrameError, forecaster, available,
 ::: horizoneval.result
 
 ::: horizoneval.tools
+
+::: horizoneval.explain
     options:
       members: [call, call_json, definitions, TOOLS]
 

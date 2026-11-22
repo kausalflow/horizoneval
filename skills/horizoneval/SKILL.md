@@ -53,6 +53,17 @@ The JSON document (`result.json`, contract version in `horizoneval_result`) has:
 
 ## Explain it
 
+Explain from the `explain` tool, not from the raw tables: `horizoneval explain results/run` (or the `explain` MCP
+tool) returns `answer` (plain sentences to lead with), `how_to_read` (what each column means), `caveats` (mention
+every `warning` and `error` that concerns the question), `trust` (independent checks that agreed, replications) and
+`facts` (every number you may quote, with `percent_lower_squared_error`, `times_smaller_squared_error` and `ci95`).
+Quote only numbers from it. Before replying, run `check_explanation` on your draft (`horizoneval explain
+results/run --check draft.txt`) and fix every number it lists under `unsupported`.
+
+For the skill ladder: say skill as a percentage or "N times smaller squared error", not in nats; F and L describe
+the data (what a simple rule and a linear model get), `total` and `beyond_linear` belong to the model; the row
+`all` pools every step and is dominated by the far steps; a value within two standard errors of 0 is not a gain.
+
 - Say which model to choose, how sure that is, and what it costs to be wrong, before any metric name.
 - Translate: MASE below 1 beats the naive forecast "repeat the last value"; CRPS scores the whole forecast range;
   coverage80 should be near 0.80.

@@ -165,6 +165,7 @@ Add a suite in `src/horizoneval/data/__init__.py`.
 | `ranks.json` | Friedman test and Nemenyi critical difference |
 | `decision.json`, `confidence.csv` | which model to choose, probability of best, expected loss, winner's curse, segments |
 | `ladder.json`, `ladder_rungs.csv`, `ladder_models.csv` | with `--ladder`: where each model's skill comes from |
+| `explanation.json` | what an AI assistant needs to explain the run: answer, how to read it, caveats, trust, quotable facts (`horizoneval explain`) |
 | `config.json` | settings, dataset fingerprints, failures |
 | `report.html` | everything above as one static page, light and dark |
 
