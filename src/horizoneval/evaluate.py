@@ -20,6 +20,8 @@ import pandas as pd
 from horizoneval.frame import FrameError, scales, validate, windows
 from horizoneval import choose
 from horizoneval.metrics import cost as cost_of, scores, step_errors
+from horizoneval.checks import preflight
+from horizoneval.settings import settings as settings_of
 from horizoneval.stats import comparisons, friedman_nemenyi
 
 SUMMARY_METRICS = ["mase", "smape", "crps_scaled", "coverage80", "coverage90", "width80_scaled", "cost"]
@@ -38,6 +40,7 @@ class Evaluation:
     train: pd.DataFrame | None = None
     series: pd.DataFrame | None = None
     decision: dict | None = None  # which model to choose and how sure that is (horizoneval.choose)
+    checks: list | None = None  # pre-flight findings on the raw forecasts (horizoneval.checks)
 
     def write(self, out, report=True, frames=True, scores=True) -> Path:
         """Write the run folder. frames=False skips forecasts.parquet, train.parquet and series.csv, scores=False skips the
@@ -58,6 +61,8 @@ class Evaluation:
         if frames and self.series is not None:
             self.series.to_csv(out / "series.csv", index=False)
         (out / "config.json").write_text(json.dumps(self.config, indent=2, default=str) + "\n")
+        if self.checks is not None:
+            (out / "checks.json").write_text(json.dumps(self.checks, indent=2) + "\n")
         if self.decision is not None:
             self.decision["confidence"].to_csv(out / "confidence.csv", index=False)
             (out / "decision.json").write_text(json.dumps(choose.to_json(self.decision), indent=2) + "\n")
@@ -107,9 +112,23 @@ def _horizon(forecasts, meta):
     return int(per.iloc[0]) if per.nunique() == 1 else per.to_dict()
 
 
+def _weighted_means(scores: pd.DataFrame, keys: list[str], metrics: list[str]) -> pd.DataFrame:
+    """Means of per-window scores weighted by the steps each one averaged (n, or n_<metric> when a metric skips some
+    steps); plain means when nothing is missing."""
+    out = {}
+    for m in metrics:
+        col = f"n_{m}" if f"n_{m}" in scores else "n"
+        w = scores[col] if col in scores else pd.Series(1.0, index=scores.index)
+        ok = scores[m].notna() & (w > 0)
+        num = (scores[m].where(ok, 0.0) * w.where(ok, 0)).groupby([scores[k] for k in keys]).sum()
+        den = w.where(ok, 0).groupby([scores[k] for k in keys]).sum()
+        out[m] = num / den.replace(0, np.nan)
+    return pd.DataFrame(out)
+
+
 def summarize(scores: pd.DataFrame, reference: str | None = "naive", rank_by: str = "mase") -> pd.DataFrame:
     metrics = [m for m in SUMMARY_METRICS if m in scores]
-    summary = scores.groupby(["model", "dataset"])[metrics].mean()
+    summary = _weighted_means(scores, ["model", "dataset"], metrics)
     if reference and reference in scores["model"].unique():
         ref = scores[scores["model"] == reference].set_index(["dataset", "window", "series"])["mse"]
         s = scores.join(ref.rename("ref_mse"), on=["dataset", "window", "series"])
@@ -130,12 +149,16 @@ def leaderboard(summary: pd.DataFrame) -> pd.DataFrame:
 def evaluate(forecasts: pd.DataFrame, train: pd.DataFrame | None = None, *, models: list[str] | None = None,
              series: pd.DataFrame | None = None, period: int | None = None, dataset: str = "data",
              reference: str | None = "naive", config: dict | None = None, cost=None, segment: str | None = None,
-             decide: bool = True, n_boot: int = 1000, seed: int = 0) -> Evaluation:
+             decide: bool = True, n_boot: int = 1000, seed: int = 0, smape_zero: str = "zero") -> Evaluation:
     """Score every model column of a forecast frame.
 
     cost      your own cost of a forecast ('linlin:0.9', 'pinball:0.95' or f(truth, point) -> per-series cost); it
               becomes the `cost` score and decides the choice. See horizoneval.metrics.cost.
     segment   column of `series` whose groups may deserve different models (default: the datasets)
+    smape_zero  sMAPE where truth and forecast are both 0: "zero" counts a perfect step (M4, utilsforecast), "skip"
+              leaves it out (gluonts, GIFT-Eval)
+    Missing truth (y NaN) is allowed: those steps are not scored, and means over windows weight each window by its
+    number of observed steps (column n), so every observed point counts once.
     decide    add the decision (probability of best, winner's curse, segments; horizoneval.choose)
     A model whose forecasts are missing or non-finite anywhere is dropped and listed under config["failures"].
 
@@ -155,6 +178,7 @@ def evaluate(forecasts: pd.DataFrame, train: pd.DataFrame | None = None, *, mode
     """
     meta = _series_table(forecasts, series, period, dataset)
     models = validate(forecasts, models, meta.set_index("unique_id")["dataset"])
+    checks = preflight(forecasts, train, models, meta.set_index("unique_id")["dataset"])
     if train is not None:
         lacking = set(forecasts["unique_id"].unique()) - set(train["unique_id"].unique())
         if lacking:
@@ -177,7 +201,7 @@ def evaluate(forecasts: pd.DataFrame, train: pd.DataFrame | None = None, *, mode
             if not np.isfinite(pred.point).all() or (pred.quantiles is not None and not np.isfinite(pred.quantiles).all()):
                 failures[m] = f"non-finite forecasts on {ds_name}"
                 continue
-            s = scores(pred, w.truth, scale)
+            s = scores(pred, w.truth, scale, smape_zero)
             if cost is not None:
                 s["cost"] = cost_of(cost, pred, w.truth, scale)
             rows.append(pd.DataFrame({"model": m, "dataset": ds_name, "window": window, "cutoff": w.cutoff,
@@ -206,9 +230,14 @@ def evaluate(forecasts: pd.DataFrame, train: pd.DataFrame | None = None, *, mode
                         for d, g in meta.groupby("dataset")},
            "forecasts_sha256_16": fingerprint(forecasts),
            "train_sha256_16": fingerprint(train) if train is not None else None,
-           "protocol_sha256_16": protocol(forecasts, meta, metric), "decide_by": metric,
+           "protocol_sha256_16": protocol(forecasts, meta, metric), "decide_by": metric, "smape_zero": smape_zero,
+           "missing_targets": int(forecasts["y"].isna().sum()),
            "cost": cost if isinstance(cost, str) or cost is None else getattr(cost, "__name__", "custom"),
            "created": time.strftime("%Y-%m-%dT%H:%M:%S%z"), "python": platform.python_version()}
+    cfg["settings"] = settings_of(forecasts, train, meta, [m for m in models if m not in failures], reference,
+                                  metric, cost, smape_zero)
+    cfg["settings_sha256_16"] = hashlib.sha256(json.dumps(cfg["settings"], sort_keys=True, default=str)
+                                               .encode()).hexdigest()[:16]
     cfg.update(config or {})
     if failures:
         cfg["failures"] = {**cfg.get("failures", {}), **failures}
@@ -218,4 +247,4 @@ def evaluate(forecasts: pd.DataFrame, train: pd.DataFrame | None = None, *, mode
         seg = meta.set_index("unique_id")[segment] if segment is not None else None
         decision = choose.decide(sc, metric, seg, n_boot=n_boot, seed=seed)
     return Evaluation(sc, by_h, summary, leaderboard(summary), tests,
-                      friedman_nemenyi(summary, metric=rank_by), cfg, forecasts, train, meta, decision)
+                      friedman_nemenyi(summary, metric=rank_by), cfg, forecasts, train, meta, decision, checks)

@@ -25,24 +25,48 @@ def scale_of(hist, period=None):
     return np.abs(hist[:, m:] - hist[:, :-m]).mean(axis=1)
 
 
+def _mean(x, axis=1):
+    """Mean over the observed steps (truth present): NaN where nothing was observed."""
+    ok = np.isfinite(x)
+    n = ok.sum(axis=axis)
+    with np.errstate(invalid="ignore"):
+        return np.where(n > 0, np.where(ok, x, 0.0).sum(axis=axis) / np.maximum(n, 1), np.nan)
+
+
+def observed(T):
+    """Number of observed (non-missing) target steps per series, (N,)."""
+    return np.isfinite(T).sum(axis=1)
+
+
 def mae(F, T):
-    return np.abs(F - T).mean(axis=1)
+    return _mean(np.abs(F - T))
 
 
 def mse(F, T):
-    return ((F - T) ** 2).mean(axis=1)
+    return _mean((F - T) ** 2)
 
 
-def smape(F, T):
+SMAPE_ZERO = ("zero", "skip")
+
+
+def smape(F, T, zero="zero"):
+    """2 |F - T| / (|F| + |T|), between 0 and 2. Where truth and forecast are both 0 the ratio is 0 / 0:
+    zero="zero" counts the step as a perfect forecast (M4, utilsforecast, the default); zero="skip" leaves it out
+    (gluonts, hence GIFT-Eval)."""
+    if zero not in SMAPE_ZERO:
+        raise ValueError(f"smape_zero must be one of {SMAPE_ZERO}, got {zero!r}")
     denom = np.abs(F) + np.abs(T)
-    return np.where(denom > 0, 2 * np.abs(F - T) / np.where(denom > 0, denom, 1), 0.0).mean(axis=1)
+    with np.errstate(invalid="ignore", divide="ignore"):
+        r = np.where(denom > 0, 2 * np.abs(F - T) / np.where(denom > 0, denom, 1), 0.0 if zero == "zero" else np.nan)
+    return _mean(np.where(np.isfinite(T), r, np.nan))
 
 
 def pinball(Q, T, levels=QUANTILES):
     """Mean pinball loss over steps and quantile levels, (N,)."""
     q = np.asarray(levels)
     d = T[..., None] - Q
-    return np.maximum(q * d, (q - 1) * d).mean(axis=(1, 2))
+    loss = np.maximum(q * d, (q - 1) * d).mean(axis=-1)  # NaN where the truth is missing
+    return _mean(loss)
 
 
 def crps(Q, T, levels=QUANTILES):
@@ -67,13 +91,18 @@ def interval(Q, lo: float, hi: float, levels=QUANTILES):
 
 def coverage(Q, T, lo=0.1, hi=0.9, levels=QUANTILES):
     L, U = interval(Q, lo, hi, levels)
-    return ((T >= L) & (T <= U)).mean(axis=1)
+    return _mean(np.where(np.isfinite(T), ((T >= L) & (T <= U)).astype(float), np.nan))
 
 
-def scores(pred: Prediction, T, scale) -> dict[str, np.ndarray]:
-    """Every per-series score of one forecast against the truth T, given each series' scale (N,)."""
+def scores(pred: Prediction, T, scale, smape_zero="zero") -> dict[str, np.ndarray]:
+    """Every per-series score of one forecast against the truth T, given each series' scale (N,).
+
+    Missing truth (NaN) is left out: each score averages the observed steps, and `n` counts them."""
     s = _positive(scale)
-    out = {"mae": mae(pred.point, T), "mse": mse(pred.point, T), "smape": smape(pred.point, T)}
+    out = {"n": observed(T), "mae": mae(pred.point, T), "mse": mse(pred.point, T),
+           "smape": smape(pred.point, T, smape_zero)}
+    if smape_zero == "skip":  # steps that entered the sMAPE, so that averages weight each such step once
+        out["n_smape"] = (np.isfinite(T) & ((np.abs(pred.point) + np.abs(T)) > 0)).sum(axis=1)
     out["mase"] = out["mae"] / s
     if pred.quantiles is not None:
         out["crps_scaled"] = crps(pred.quantiles, T, pred.levels) / s
@@ -83,7 +112,7 @@ def scores(pred: Prediction, T, scale) -> dict[str, np.ndarray]:
             out[f"coverage{name}"] = coverage(pred.quantiles, T, lo, hi, pred.levels)
         if "coverage80" in out:
             L, U = interval(pred.quantiles, *INTERVALS["80"], pred.levels)
-            out["width80_scaled"] = (U - L).mean(axis=1) / s
+            out["width80_scaled"] = _mean(np.where(np.isfinite(T), U - L, np.nan)) / s
     return out
 
 
@@ -98,7 +127,7 @@ def step_errors(pred: Prediction, T, scale) -> np.ndarray:
 
 def horizon_scores(pred: Prediction, T, hist, period=None) -> np.ndarray:
     """Scaled absolute error by forecast step, averaged over series: (h,)."""
-    return step_errors(pred, T, scale_of(hist, period)).mean(axis=0)
+    return np.nanmean(step_errors(pred, T, scale_of(hist, period)), axis=0)
 
 
 def cost(spec, pred: Prediction, T, scale) -> np.ndarray:
@@ -121,7 +150,7 @@ def cost(spec, pred: Prediction, T, scale) -> np.ndarray:
         i = _index(pred.levels, a) if pred.quantiles is not None else None
         F = pred.quantiles[..., i] if i is not None else pred.point
         d = T - F
-        raw = np.maximum(a * d, (a - 1) * d).mean(axis=1)
+        raw = _mean(np.maximum(a * d, (a - 1) * d))
     s = np.asarray(scale, dtype=float)
     with np.errstate(divide="ignore", invalid="ignore"):
         return np.where(np.isnan(s), raw, np.where(s > 0, raw / s, np.nan))

@@ -29,6 +29,12 @@ def main(argv=None):
     rp = sub.add_parser("replicate", help="reproduce published results with horizoneval's scoring (needs --extra replicate)")
     rp.add_argument("benchmark", choices=["m4", "gift-eval"])
     rp.add_argument("--out", default=None, help="results folder (default: results/replication-<benchmark>)")
+    ck = sub.add_parser("check", help="pre-flight checks on a forecast frame, without scoring it")
+    ck.add_argument("forecasts")
+    ck.add_argument("--train", default=None)
+    df = sub.add_parser("diff", help="say why two run folders disagree: every setting that differs, and the scores it moved")
+    df.add_argument("run_a")
+    df.add_argument("run_b")
     sc = sub.add_parser("score", help="score a forecast frame made by any tool (Nixtla cross_validation layout)")
     sc.add_argument("forecasts", help="parquet or CSV with unique_id, ds, cutoff, y and one column per model")
     sc.add_argument("--train", default=None, help="history (unique_id, ds, y), needed for MASE and scaled CRPS")
@@ -39,6 +45,8 @@ def main(argv=None):
     sc.add_argument("--out", default=None, help="results folder (default: results/<timestamp>)")
     sc.add_argument("--cost", default=None, help="your own cost, e.g. linlin:0.9 (shortfalls cost 9x overshoots) or "
                     "pinball:0.95; it decides the choice")
+    sc.add_argument("--smape-zero", default="zero", choices=["zero", "skip"],
+                    help="sMAPE where truth and forecast are both 0: zero (M4, utilsforecast) or skip (gluonts)")
     sc.add_argument("--segment", default=None, help="column of --series whose groups may deserve different models")
     r = sub.add_parser("run", help="benchmark forecasters")
     r.add_argument("--models", nargs="+", required=True)
@@ -71,6 +79,27 @@ def main(argv=None):
         print(build_index(a.results_dir))
         return
 
+    if a.cmd == "check":
+        from horizoneval.checks import preflight, summary
+        from horizoneval.frame import read
+
+        found = preflight(read(a.forecasts), read(a.train) if a.train else None)
+        print(summary(found))
+        for c in found:
+            print(f"- {c['severity'].upper()} [{c['check']}] {c['message']}")
+        raise SystemExit(1 if any(c["severity"] == "error" for c in found) else 0)
+    if a.cmd == "diff":
+        from horizoneval.settings import diff
+
+        d = diff(a.run_a, a.run_b)
+        print("\n".join(d["text"]))
+        for c in d["causes"]:
+            print(f"- {c['why']} ({c['setting']}, {c['where']}): {c['a']} -> {c['b']}")
+        if d["moved"]:
+            print(f"\n{len(d['moved'])} scores moved, e.g.:")
+            for r in d["moved"][:10]:
+                print(f"  {r['metric']} {r['model']} on {r['dataset']}: {r['a']:.6g} -> {r['b']:.6g}")
+        return
     if a.cmd == "replicate":
         from horizoneval.replicate import gift_run, m4_run
 
@@ -87,7 +116,7 @@ def main(argv=None):
         ev = evaluate(read(a.forecasts), read(a.train) if a.train else None,
                       series=read(a.series) if a.series else None, period=a.period, dataset=a.dataset,
                       reference=a.reference, config={"source": {"forecasts": a.forecasts, "train": a.train}},
-                      cost=a.cost, segment=a.segment)
+                      cost=a.cost, segment=a.segment, smape_zero=a.smape_zero)
         out = ev.write(a.out or f"results/{time.strftime('%Y%m%d-%H%M%S')}")
         with pd.option_context("display.width", 160, "display.float_format", "{:.3f}".format):
             print(ev.leaderboard.to_string(index=False))

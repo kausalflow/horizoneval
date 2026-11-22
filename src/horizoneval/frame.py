@@ -77,8 +77,8 @@ def validate(df: pd.DataFrame, models: list[str] | None = None, group: pd.Series
     for m in models:
         if m not in df.columns:
             raise FrameError(f"model {m!r} is not a column of the forecast frame")
-    if df[KEYS].isna().any().any():
-        raise FrameError("unique_id, ds, cutoff and y must not be missing")
+    if df[["unique_id", "ds", "cutoff"]].isna().any().any():
+        raise FrameError("unique_id, ds and cutoff must not be missing (a missing y is allowed: that step is not scored)")
     if not (df["ds"] > df["cutoff"]).all():
         bad = df.loc[~(df["ds"] > df["cutoff"]), ["unique_id", "ds", "cutoff"]].head(3)
         raise FrameError("leakage: every target must come after its cutoff (ds > cutoff); first offending rows:\n"
@@ -130,7 +130,7 @@ def scales(train: pd.DataFrame, unique_id: np.ndarray, cutoff: np.ndarray, perio
     """In-sample MAE of the seasonal naive (lag = period, or 1) on each series' history up to each cutoff: (G,).
 
     Vectorised per series with cumulative sums, so it costs one pass over the history whatever the number of windows.
-    Windows with fewer than lag + 1 points of history get NaN.
+    Pairs with a missing value are left out (as gluonts does); windows without any complete pair get NaN.
     """
     out = np.full(len(unique_id), np.nan)
     t = train.sort_values(["unique_id", "ds"], kind="stable")
@@ -145,11 +145,13 @@ def scales(train: pd.DataFrame, unique_id: np.ndarray, cutoff: np.ndarray, perio
             sel = np.asarray(idx)[period[idx] == lag]
             m = int(lag) if lag and lag > 1 and len(y) > lag else 1
             d = np.abs(y[m:] - y[:-m])
-            cs = np.concatenate([[0.0], np.cumsum(d)])
+            ok = np.isfinite(d)
+            cs = np.concatenate([[0.0], np.cumsum(np.where(ok, d, 0.0))])
+            cn = np.concatenate([[0], np.cumsum(ok)])
             n_hist = np.searchsorted(ds, cutoff[sel], side="right")  # rows with ds <= cutoff
             k = np.clip(n_hist - m, 0, len(d))
             with np.errstate(invalid="ignore", divide="ignore"):
-                out[sel] = np.where(k > 0, cs[k] / np.maximum(k, 1), np.nan)
+                out[sel] = np.where(cn[k] > 0, cs[k] / np.maximum(cn[k], 1), np.nan)
     return out
 
 

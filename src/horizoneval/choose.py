@@ -19,6 +19,8 @@ import numpy as np
 import pandas as pd
 from scipy import stats
 
+from horizoneval.stats import verify_claim
+
 ALL = "(all)"  # pooled group when the scores cover several datasets
 
 
@@ -185,7 +187,7 @@ def decide(scores: pd.DataFrame, metric: str, segment_of: pd.Series | None = Non
            alpha=0.05) -> dict:
     """The decision report: per dataset (and pooled), confidence, winner's curse, and a verdict; plus segment and
     cost checks. `segment_of` maps series (unique_id) to a segment label; by default the datasets are the segments."""
-    conf, curse, verdicts = [], {}, {}
+    conf, curse, verdicts, claims = [], {}, {}, {}
     for ds, g in _groups(scores):
         L, _, units, models = loss_tensor(g, metric)
         if not len(units) or len(models) < 1:
@@ -193,9 +195,10 @@ def decide(scores: pd.DataFrame, metric: str, segment_of: pd.Series | None = Non
         c = confidence(L, models, n_boot, seed).assign(dataset=ds)
         conf.append(c)
         curse[ds] = wc = winners_curse(L, models, seed) if len(models) > 1 else None
-        verdicts[ds] = verdict(c, wc, metric)
+        claims[ds] = cl = claim(L, models, c, alpha, seed) if len(models) > 1 else None
+        verdicts[ds] = verdict(c, wc, metric, cl)
     out = {"metric": metric, "confidence": pd.concat(conf, ignore_index=True) if conf else pd.DataFrame(),
-           "winners_curse": curse, "verdict": verdicts, "segments": None,
+           "winners_curse": curse, "claims": claims, "verdict": verdicts, "segments": None,
            "disagreement": disagreement(scores, metric) if metric not in ("mase", "crps_scaled") else []}
     L, _, units, models = loss_tensor(scores, metric)
     if segment_of is not None:
@@ -210,7 +213,18 @@ def decide(scores: pd.DataFrame, metric: str, segment_of: pd.Series | None = Non
     return out
 
 
-def verdict(conf: pd.DataFrame, curse: dict | None, metric: str) -> str:
+def claim(L: np.ndarray, models: list[str], conf: pd.DataFrame, alpha=0.05, seed=0) -> dict:
+    """Is the best model really better than the runner-up? The paired test, checked by simulating equally good
+    forecasters on this data (horizoneval.stats.verify_claim)."""
+    top, second = conf["model"].iloc[0], conf["model"].iloc[1]
+    D = L[:, :, models.index(top)] - L[:, :, models.index(second)]
+    keep = np.isfinite(D).any(axis=0)
+    if np.allclose(D[:, keep][np.isfinite(D[:, keep])], 0):
+        return {"better": top, "than": second, "identical": True, "verified": False}
+    return {"better": top, "than": second, **verify_claim(D[:, keep], alpha=alpha, seed=seed)}
+
+
+def verdict(conf: pd.DataFrame, curse: dict | None, metric: str, cl: dict | None = None) -> str:
     top = conf.sort_values(["p_best", "mean"], ascending=[False, True]).iloc[0]
     if len(conf) == 1:
         return f"Only {top['model']} was scored."
@@ -221,6 +235,19 @@ def verdict(conf: pd.DataFrame, curse: dict | None, metric: str) -> str:
     close = conf[(conf["model"] != top["model"]) & (conf["p_best"] >= 0.2)]
     if len(close):
         s += f" {', '.join(close['model'])} could also be best: the data cannot separate them yet."
+    if cl:
+        if cl.get("identical"):
+            s += f" {cl['better']} and {cl['than']} give identical forecasts here."
+        elif cl["verified"]:
+            s += (f" {cl['better']} beats {cl['than']} (p = {cl['p_robust']:.3g}, confirmed by simulating equally "
+                  f"good forecasters on your data).")
+        elif cl["p_t"] < 0.05:
+            s += (f" The usual test says {cl['better']} beats {cl['than']} (p = {cl['p_t']:.3g}), but on your data that "
+                  f"test raises false alarms in {100 * cl['false_alarm_rate']:.0f}% of simulations of equally good "
+                  f"forecasters; the difference is not confirmed (p = {cl['p_robust']:.2g} once that is accounted "
+                  f"for).")
+        else:
+            s += f" {cl['better']} and {cl['than']} are not significantly different (p = {cl['p_t']:.2g})."
     if curse and np.isfinite(curse.get("optimism_rel", np.nan)):
         o = curse["optimism_rel"]
         if o > 0.005:

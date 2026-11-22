@@ -14,8 +14,9 @@
 | `tests.csv` | bootstrap intervals and paired tests per model, dataset and metric |
 | `ranks.json` | Friedman test and Nemenyi critical difference |
 | `decision.json` | which model to choose: the verdict, probability of best, winner's curse, segments, cost disagreements |
+| `checks.json` | pre-flight findings on the raw forecasts |
 | `confidence.csv` | probability of best and expected loss per model and dataset |
-| `config.json` | settings, failures, and fingerprints of the forecasts, the history and the protocol |
+| `config.json` | settings, failures, fingerprints, and `settings`: everything that can change a score (compare runs with `horizoneval diff`) |
 | `report.html` | everything above as one static page, light and dark |
 
 Commit a run folder to keep it; `uv run horizoneval index` builds `results/index.html` linking them all.

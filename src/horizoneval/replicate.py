@@ -92,19 +92,42 @@ def m4_run(out="results/replication-m4", n_boot=200):
 
 
 # ---- GIFT-Eval ------------------------------------------------------------------------------------------------------
-# Configurations whose series have no missing values, so the official protocol needs no imputation (gluonts masks
-# missing targets; horizoneval's frame refuses them). The published numbers are the leaderboard's all_results.csv of
-# Seasonal_Naive and Naive (huggingface.co/spaces/Salesforce/GIFT-Eval, results/<model>/all_results.csv).
+# The published numbers are the leaderboard's all_results.csv of Seasonal_Naive and Naive
+# (huggingface.co/spaces/Salesforce/GIFT-Eval, results/<model>/all_results.csv). GIFT-Eval fills missing history
+# for the forecaster (gluonts LastValueImputation) and leaves missing targets out of every metric; it scores sMAPE with
+# gluonts' convention (0/0 steps left out), so the replication runs with smape_zero="skip".
 GIFT_CONFIGS = ["m4_yearly", "m4_quarterly", "m4_monthly", "m4_weekly", "m4_daily", "m4_hourly",
                 "ett1/H", "ett2/H", "ett1/D", "ett2/D", "ett1/W", "ett2/W", "solar/H", "solar/D",
-                "us_births/D", "saugeenday/D", "hospital", "covid_deaths"]
+                "us_births/D", "saugeenday/D", "hospital", "covid_deaths", "LOOP_SEATTLE/H", "LOOP_SEATTLE/D",
+                "M_DENSE/H", "M_DENSE/D", "SZ_TAXI/H", "jena_weather/H", "jena_weather/D",
+                # with missing values
+                "electricity/H", "electricity/D", "electricity/W", "kdd_cup_2018_with_missing/H",
+                "kdd_cup_2018_with_missing/D", "car_parts_with_missing", "restaurant", "hierarchical_sales/D",
+                "bitbrains_rnd/H"]
+# configurations GIFT-Eval also scores at the medium and long terms (its notebooks' med_long_datasets)
+GIFT_MED_LONG = {"electricity/15T", "electricity/H", "solar/10T", "solar/H", "kdd_cup_2018_with_missing/H",
+                 "LOOP_SEATTLE/5T", "LOOP_SEATTLE/H", "SZ_TAXI/15T", "M_DENSE/H", "ett1/15T", "ett1/H", "ett2/15T",
+                 "ett2/H", "jena_weather/10T", "jena_weather/H", "bitbrains_fast_storage/5T", "bitbrains_rnd/5T",
+                 "bizitobs_application", "bizitobs_service", "bizitobs_l2c/5T", "bizitobs_l2c/H"}
 GIFT_NAMES = {"saugeenday": "saugeen", "temperature_rain_with_missing": "temperature_rain",
               "kdd_cup_2018_with_missing": "kdd_cup_2018", "car_parts_with_missing": "car_parts"}
 GIFT_METRICS = {"mase": "eval_metrics/MASE[0.5]", "smape": "eval_metrics/sMAPE[0.5]", "mae": "eval_metrics/MAE[0.5]",
                 "mse": "eval_metrics/MSE[0.5]"}
 
 
-ZERO_TARGETS = {"solar", "covid_deaths"}  # datasets with stretches of exact zeros (nights, days without deaths)
+def last_value_imputation(y: np.ndarray) -> np.ndarray:
+    """gluonts LastValueImputation: carry the last observed value forward; leading gaps take the first observed."""
+    y = np.asarray(y, dtype=float)
+    miss = np.isnan(y)
+    if not miss.any():
+        return y
+    if miss.all():
+        return np.zeros_like(y)
+    idx = np.maximum.accumulate(np.where(~miss, np.arange(len(y)), 0))
+    out = y[idx]
+    lead = np.isnan(out)
+    out[lead] = y[np.flatnonzero(~miss)[0]]
+    return out
 
 
 def gift_key(name, term, freq):
@@ -123,8 +146,7 @@ def gift_frames(configs=GIFT_CONFIGS, models=("naive", "seasonal_naive"), root="
         ids, ser, freq = gift.test_series(name, root)
         lengths = np.array([len(s) for s in ser])
         period = gift.gluonts_seasonality(freq)
-        terms = ["short"] if "m4" in name or name.split("/")[-1][0] in "DWM" or "/" not in name and name in (
-            "hospital", "covid_deaths") else list(gift.TERMS)
+        terms = list(gift.TERMS) if name in GIFT_MED_LONG else ["short"]
         for term in terms:
             h, W = gift.protocol(name, term, freq, lengths.min())
             key = gift_key(name, term, freq)
@@ -132,7 +154,7 @@ def gift_frames(configs=GIFT_CONFIGS, models=("naive", "seasonal_naive"), root="
             rows = []
             for k in range(W):
                 start = lengths - h * (W - k)  # first target index of window k, per series
-                hist = [s[:c] for s, c in zip(ser, start)]
+                hist = [last_value_imputation(s[:c]) for s, c in zip(ser, start)]
                 cols = {"unique_id": np.repeat(uids, h), "ds": (start[:, None] + np.arange(h)).ravel(),
                         "cutoff": np.repeat(start - 1, h),
                         "y": np.concatenate([s[c:c + h] for s, c in zip(ser, start)])}
@@ -153,7 +175,9 @@ def compare_gift(scores: pd.DataFrame) -> pd.DataFrame:
     here = Path(__file__).parent / "data"
     pub = {"seasonal_naive": pd.read_csv(here / "gift_published_seasonal_naive.csv").set_index("dataset"),
            "naive": pd.read_csv(here / "gift_published_naive.csv").set_index("dataset")}
-    ours = scores.groupby(["model", "dataset"])[list(GIFT_METRICS)].mean().reset_index()
+    from horizoneval.evaluate import _weighted_means
+
+    ours = _weighted_means(scores, ["model", "dataset"], list(GIFT_METRICS)).reset_index()
     rows = []
     for _, r in ours.iterrows():
         p = pub.get(r["model"])
@@ -162,19 +186,15 @@ def compare_gift(scores: pd.DataFrame) -> pd.DataFrame:
         for metric, col in GIFT_METRICS.items():
             theirs = float(p.loc[r["dataset"], col])
             rel = abs(r[metric] - theirs) / max(abs(theirs), 1e-12)
-            note = ""
-            if metric == "smape" and r["dataset"].split("/")[0] in ZERO_TARGETS and rel >= 1e-6:
-                note = ("convention: gluonts leaves out points where truth and forecast are both 0; horizoneval, M4 and "
-                        "utilsforecast count them as 0")
             rows.append({"model": r["model"], "dataset": r["dataset"], "metric": metric, "ours": r[metric],
-                         "published": theirs, "rel_diff": rel, "match": rel < 1e-6, "note": note})
+                         "published": theirs, "rel_diff": rel, "match": rel < 1e-6})
     return pd.DataFrame(rows)
 
 
 def gift_run(out="results/replication-gift-eval", root="data/gift-eval", n_boot=200):
     fc, train, series = gift_frames(root=root)
-    ev = evaluate(fc, train, series=series, reference="naive", n_boot=n_boot,
-                  config={"replication": "GIFT-Eval seasonal naive and naive, configurations without missing values",
+    ev = evaluate(fc, train, series=series, reference="naive", n_boot=n_boot, smape_zero="skip",
+                  config={"replication": "GIFT-Eval seasonal naive and naive",
                           "source_url": "huggingface.co/datasets/Salesforce/GiftEval"})
     out = Path(out)
     ev.write(out, frames=False, scores=False)

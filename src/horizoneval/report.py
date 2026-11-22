@@ -90,6 +90,12 @@ def write_report(run_dir) -> Path:
         out.append("<p class=bad>Failed: " + ", ".join(f"<code>{html.escape(k)}</code> ({html.escape(v)})"
                                                      for k, v in cfg["failures"].items()) + "</p>")
 
+    if (run_dir / "checks.json").exists():
+        chk = [c for c in json.loads((run_dir / "checks.json").read_text()) if c["severity"] != "info"]
+        if chk:
+            out.append("<h2>Before you trust these numbers</h2>" + "".join(
+                f'<p class="{"bad" if c["severity"] == "error" else ""}">{html.escape(c["severity"].upper())}: '
+                f'{html.escape(c["message"])}</p>' for c in chk))
     if (run_dir / "decision.json").exists():
         dec = json.loads((run_dir / "decision.json").read_text())
         out.append("<h2>What to choose</h2>" + "".join(f"<p>{html.escape(t)}</p>" for t in dec.get("text", [])))

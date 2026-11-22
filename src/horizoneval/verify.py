@@ -6,6 +6,8 @@ Each check draws many synthetic score tables with a known truth and reports how 
 - p_best_calibration  of the choices made with probability of best near p, about a share p should be right
 - winners_curse       identical models: the backtest's best score is optimistic; the honest score is not
 - segments            the per-segment choice is recommended rarely when it does not help, and often when it does
+- claims              equally good forecasters whose differences share a shock per window: the plain t test claims
+                      winners far too often, the robust p value of stats.verify_claim does not
 
 `horizoneval verify` prints them; tests/test_choose.py holds them to tolerances.
 """
@@ -81,7 +83,22 @@ def segments(n_sims=100, W=3, S=60, effect=0.0, seed=3) -> float:
     return hits / n_sims
 
 
+def claims(n_sims=200, W=5, S=60, shock=1.0, noise=1.0, seed=4) -> dict:
+    """False-alarm rates at 5% for equally good forecasters, with a common shock per window (sd `shock`)."""
+    from horizoneval.stats import verify_claim
+
+    rng = np.random.default_rng(seed)
+    naive, calibrated = [], []
+    for i in range(n_sims):
+        D = shock * rng.standard_normal((W, 1)) + noise * rng.standard_normal((W, S))
+        r = verify_claim(D, n_sims=200, seed=i)
+        naive.append(r["p_t"] < 0.05)
+        calibrated.append(r["p_robust"] < 0.05)
+    return {"t_test_false_alarms": float(np.mean(naive)), "robust_false_alarms": float(np.mean(calibrated))}
+
+
 def run() -> dict:
     return {"p_best_null": p_best_null(), "p_best_calibration": p_best_calibration().to_dict(orient="records"),
             "winners_curse": winners_curse(), "segments_false_alarm_rate": segments(effect=0.0),
-            "segments_power": segments(effect=0.3)}
+            "segments_power": segments(effect=0.3), "claims_with_shared_shocks": claims(),
+            "claims_independent": claims(shock=0.0)}

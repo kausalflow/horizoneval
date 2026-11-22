@@ -200,3 +200,75 @@ def test_a_series_whose_history_never_changed_has_no_scaled_score():
     s0 = ev.scores[ev.scores["series"] == "s0"]
     assert s0["mase"].isna().all() and s0["mae"].notna().all()
     assert np.isfinite(ev.summary["mase"]).all()  # averages leave it out instead of exploding
+
+
+def test_claims_hold_up_when_a_shock_hits_every_series_at_once():
+    shared = verify.claims(n_sims=150)
+    assert shared["t_test_false_alarms"] > 0.5  # the usual test claims winners that do not exist
+    assert shared["robust_false_alarms"] <= 0.1
+    independent = verify.claims(n_sims=150, shock=0.0)
+    assert independent["robust_false_alarms"] <= 0.1 and independent["t_test_false_alarms"] <= 0.1
+
+
+def test_the_simulated_false_alarm_rate_flags_dependent_data():
+    from horizoneval.stats import verify_claim
+
+    rng = np.random.default_rng(0)
+    shocked = verify_claim(rng.standard_normal((5, 1)) + rng.standard_normal((5, 60)))
+    calm = verify_claim(rng.standard_normal((5, 60)))
+    assert shocked["false_alarm_rate"] > 0.2 > calm["false_alarm_rate"]
+
+
+def test_the_verdict_states_whether_the_winner_is_confirmed():
+    fc, train = oracle_frames()
+    ev = evaluate(fc, train, period=PERIOD, reference=None)
+    cl = ev.decision["claims"]["data"]
+    assert cl["better"] == "good" and cl["verified"] and "confirmed by simulating" in ev.decision["text"][0]
+
+
+def test_diff_names_why_two_runs_disagree():
+    from horizoneval.settings import diff
+
+    fc, train = nixtla_frames()
+    base = evaluate(fc, train, period=PERIOD, reference="Naive")
+    assert diff(base, evaluate(fc.sample(frac=1, random_state=0), train, period=PERIOD, reference="Naive"))["same_settings"]
+    other_period = diff(base, evaluate(fc, train, period=12, reference="Naive"))
+    assert [c["setting"] for c in other_period["causes"]] == ["period"] and other_period["moved"]
+    tweaked = fc.copy()
+    tweaked["Naive"] += 0.1
+    d = diff(base, evaluate(tweaked, train, period=PERIOD, reference="Naive"))
+    assert [(c["setting"], c["where"]) for c in d["causes"]] == [("forecasts", "Naive")]
+    d = diff(base, evaluate(fc, train, period=PERIOD, reference="Naive", smape_zero="skip"))
+    assert d["causes"][0]["setting"] == "smape_zero"
+    fewer = diff(base, evaluate(fc[fc["cutoff"] != fc["cutoff"].min()], train, period=PERIOD, reference="Naive"))
+    assert {"windows", "cutoffs", "truth"} <= {c["setting"] for c in fewer["causes"]}
+
+
+# ---- pre-flight checks ---------------------------------------------------------------------------------------------
+
+def _checks(fc, train=None):
+    from horizoneval.checks import preflight
+
+    return {(c["check"], c["model"]) for c in preflight(fc, train)}
+
+
+def test_preflight_passes_a_clean_frame_and_catches_the_classic_mistakes():
+    fc, train = nixtla_frames()
+    assert not {k for k in _checks(fc, train) if k[0] not in ("few_series", "history_beyond_cutoff")}
+    bad = fc.assign(Cheat=fc["y"], InThousands=fc["Naive"] / 1000, Copy=fc["Naive"])
+    bad.loc[::3, "SeasonalNaive-q-90"] = bad.loc[::3, "SeasonalNaive-q-10"] - 1
+    found = _checks(bad, train)
+    assert ("copies_truth", "Cheat") in found
+    assert ("units", "InThousands") in found
+    assert ("duplicate_model", "Naive, Copy") in found
+    assert ("quantile_crossing", "SeasonalNaive") in found
+    disagreeing = pd.concat([train, fc[["unique_id", "ds", "y"]].assign(y=fc["y"] + 1)])  # history with other values
+    assert ("truth_disagrees_with_history", None) in _checks(fc, disagreeing)
+
+
+def test_preflight_findings_reach_the_run_folder(tmp_path):
+    fc, train = nixtla_frames()
+    ev = evaluate(fc.assign(Cheat=fc["y"]), train, period=PERIOD, reference="Naive")
+    assert any(c["check"] == "copies_truth" for c in ev.checks)
+    ev.write(tmp_path)
+    assert "Before you trust these numbers" in (tmp_path / "report.html").read_text()

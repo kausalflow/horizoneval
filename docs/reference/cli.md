@@ -38,6 +38,7 @@ Score a [forecast frame](frame.md) made by any tool. See
 | `--reference` | none | model column for skill and paired tests |
 | `--out` | `results/<timestamp>` | results folder |
 | `--cost` | none | your own cost (`linlin:0.9`, `pinball:0.95`); it decides the choice. See [Choosing a forecast](../explain/choosing.md) |
+| `--smape-zero` | `zero` | sMAPE where truth and forecast are both 0: `zero` counts a perfect step, `skip` leaves it out |
 | `--segment` | none | column of `--series` whose groups may each deserve their own model |
 
 ## `horizoneval replicate BENCHMARK`
@@ -49,6 +50,15 @@ Reproduce published results with horizoneval's scoring and write the comparison 
 |---|---|---|
 | `BENCHMARK` | required | `m4` (needs `--extra replicate`; downloads the data) or `gift-eval` (needs `--extra gift` and the data in `data/gift-eval`) |
 | `--out` | `results/replication-<benchmark>` | results folder |
+
+## `horizoneval check FORECASTS [--train TRAIN]`
+
+Pre-flight checks on a forecast frame without scoring it; exits with 1 when a check finds an error. See
+[Can you trust a comparison?](../explain/trust.md).
+
+## `horizoneval diff RUN_A RUN_B`
+
+Every setting that differs between two run folders, in plain language, and the scores it moved.
 
 ## `horizoneval report RUN_DIR`
 

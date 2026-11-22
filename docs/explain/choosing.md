@@ -23,6 +23,11 @@ times (a bootstrap; all windows of a series stay together) and counts how often 
 When another model is best in at least a fifth of the redraws, the answer says so: you may need more series or
 windows before the choice is clear.
 
+## Is the winner really better?
+
+The answer also says whether the best model beats the runner-up, with a test checked on your own data by
+simulating equally good forecasters. See [Can you trust a comparison?](trust.md).
+
 ## Will it hold up?
 
 Picking the model with the best backtest score and then quoting that score is optimistic: among several models,
