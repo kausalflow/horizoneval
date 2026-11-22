@@ -152,3 +152,7 @@ Add a suite in `src/horizoneval/data/__init__.py`.
 | `report.html` | everything above as one static page, light and dark |
 
 Commit a run folder to keep it; `results/index.html` links them all.
+
+## License
+
+Apache License 2.0; see [LICENSE](LICENSE).

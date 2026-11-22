@@ -48,3 +48,7 @@ These are real reports from runs committed under `results/` in the repository:
 
 - [Classic baselines on synthetic data](examples/example-synthetic-baselines.html)
 - [Physics-inspired neural forecasters on synthetic data](examples/physics-efnn-synthetic.html)
+
+## License
+
+horizoneval is open source under the [Apache License 2.0](https://github.com/kausalflow/horizoneval/blob/main/LICENSE).

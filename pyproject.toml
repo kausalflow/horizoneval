@@ -3,6 +3,8 @@ name = "horizoneval"
 version = "0.0.1"
 description = "Evaluate time series forecasts from any tool (horizoneval, TimeCopilot, Nixtla) with formal, reproducible tests"
 requires-python = ">=3.11,<3.13"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
 dependencies = [
     "numpy",
     "pandas",

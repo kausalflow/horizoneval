@@ -5,6 +5,7 @@ site_url = "https://kausalflow.com/horizoneval/"
 repo_url = "https://github.com/kausalflow/horizoneval"
 repo_name = "kausalflow/horizoneval"
 edit_uri = "edit/main/docs/"
+copyright = "horizoneval is released under the Apache License 2.0"
 
 nav = [
   { "Home" = "index.md" },
