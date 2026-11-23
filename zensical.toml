@@ -9,6 +9,7 @@ copyright = "horizoneval is released under the Apache License 2.0"
 
 nav = [
   { "Home" = "index.md" },
+  { "See it work" = "tour.md" },
   { "Quickstart" = "quickstart.md" },
   { "Understand the results" = [
     { "Choosing a forecast" = "explain/choosing.md" },
@@ -38,7 +39,10 @@ extra_javascript = [
   "https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js",
   "https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js",
 ]
-extra_css = ["https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"]
+extra_css = [
+  "https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css",
+  "stylesheets/extra.css",
+]
 
 [project.theme]
 features = [

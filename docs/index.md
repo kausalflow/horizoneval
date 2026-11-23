@@ -1,55 +1,191 @@
-# horizoneval
+---
+hide:
+  - navigation
+  - toc
+---
 
-**horizoneval tells you how good a forecast is, in words a non-forecaster can follow, and backs every sentence with a
-formal test.**
+<div class="hz-hero" markdown>
 
-You bring forecasts, made with any tool (horizoneval's own forecasters, [TimeCopilot](https://github.com/TimeCopilot/timecopilot),
-Nixtla's statsforecast, neuralforecast or mlforecast, or a spreadsheet). horizoneval puts them in one table, scores
-them all with the same code, compares them against a simple reference forecast, and writes a static report you can
-open in any browser or publish as a web page.
+<span class="hz-eyebrow">Open-source forecast evaluation</span>
 
-<div class="grid cards" markdown>
+# Know which forecast to trust, <em>and why</em>.
 
-- **New here?** Start with the [Quickstart](quickstart.md): install, run a first benchmark and open its report in
-  five minutes.
-- **Not a forecaster?** Read [How the evaluation works](explain/evaluation.md). It explains every number in the
-  report without formulas first, then with them.
-- **Already have forecasts?** [Score forecasts from Nixtla or TimeCopilot](guides/score-forecasts.md) takes the
-  output of `cross_validation` as it is.
-- **Inventing a model?** [Add a forecaster](guides/add-forecaster.md) is one function and one decorator.
+<p class="hz-lede">horizoneval scores forecasts from any tool with one set of rules, tells you in plain words which one
+to use and how sure that choice is, and backs every sentence with a formal test. No forecasting degree needed to read
+the answer.</p>
+
+<div class="hz-cta" markdown>
+[See it work](tour.md){ .md-button .md-button--primary }
+[Quickstart](quickstart.md){ .md-button }
+<span class="hz-install">uv add git+https://github.com/kausalflow/horizoneval</span>
+</div>
+
+<div class="hz-figure-card">
+--8<-- "docs/assets/figures/hero-backtest.svg"
+<p class="hz-caption">A real backtest from <code>results/ladder-synthetic</code>: at each cutoff the forecasters see only
+the past, predict the next 16 points, and are scored against what actually happened.</p>
+</div>
 
 </div>
 
-## What you get
+<h2 class="hz-section-title">How it works</h2>
+<p class="hz-section-sub">Five steps from a pile of forecasts to an answer you can repeat to your manager, and check.</p>
 
-| Question you might ask | Where horizoneval answers it |
-|---|---|
-| Which model is best overall? | the **leaderboard**, ordered by mean rank over datasets |
-| Is it *really* better, or just lucky? | **paired tests** against the reference and **bootstrap intervals** |
-| Better than what? | every score is relative to a **reference** forecast, `naive` by default |
-| How far ahead can I trust it? | **error by forecast step**, from one step ahead to the full horizon |
-| Are its uncertainty bands honest? | **coverage**: how often the truth landed inside the 80% and 90% bands |
-| Can someone else check this? | every run writes plain CSVs, the forecasts themselves and a `config.json` with data fingerprints |
+<div class="hz-pipeline" markdown>
 
-## The three ideas behind it
+<div class="hz-step" markdown>
+### Bring forecasts
+Made anywhere: statsforecast, TimeCopilot, neuralforecast, mlforecast, your own model, or a spreadsheet.
+[Score yours →](guides/score-forecasts.md){ .hz-more }
+</div>
 
-1. **One table for every forecast.** Every forecast, from any tool, becomes a long table in the layout of Nixtla's
-   `cross_validation` output (the [forecast frame](reference/frame.md)). A number never depends on where the forecast
-   was made.
-2. **One scoring path.** `horizoneval run` (benchmark our forecasters) and `horizoneval score` (score yours) both go
-   through [`horizoneval.evaluate`](reference/api.md#horizoneval.evaluate.evaluate). There is no second way to
-   compute a score.
-3. **Always against a reference.** "MASE 0.8" means little on its own. "20% less error than repeating the last
-   value, and the difference holds up in a paired test" is something you can act on.
+<div class="hz-step" markdown>
+### One table
+Every forecast becomes one long table in Nixtla's `cross_validation` layout. Leakage, duplicates and gaps are caught
+before anything is scored.
+[The frame →](reference/frame.md){ .hz-more }
+</div>
 
-## Example reports
+<div class="hz-step" markdown>
+### Backtest scores
+Each forecast is compared with what really happened, window by window: size of the miss, honesty of the bands,
+skill over a simple reference.
+[The scores →](explain/evaluation.md){ .hz-more }
+</div>
 
-These are real reports from runs committed under `results/` in the repository:
+<div class="hz-step" markdown>
+### A verdict
+Which model to choose, the probability it really is the best, whether the win survives on later data, and where
+its skill comes from.
+[Choosing →](explain/choosing.md){ .hz-more }
+</div>
 
-- [Classic baselines on synthetic data](examples/example-synthetic-baselines.html)
-- [Physics-inspired neural forecasters on synthetic data](examples/physics-efnn-synthetic.html)
-- [Where the skill comes from: the skill ladder on synthetic data](examples/ladder-synthetic.html)
+<div class="hz-step" markdown>
+### Plain words
+The result explains itself in sentences, lists the caveats, and a checker flags any number a write-up made up.
+[With AI →](guides/ai-assistants.md){ .hz-more }
+</div>
 
-## License
+</div>
 
-horizoneval is open source under the [Apache License 2.0](https://github.com/kausalflow/horizoneval/blob/main/LICENSE).
+<h2 class="hz-section-title">Answers, not just numbers</h2>
+<p class="hz-section-sub">Every chart below is drawn from the same committed run when these docs are built.</p>
+
+<div class="hz-split" markdown>
+<div markdown>
+<span class="hz-q">Is it better than doing nothing clever?</span>
+
+### Skill over a simple reference
+
+"MASE 0.8" means little on its own. horizoneval measures every model against a reference, here *repeat the last
+value*, and says how many times less squared error it makes. A model that cannot beat the reference is not worth
+its cost yet.
+
+[How skill is measured →](explain/evaluation.md#step-3-compare-with-a-reference)
+</div>
+<div class="hz-figure-card">
+--8<-- "docs/assets/figures/skill.svg"
+<p class="hz-caption">Mean skill over six synthetic datasets, in nats over <code>naive</code>.</p>
+</div>
+</div>
+
+<div class="hz-split hz-flip" markdown>
+<div class="hz-figure-card">
+--8<-- "docs/assets/figures/pbest.svg"
+<p class="hz-caption">Probability of being the best model on the AR-differences dataset, from resampling its 30 series.</p>
+</div>
+<div markdown>
+<span class="hz-q">How sure is the choice?</span>
+
+### Probability of being the best
+
+A leaderboard always has a winner, even when the data cannot tell the top models apart. horizoneval resamples your
+series and reports how often each model comes out on top, and how much picking it costs when it doesn't.
+
+[Choosing a forecast →](explain/choosing.md)
+</div>
+</div>
+
+<div class="hz-split" markdown>
+<div markdown>
+<span class="hz-q">Where does the skill come from?</span>
+
+### The skill ladder
+
+Much of a fancy model's gain is often available from a simple rule or a plain linear model. The ladder splits the
+gain into *free*, *linear* and *beyond linear*, so you know whether the expensive part is earning its keep.
+
+[The skill ladder →](explain/skill-ladder.md)
+</div>
+<div class="hz-figure-card">
+--8<-- "docs/assets/figures/ladder.svg"
+<p class="hz-caption">Share of squared error (over repeating the last value) removed by the best simple rule and by a
+linear model fitted on the history.</p>
+</div>
+</div>
+
+<div class="hz-split hz-flip" markdown>
+<div>
+--8<-- "docs/assets/figures/explain.html"
+</div>
+<div markdown>
+<span class="hz-q">Can I explain it to someone else?</span>
+
+### It explains itself, and checks the explanation
+
+`horizoneval explain` turns a result into sentences a non-forecaster can follow, with every caveat that must be
+said. `--check` reads a draft, written by you or an AI assistant, and flags every number the result does not
+support. The flagged number here was made up on purpose.
+
+[Use from an AI assistant →](guides/ai-assistants.md)
+</div>
+</div>
+
+<h2 class="hz-section-title">Built to be trusted</h2>
+<p class="hz-section-sub">The rules that make a horizoneval number mean the same thing everywhere.</p>
+
+<div class="hz-grid" markdown>
+<div class="hz-tile" markdown>
+### One scoring path
+`horizoneval run`, `horizoneval score`, the Python API, the MCP server and the Agent Skill all go through the same
+`evaluate`. A number never depends on where the forecast was made.
+</div>
+<div class="hz-tile" markdown>
+### Formal tests, plainly said
+Paired tests against the reference, bootstrap intervals, Friedman and Nemenyi ranks, and a check that the winner
+holds up on later windows.
+</div>
+<div class="hz-tile" markdown>
+### Matches the published numbers
+All 98 published M4 numbers and all 400 GIFT-Eval leaderboard numbers are reproduced by horizoneval's own scoring.
+[Replication →](explain/replication.md)
+</div>
+<div class="hz-tile" markdown>
+### Reproducible to the byte
+Every run writes plain CSVs, the forecasts themselves and fingerprints of data and settings. `horizoneval diff`
+says why two runs disagree.
+[Trust →](explain/trust.md)
+</div>
+</div>
+
+<h2 class="hz-section-title">Works with your stack</h2>
+<div class="hz-logos">
+<span>Nixtla statsforecast</span><span>neuralforecast</span><span>mlforecast</span><span>utilsforecast</span>
+<span>TimeCopilot</span><span>GIFT-Eval</span><span>M4</span><span>MCP server</span><span>Agent Skill</span>
+<span>CLI with JSON</span><span>Python</span>
+</div>
+
+<div class="hz-final" markdown>
+## Try it on your own forecasts
+
+```bash
+uv add git+https://github.com/kausalflow/horizoneval
+uv run horizoneval score cv.parquet --train train.parquet --period 24 --reference SeasonalNaive --out results/my-run
+```
+
+[Take the tour](tour.md){ .md-button .md-button--primary }
+[Example report](examples/ladder-synthetic.html){ .md-button }
+
+<p class="hz-caption">horizoneval is open source under the
+<a href="https://github.com/kausalflow/horizoneval/blob/main/LICENSE">Apache License 2.0</a>.</p>
+</div>

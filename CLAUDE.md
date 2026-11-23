@@ -8,5 +8,5 @@ Evaluate time series forecasts from any tool, and invent forecasters to evaluate
 - AI front doors (CLI `--json`, `horizoneval-mcp`, `skills/horizoneval`, `tools.definitions`) are thin adapters over `horizoneval.tools`; they must return the canonical `result.json` (`horizoneval.result.dumps`), and tests/test_tools.py checks they are identical.
 - Keep code simple and vectorized over series (numpy, (N, n) -> (N, h)); outputs are CSV/JSON plus the static report.
 - A comparison claim needs the run folder committed under `results/` and the reference stated.
-- Docs live in `docs/` (Zensical + mkdocstrings, config in `zensical.toml`, `uv sync --group docs`, `uv run zensical build --strict`); written for non-forecasters first. The `docs` workflow deploys main to GitHub Pages.
+- Docs live in `docs/` (Zensical + mkdocstrings, config in `zensical.toml`, `uv sync --group docs`, `uv run zensical build --strict`); written for non-forecasters first. Charts on the landing page and tour are drawn from committed runs by `docs/scripts/figures.py` (plain SVG, styled in `docs/stylesheets/extra.css`); rerun it after re-committing `results/ladder-synthetic`. The `docs` workflow deploys main to GitHub Pages.
 - Related research code: emptymalei/extrapolation-as-forecasts (naive-forecaster theory, TSFM probes).
